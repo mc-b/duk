@@ -23,7 +23,7 @@ Projekte [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommando
 
 Dazu ist zuerst, in Git/Bash CLI, in der Master VM der Join Befehl auszuführen. Die Ausgabe Join Befehls ist dann auf den Worker Node(s) auszuführen.
 
-	vagrant ssh master-01 -c "	sudo kubeadm token create --print-join-command"
+	vagrant ssh master-01 -c "sudo kubeadm token create --print-join-command"
 	vagrant ssh worker-01 -c "sudo <Befehlausgabe von oben>"
 	
 ### Testen
