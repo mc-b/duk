@@ -14,7 +14,7 @@ Alles verpackt in einem Container steht im Docker Image `marcel1691/apache-rest`
 Apache-REST Beispiel starten und URL abfragen
 
 	kubectl create -f apache-rest.yaml
-	minikube service apache-rest --url
+	startsvc apache-rest --url
 	
 Testen
 
@@ -31,7 +31,7 @@ Für [FHEM](http://fhem.de/) existiert ein Container einer vordefinierten Konfig
 FHEM Starten - Port Weiterleitungs Variante
 
 	kubectl create -f fhem-port.yaml
-	minikube service fhem-port
+	startsvc fhem-port
 
 FHEM Starten - Ingress Variante (das Add-On [Ingress](../addons) muss enabled sein)
 
@@ -48,7 +48,7 @@ open Home Automation Bus (openHAB) ist eine in Java entwickelte Softwarelösung,
 openHAB Starten (Standard Image)
 
 	kubectl create -f openhab.yaml
-	minikube service openhab.yaml
+	startsvc openhab.yaml
 	
 In der openHAB Oberfläche die Demo Oberfläche initialisieren und dann ins PaperUI wechseln.
 
@@ -92,11 +92,11 @@ Mittels den Mosquitto Client Programmen (`apt-get install mosquitto-clients`) od
 
 Auf allen Topics horchen:
 
-	mosquitto_sub -p <Mosquitto-Port> -h 192.168.99.100 -t '#'
+	mosquitto_sub -p <Mosquitto-Port> -h 192.168.137.100 -t '#'
 
 Daten an Mosquitto Broker senden:
 
-	mosquitto_pub -p <Mosquitto-Port> -h 192.168.99.100 -t mbed/k64f/iotkit/light -m "1.1" -q 0	
+	mosquitto_pub -p <Mosquitto-Port> -h 192.168.137.100 -t mbed/k64f/iotkit/light -m "1.1" -q 0	
 
 #### Links
 
@@ -113,7 +113,7 @@ Es stellt einen Browser-basierten Editor zur Verfügung, der das Zusammenfassen 
 **Node-RED Standard Version** mit HTTP und MQTT Unterstützung starten:
 
 	kubectl create -f nodered.yaml
-	minikube service nodered.yaml
+	startsvc nodered.yaml
 
 **Node-RED mit CoAP Unterstützung** (nicht Live getestet!)
 
@@ -123,7 +123,7 @@ Dazu muss zuerst vom IoTKit Projekt das Dockerfile geholt werden, ein Docker Ima
 	cd IoTKitV2/vagrant/nodered-coap
 	docker build -t nodered-coap .
 	kubectl create -f nodered-coap.yaml
-	minikube service nodered-coap.yaml
+	startsvc nodered-coap.yaml
 
 #### Links
 

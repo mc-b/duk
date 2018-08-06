@@ -8,7 +8,7 @@ Standard MySQL und Adminer (UI) Docker Container.
 	kubectl create -f mysql.yaml
 	kubectl create -f adminer.yaml
 	
-	minikube service adminer
+	startsvc adminer
 
 Zugangsdaten:	
 * System  : MySQL

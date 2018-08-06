@@ -13,7 +13,7 @@ Starten:
 
 	kubectl create -f jupyter/jupyter.yaml
 	
-Web Oberfläche mittels [Cluster-IP:32388](http://192.168.137.100:32388) anwählen.
+Web Oberfläche mittels [Cluster-IP:32388](http://localhost:32388) anwählen.
 
 Das Verzeichnis `work` zeigt ins lokale Verzeichnis `kubernetes/data/jupyter`, d.h. die Daten bleiben auch nach Beenden des Containers, der VM erhalten. Siehe auch [Gemeinsames Datenverzeichnis](../data/).
 
@@ -27,6 +27,6 @@ Starten:
 
 	kubectl create -f jupyter/beakerx.yaml
 	
-Web Oberfläche mittels [Cluster-IP:32088](http://192.168.137.100:32088) anwählen.
+Web Oberfläche mittels [Cluster-IP:32088](http://localhost:32088) anwählen.
 
 Das Verzeichnis `work` zeigt ins lokale Verzeichnis `kubernetes/data/jupyter`, d.h. die Daten bleiben auch nach Beenden des Containers, der VM erhalten. Siehe auch [Gemeinsames Datenverzeichnis](../data/).

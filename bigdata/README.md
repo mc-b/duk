@@ -13,7 +13,7 @@ Neo4J ist eine Graph Datenbank.
 Neo4J Starten
 
 	kubectl create -f neo4j.yaml
-	minikube service neo4j
+	startsvc neo4j
 
 #### Links
 
@@ -29,7 +29,7 @@ Aktuell unterstützt Apache Zeppelin Systeme wie Apache Spark, Python, JDBC, Mar
 Apache Zeppelin Starten
 
 	kubectl create -f zeppelin.yaml
-	minikube service zeppelin
+	startsvc zeppelin
 
 #### Links
 

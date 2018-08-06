@@ -23,8 +23,6 @@ Compiler
     +---------------------------------------------------------------+
     ! Notebook - Schulnetz 10.x.x.x                                 !                 
     +---------------------------------------------------------------+
-    
-**Achtung:**  Verzeichnis `C:\Users\tmp` erstellen und Rechte für Normalen User freischalten
 
 ### Beschreibung
     
@@ -43,7 +41,7 @@ Statt Maven und Java auf dem eigenen System zu installieren, kann der [maven Con
 Container erzeugen und in diesen wechseln:
 
 	kubectl create -f maven.yaml
-	kubectl exec -it maven-<ID> -- bash
+	runbash maven
 	
 Anschliessend können die Befehle laut [BPMN-Backend](https://github.com/bernet-tbz/bpmn-tutorial/tree/master/bpmn-backend) ausgeführt werden.
 

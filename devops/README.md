@@ -15,12 +15,12 @@ Starten:
 
 	kubectl create -f gogs.yaml
 	
-Web Oberfläche mittels [Cluster-IP:32300](http://192.168.137.100:32300) anwählen.	
+Web Oberfläche mittels [Cluster-IP:32300](http://localhost:32300) anwählen.	
 
 Werte bei **Installationsschritte für den ersten Start** wie folgt anpassen:
 * Datenbanktyp: SQLite3
 * Pfad: /data/gogs.db
-* Anwendungs-URL: IP-Adresse und Port Cluster, z.B. http://192.168.137.100:32300/
+* Anwendungs-URL: IP-Adresse und Port Cluster, z.B. http://localhost:32300/
 
 Einstellungen, wenn es sich um einen nicht frei zugänglichen Server handelt:
 * Server und sonstige Einstellungen 
@@ -41,7 +41,7 @@ Vorgang wiederholen für:
 
 In `Git/Bash` wechseln und Repository clonen:
 
-	git clone http://192.168.137.100:32300/root/microservice-kubernetes.git
+	git clone http://localhost:32300/root/microservice-kubernetes.git
 	
 Daten, z.B. README.md verändern und wieder einchecken:
 	
@@ -70,7 +70,7 @@ Starten:
 
 	kubectl create -f kanboard.yaml
 	
-Web Oberfläche mittels [Cluster-IP:32200](http://192.168.137.100:32200) anwählen. Username/Password ist `admin`.
+Web Oberfläche mittels [Cluster-IP:32200](http://localhost:32200) anwählen. Username/Password ist `admin`.
 
 Ohne Änderung in `kanboard.yaml` schreibt Kanboard die Daten ins Verzeichnis /data/kanboard, welches bei der Vagrant Installations Variante im kubernetes/data Verzeichnis auf dem Host gespeichert wird. D.h. die Daten bleiben auch nach Beenden des Containers, der VM erhalten.
 
@@ -93,11 +93,11 @@ Starten:
 
 	kubectl create -f jenkins.yaml
 	
-Die Oberfläche wird fix auf Port 32100 zugewiesen und via [Cluster-IP:32100](http://192.168.137.100:32100) erreichbar.
+Die Oberfläche wird fix auf Port 32100 zugewiesen und via [Cluster-IP:32100](http://localhost:32100) erreichbar.
 
 Initialer Username und Password ist `admin`. Diese Werte können in `jenkins.yaml` geändert werden.
 
-Oberfläche Blue Ocean anwählen und neue Pipeline mittels `git` und Repository-URL, z.B. von `gogs` [http://192.168.137.100:32300/root/microservice-kubernetes.git](http://192.168.137.100:32300/root/microservice-kubernetes.git) anlegen. 
+Oberfläche Blue Ocean anwählen und neue Pipeline mittels `git` und Repository-URL, z.B. von `gogs` [http://localhost:32300/root/microservice-kubernetes.git](http://localhost:32300/root/microservice-kubernetes.git) anlegen. 
 
 **Links**
 

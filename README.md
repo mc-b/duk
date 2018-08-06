@@ -8,7 +8,7 @@
 
 **Hinweis:** Git auf Windows ohne CR/LF Umwandlung installieren.
 
-Für die weitergehenden Beispiele wird die Ausführbare Datei `docker` benötigt. Trick: Download neuste [Zip-Datei](https://download.docker.com/win/static/stable/x86_64/), diese entpacken und `docker.exe` im PATH ablegen.  
+Für die weitergehenden Beispiele wird die Ausführbare Datei `docker` benötigt. Trick: Download neuste [Zip-Datei](https://download.docker.com/win/static/stable/x86_64/), diese entpacken und `docker.exe` im Verzeichnis `master-01/bin` ablegen. Das `master-01/bin` Verzeichnis wird während der Installation angelegt.
 
 ### Installation- Single Node
 
@@ -64,12 +64,17 @@ Jupyter Oberfläche mittels [Cluster-IP:32188](http://localhost:32188) aufrufen.
 
 ### Hilfsscripts
 
+Nach der Installation stehen im Verzeichnis `master-01` folgende Scripts zur Verfügung:
+
 * `dashboard` - Öffnet das Kubernets Dashboard
-* `dockerps.bat` - Setzt die Umgebungsvariablen für den Zugriff und startet PowerShell
-* `dockersh.bat` - Setzt die Umgebungsvariablen für den Zugriff und startet die Bash
+* `dockerps.bat` - Setzt die Umgebungsvariablen für den Zugriff auf K8s und startet PowerShell
+* `dockersh.bat` - Setzt die Umgebungsvariablen für den Zugriff auf K8s und startet die Git/Bash Shell (Git/Bash muss Installiert sein).
+
+Nach dem Starten von PowerShell oder Bash stehen zusätzlich, folgende Befehle zur Verfügung:
+
 * `runbash <name>` - Wechselt in die Bash eines Laufenden Pods (braucht ein Deployment)
 * `startsvc <name>` - Öffnet die Weboberfläche eines Services
-* `weave` - Öffnet die Weave Scope Weboberfläche 
+* `weave` - Öffnet die Weave Scope Weboberfläche
 
 
 	

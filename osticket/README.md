@@ -27,9 +27,9 @@ Es leitet Anfragen, die per E-Mail, Webformularen und Telefonanrufen erstellt wu
 
 **User Interface:**
 
-	minikube service osticket
+	startsvc osticket
 	
-Geöffneter URL mit /scp/ ergänzen, z.B. [http://192.168.99.100:31229/scp/](http://192.168.99.100:31229/scp/)	
+Geöffneter URL mit /scp/ ergänzen, z.B. [http://192.168.137.100:31229/scp/](http://192.168.137.100:31229/scp/)	
 	
 * username: ostadmin
 * password: Admin1

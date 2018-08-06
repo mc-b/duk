@@ -1,6 +1,10 @@
 Docker for Windows / Mac
 ------------------------
 
+Grundsätzlich funktionieren alle Beispiel auch mit "Docker for Windows/Mac".
+
+Nach der Installation von "Docker for Windows/Mac" müssen folgende Schritte durchgeführt werden.
+
 ### Feintuning
 
 **Shared Drives** aktivieren, Verzeichnis `C:/Users/data` Erstellen und Persistent Volume und Claim in Kubernetes erstellen.
