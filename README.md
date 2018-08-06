@@ -48,5 +48,28 @@ Um die Nodes mit einnander zu verbinden, ist in der Master VM der Join Befehl au
 
 Jupyter Oberfläche mittels [Cluster-IP:32188](http://localhost:32188) aufrufen.
 
+### Beispiele
+
+* [Internet der Dinge](iot)
+* [OS Ticket](osticket)
+* [MySQL und Adminer](mysql)
+* [Compiler](compiler)
+* [Big Data](bigdata)
+* [Helm](helm)
+* [DevOps Umgebung](devops)
+* [Microservice Beispiele](https://github.com/mc-b/misegr)
+* [Interaktives Lernen mit Jupyter/BeakerX](jupyter)
+* [Tests - ohne Beschreibung](test)
+* [Docker Registry (insecure!)](registry/)
+
+### Hilfsscripts
+
+* `dashboard` - Öffnet das Kubernets Dashboard
+* `dockerps.bat` - Setzt die Umgebungsvariablen für den Zugriff und startet PowerShell
+* `dockersh.bat` - Setzt die Umgebungsvariablen für den Zugriff und startet die Bash
+* `runbash <name>` - Wechselt in die Bash eines Laufenden Pods (braucht ein Deployment)
+* `startsvc <name>` - Öffnet die Weboberfläche eines Services
+* `weave` - Öffnet die Weave Scope Weboberfläche 
+
 
 	
