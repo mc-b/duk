@@ -8,8 +8,8 @@ Diese Registry ist unsicher (d.h. keine TLS Verschlüsselung) und sollte nur zu 
 
 **Starten:**
 
-	kubectl create -f registry2.yml
-	kubectl create -f registry2-frontend.yaml
+	kubectl create -f dok/registry/registry2.yml
+	kubectl create -f dok/registry/registry2-frontend.yaml
 	
 **Image in lokaler Registry ablegen**
 

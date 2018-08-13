@@ -76,5 +76,58 @@ Nach dem Starten von PowerShell oder Bash stehen zusätzlich, folgende Befehle z
 * `startsvc <name>` - Öffnet die Weboberfläche eines Services
 * `weave` - Öffnet die Weave Scope Weboberfläche
 
+### Starten und Stoppen von Containern/Pods
+
+Nach der Installation können Container/Pods mittels dem CLI [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) oder via Weboberfläche gestartet werden.
+
+Am einfachsten ist es wenn eine Beschreibung im YAML Format, z.B. [fhem.yaml](iot/fhem.yaml) vorhanden ist.
+
+Z.B. FHEM Hausautomation Service starten
+
+	kubectl create -f iot/fhem-port.yaml
+	
+Alle erstellte Objekte anzeigen lassen
+
+	kubectl get all -o wide	
+	
+oder 
+
+	kubectl get pods,service,deployment,replicaset -o wide --selector=app=fhem-port
+	
+Es sollte ein Pod, mit einem Replica-Set, einem Deployment und einen Service, jeweils mit `fhem-port` gelabbelt, vorhanden sein. Dem Services wurde der nächste freie Port der Node zugewiesen. 
+
+	kubectl get service -o wide --selector=app=fhem-port
+	
+Der URL ergibt sich aus der IP-Adresse der Node und dem Angezeigten Port, z.B. 
+
+    http://192.168.137.100:30252
+    
+Oder wenn NodePort IP und Port automatisch ermittelt werden soll:
+ 
+	echo "http"$(kubectl config view -o=jsonpath='{ .clusters[0].cluster.server }' \
+	| sed -e 's/https//g' -e 's/:6443//g')":"$(kubectl get svc fhem-port -o=jsonpath='{ .spec.ports[0].nodePort }') 
+	
+In Kombination mit `curl`
+
+	curl $(echo "http"$(kubectl config view -o=jsonpath='{ .clusters[0].cluster.server }' \
+	| sed -e 's/https//g' -e 's/:6443//g')":"$(kubectl get svc fhem-port -o=jsonpath='{ .spec.ports[0].nodePort }')"/fhem")	 
+	
+In in `PowerShell` mit Start Standard Browser
+
+	start (kubectl config view -o=jsonpath='{ .clusters[0].cluster.server }' | `
+	%{ $_-replace "https:","http:"} | `
+	%{ $_-replace "6443", (kubectl get svc fhem-port -o=jsonpath='{ .spec.ports[0].nodePort }')})/fhem
+
+Stoppen und Löschen (löscht den Service, die Bereitstellung und den Zugriff via /path).
+
+	kubectl delete service,deployments,ingresses fhem
+
+Alternativ kann ein Container/Pod zum Arbeiten auf der CLI gestartet werden:
+
+	kubectl create -f test/debian.yaml
+	
+Wechsel in das CLI des Containers/Pods
+
+	kubectl exec -it debian -- bash
 
 	

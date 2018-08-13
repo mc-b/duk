@@ -22,8 +22,8 @@ Es leitet Anfragen, die per E-Mail, Webformularen und Telefonanrufen erstellt wu
 
 **Starten:**
 
-	kubectl create -f mysql.yaml
-	kubectl create -f osticket.yaml
+	kubectl create -f dok/osticket/mysql.yaml
+	kubectl create -f dok/osticket/osticket.yaml
 
 **User Interface:**
 

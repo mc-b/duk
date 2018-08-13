@@ -40,7 +40,7 @@ Statt Maven und Java auf dem eigenen System zu installieren, kann der [maven Con
 
 Container erzeugen und in diesen wechseln:
 
-	kubectl create -f maven.yaml
+	kubectl create -f dok/compiler/maven.yaml
 	runbash maven
 	
 Anschliessend können die Befehle laut [BPMN-Backend](https://github.com/bernet-tbz/bpmn-tutorial/tree/master/bpmn-backend) ausgeführt werden.
@@ -58,6 +58,7 @@ Es existiert ein [Docker Beispiel](https://github.com/mc-b/devops/tree/master/do
 
 Bilden des Containers und Aufruf bzw. Wechsel in Container
 
+	cd devops/docker/dotnet
 	docker build -t dotnetapp .
 	kubectl run -it --rm --image dotnetapp dotnet --image-pull-policy=IfNotPresent
 	
