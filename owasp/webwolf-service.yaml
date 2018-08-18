@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webwolf
+  labels:
+    app: webwolf
+    group: web
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    protocol: TCP
+  selector:
+    app: webwolf    
