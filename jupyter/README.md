@@ -11,7 +11,7 @@ Project Jupyter hat sich zum Ziel gesetzt, Open-Source-Software, offene Standard
 
 Starten:
 
-	kubectl create -f dok/jupyter/jupyter.yaml
+	kubectl create -f duk/jupyter/jupyter.yaml
 	
 Web Oberfl채che mittels [Cluster-IP:32388](http://localhost:32388) anw채hlen.
 
@@ -25,7 +25,7 @@ BeakerX ist eine Sammlung von Kerneln und Erweiterungen der interaktiven Jupyter
 
 Starten:
 
-	kubectl create -f dok/jupyter/beakerx.yaml
+	kubectl create -f duk/jupyter/beakerx.yaml
 	
 Web Oberfl채che mittels [Cluster-IP:32088](http://localhost:32088) anw채hlen.
 
@@ -37,7 +37,7 @@ Abgespeckte Variante von Jupyter nur mit Python und Bash Unterst체tzung, u.a. f�
 
 Starten:
 
-	kubectl create -f dok/jupyter/jupyter-base.yaml
+	kubectl create -f duk/jupyter/jupyter-base.yaml
 	
 Web Oberfl채che mittels [Cluster-IP:32188](http://localhost:32188) anw채hlen.
 

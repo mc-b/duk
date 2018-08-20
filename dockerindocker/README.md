@@ -11,7 +11,7 @@ Einfacher Container basierend auf Ubuntu 14.04 mit der Möglichkeit `docker` und
 
 Starten und Wechsel in Container:
 
-	kubectl create -f dok/dockerindocker/docker-cli.yaml
+	kubectl create -f duk/dockerindocker/docker-cli.yaml
 	kubectl exec -it docker-cli -- bash
 
 ### Maven
@@ -20,7 +20,7 @@ Maven ist ein Build-Management-Tool der Apache Software Foundation und basiert a
 
 Starten und Wechsel in Container:
 
-	kubectl create -f dok/dockerindocker/maven-cli.yaml
+	kubectl create -f duk/dockerindocker/maven-cli.yaml
 	kubectl exec -it maven-cli -- bash
 	
 Im Container kann das gewünsche Repository geclont werden und die Software gebuildet werden, z.B.:

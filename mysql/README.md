@@ -5,8 +5,8 @@ Standard MySQL und Adminer (UI) Docker Container.
 
 ### Starten
 
-	kubectl create -f dok/mysql/mysql.yaml
-	kubectl create -f dok/mysql/adminer.yaml
+	kubectl create -f duk/mysql/mysql.yaml
+	kubectl create -f duk/mysql/adminer.yaml
 	
 	startsvc adminer
 
@@ -22,7 +22,7 @@ Dazu steht ein Docker Image, mit Installiertem mysql-client und git, zur Verfüg
 
 Docker Image builden:
 
-	cd dok/mysql
+	cd duk/mysql
 	docker build . -t loaddata
 	
 Docker Image als Pod laufen lassen:

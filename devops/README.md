@@ -13,7 +13,7 @@ Ein einfacher Git Server mit Weboberfläche. Erinnert stark an github.
 
 Starten:
 
-	kubectl create -f dok/devops/gogs.yaml
+	kubectl create -f duk/devops/gogs.yaml
 	
 Web Oberfläche mittels [Cluster-IP:32300](http://localhost:32300) anwählen.	
 
@@ -68,7 +68,7 @@ Es erlaubt Aufgaben in Projekten und Sprints (Swimlanes) zu managen. Die Columns
 
 Starten:
 
-	kubectl create -f dok/devops/kanboard.yaml
+	kubectl create -f duk/devops/kanboard.yaml
 	
 Web Oberfläche mittels [Cluster-IP:32200](http://localhost:32200) anwählen. Username/Password ist `admin`.
 
@@ -91,7 +91,7 @@ Um die Blueocean Oberfläche anzusprechen ist dem URL /blue hintenanzustellen.
 
 Starten:
 
-	kubectl create -f dok/devops/jenkins.yaml
+	kubectl create -f duk/devops/jenkins.yaml
 	
 Die Oberfläche wird fix auf Port 32100 zugewiesen und via [Cluster-IP:32100](http://localhost:32100) erreichbar.
 

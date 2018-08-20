@@ -40,7 +40,7 @@ Statt Maven und Java auf dem eigenen System zu installieren, kann der [maven Con
 
 Container erzeugen und in diesen wechseln:
 
-	kubectl create -f dok/compiler/maven.yaml
+	kubectl create -f duk/compiler/maven.yaml
 	runbash maven
 	
 Anschliessend können die Befehle laut [BPMN-Backend](https://github.com/bernet-tbz/bpmn-tutorial/tree/master/bpmn-backend) ausgeführt werden.

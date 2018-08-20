@@ -13,7 +13,7 @@ Alles verpackt in einem Container steht im Docker Image `marcel1691/apache-rest`
 
 Apache-REST Beispiel starten und UI in Browser öffnen:
 
-	kubectl create -f dok/iot/apache-rest.yaml
+	kubectl create -f duk/iot/apache-rest.yaml
 	startsvc apache-rest 
 	
 Testen
@@ -30,12 +30,12 @@ Für [FHEM](http://fhem.de/) existiert ein Container einer vordefinierten Konfig
 
 FHEM Starten - Port Weiterleitungs Variante
 
-	kubectl create -f dok/iot/fhem-port.yaml
+	kubectl create -f duk/iot/fhem-port.yaml
 	startsvc fhem-port
 
 FHEM Starten - Ingress Variante (das Add-On [Ingress](../addons) muss enabled sein)
 
-	kubectel create -f dok/iot/fhem.yaml
+	kubectel create -f duk/iot/fhem.yaml
 	
 Aufruf FHEM UI mittels folgendem URL:
 
@@ -47,7 +47,7 @@ open Home Automation Bus (openHAB) ist eine in Java entwickelte Softwarelösung,
 
 openHAB Starten (Standard Image)
 
-	kubectl create -f dok/iot/openhab.yaml
+	kubectl create -f duk/iot/openhab.yaml
 	startsvc openhab
 	
 In der openHAB Oberfläche die Demo Oberfläche initialisieren und dann ins PaperUI wechseln.
@@ -82,7 +82,7 @@ Mosquitto – Open-Source-MQTT-Broker und Teil des Eclipse-IoT-Projektes (iot.ec
 
 Mosquitto Starten
 
-	kubectl create -f dok/iot/mosquitto.yaml
+	kubectl create -f duk/iot/mosquitto.yaml
 	
 Mosquitto Port (Original 1883) anzeigen  	
 
@@ -112,7 +112,7 @@ Es stellt einen Browser-basierten Editor zur Verfügung, der das Zusammenfassen 
 
 **Node-RED Standard Version** mit HTTP und MQTT Unterstützung starten:
 
-	kubectl create -f dok/iot/nodered.yaml
+	kubectl create -f duk/iot/nodered.yaml
 	startsvc nodered
 
 **Node-RED mit CoAP Unterstützung** (nicht Live getestet!)
