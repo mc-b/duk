@@ -8,7 +8,7 @@ Projekt [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommandoz
 
 	git clone https://github.com/mc-b/lernkube
 	cd lernkube
-	cp templates/DOK.yaml config.yaml
+	cp templates/DUK.yaml config.yaml
 	vagrant plugin install vagrant-disksize
 	vagrant up
 
