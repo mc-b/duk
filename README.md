@@ -23,6 +23,7 @@ Projekt [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommandoz
 * [MySQL und Adminer](mysql)
 * [Compiler](compiler)
 * [Big Data](bigdata)
+* [Kafka - Messaging](kafka) 
 * [Helm](helm)
 * [DevOps Umgebung](devops)
 * [Microservice Beispiele](https://github.com/mc-b/misegr)
