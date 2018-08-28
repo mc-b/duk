@@ -35,3 +35,9 @@ Userinterface aufrufen
 	
 * User: admin
 * Password: `kubectl get secret --namespace default myjenkins-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode`
+
+### FAQ
+
+* [Helm: Error: no available release name found](https://stackoverflow.com/questions/43499971/helm-error-no-available-release-name-found)
+
+
