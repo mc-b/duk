@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: jupyter
-        image: jupyter/datascience-notebook
+        image: jupyter/tensorflow-notebook
         imagePullPolicy: IfNotPresent
         command: [ "start-notebook.sh", "--NotebookApp.token=''" ]        
         ports:
@@ -58,7 +58,6 @@ spec:
       # Volumes in Host
       volumes:
       - name: "jupyter-data"
-        hostPath:
         persistentVolumeClaim:
          claimName: data-claim 
       - name: "docker"
@@ -66,4 +65,10 @@ spec:
          path: "/usr/bin/docker"
       - name: "libltdl"
         hostPath:
-         path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"            
+         path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"   
+      - name: "kubectl"         
+        hostPath:
+         path: "/usr/bin/kubectl" 
+      - name: "kube"
+        hostPath:
+         path: "/home/vagrant/.kube"                     

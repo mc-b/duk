@@ -58,7 +58,6 @@ spec:
       # Volumes in Host
       volumes:
       - name: "jupyter-data"
-        hostPath:
         persistentVolumeClaim:
          claimName: data-claim  
       - name: "docker"

@@ -65,4 +65,11 @@ spec:
          path: "/usr/bin/docker"
       - name: "libltdl"
         hostPath:
-         path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"            
+         path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7" 
+      - name: "kubectl"         
+        hostPath:
+         path: "/usr/bin/kubectl" 
+      - name: "kube"
+        hostPath:
+         path: "/home/vagrant/.kube"  
+                              
