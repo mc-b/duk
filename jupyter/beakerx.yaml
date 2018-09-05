@@ -48,6 +48,10 @@ spec:
           name: "docker"   
         - mountPath: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"
           name: "libltdl" 
+        - mountPath: "/usr/bin/kubectl"
+          name: "kubectl"          
+        - mountPath: "/home/jovyan/.kube"
+          name: "kube"           
         env:
         - name: DOCKER_HOST
           value: "tcp://dind:2375"                     
