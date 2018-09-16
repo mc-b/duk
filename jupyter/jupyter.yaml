@@ -7,7 +7,7 @@ metadata:
     group: web
     tier: frontend
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 8888
     nodePort: 32288    
