@@ -5,6 +5,10 @@ Das Internet der Dinge (IoT) vernetzt die Physische Welt mit der Digitalen Welt.
 
 Nachfolgend sind Server und Tools beschrieben, welche im u.a. im Zusammenspiel mit dem [IoTKit](https://github.com/mc-b/IoTKitV2) verwendet werden können.
 
+### mbed-cli
+
+[Kommandozeilenprogramm zum Compilieren der IoTKit Beispiele](../compiler)
+
 ### Apache / CGI-BIN / Bash
 
 Mittels [Apache Web Server](https://github.com/mc-b/IoTKitV2/tree/master/LAM) der Erweiterung [CGI-BIN](https://github.com/mc-b/IoTKitV2/blob/master/LAM/05-CGIScript.md) und einem Bash [Shellscript](https://github.com/mc-b/IoTKit/blob/master/docker/apache-rest/rest) kann das [REST Paradigma](https://de.wikipedia.org/wiki/Representational_State_Transfer) abgebildet werden.
