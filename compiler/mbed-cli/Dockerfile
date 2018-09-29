@@ -3,13 +3,16 @@ FROM ubuntu:17.10
 # C++ Compiler
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
-  gcc-arm-none-eabi \
   git \
   mercurial \
-  python \
+  python2.7 \
   python-pip \
   software-properties-common \
   && rm -rf /var/lib/apt/lists/*
+  
+RUN add-apt-repository ppa:team-gcc-arm-embedded/ppa
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y gcc-arm-none-eabi  
   
 # mbed-cli
 RUN pip install mbed-cli PrettyTable
@@ -20,10 +23,30 @@ RUN	mbed toolchain -G GCC_ARM && mbed config --global TARGET K64F && mbed config
 # build mbed static library
 RUN mkdir -p /opt/mbed
 WORKDIR /opt/mbed
-RUN mbed new . && mbed compile --library --no-archive --source=mbed-os --build=../mbed-os
+# init mbed project with mbed OS 5.10!
+RUN mbed new . 
+# add libraries
+RUN mbed add http://developer.mbed.org/users/AtomX/code/MFRC522/ 
+RUN mbed add http://developer.mbed.org/teams/smdiotkitch/code/OLEDDisplay/
+RUN mbed add https://mbed.org/teams/mqtt/code/MQTT/
+RUN mbed add https://os.mbed.com/teams/IoTKitV3/code/HTS221lib/
+RUN mbed add https://os.mbed.com/teams/IoTKitV3/code/QEI/
+RUN mbed add https://developer.mbed.org/teams/Bluetooth-Low-Energy/code/BLE_API/
+RUN mbed add https://mbed.org/teams/Nordic-Semiconductor/code/nRF51822/
+RUN mbed add http://developer.mbed.org/users/highroads/code/VL6180x/
+# ESP8266 included in mbed OS 5.10
+#RUN mbed add https://github.com/ARMmbed/esp8266-driver.git
+#define ESP8266_VERSION 1
+
+RUN sed -i -e"s/ESP8266_VERSION 2/ESP8266_VERSION 1/" mbed-os/components/wifi/esp8266-driver/ESP8266Interface.cpp
+# compile all
+RUN mbed compile --library --no-archive --source=mbed-os --source MFRC522 --source OLEDDisplay --source MQTT --source HTS221lib \
+	             --source QEI --source BLE_API --source nRF51822 --source VL6180x --build=../mbed-os
 COPY compile /usr/local/bin
 RUN chmod 755 /usr/local/bin/compile
 
 RUN mkdir /src
-WORKDIR /src  
+WORKDIR /src
+
+ENTRYPOINT ["/usr/local/bin/mbed"]
   
