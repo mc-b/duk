@@ -1,0 +1,56 @@
+FROM ubuntu:17.10
+
+# C++ Compiler
+RUN apt-get update -qq && apt-get install -y \
+  build-essential \
+  git \
+  mercurial \
+  python2.7 \
+  python-pip \
+  software-properties-common \
+  && rm -rf /var/lib/apt/lists/*
+  
+RUN add-apt-repository ppa:team-gcc-arm-embedded/ppa
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y gcc-arm-none-eabi  
+  
+# mbed-cli
+RUN pip install mbed-cli PrettyTable
+
+# Toolchain and DISCO_L475VG_IOT01A Board 
+RUN	mbed toolchain -G GCC_ARM && mbed config --global TARGET DISCO_L475VG_IOT01A && mbed config --global TOOLCHAIN GCC_ARM && mbed config --list
+
+# build mbed static library
+RUN mkdir -p /opt/mbed
+WORKDIR /opt/mbed
+# init mbed project with mbed OS latest
+RUN mbed new . 
+# add libraries
+# Sensors
+RUN mbed add https://developer.mbed.org/teams/ST/code/HTS221/
+RUN mbed add https://developer.mbed.org/teams/ST/code/LIS3MDL/
+RUN mbed add https://developer.mbed.org/teams/ST/code/LPS22HB/
+RUN mbed add https://developer.mbed.org/teams/ST/code/LSM6DSL/
+RUN mbed add https://developer.mbed.org/teams/ST/code/LSM303AGR/
+RUN mbed add https://os.mbed.com/teams/ST/code/VL53L0X/
+RUN mbed add http://developer.mbed.org/users/AtomX/code/MFRC522/ 
+# UI
+RUN mbed add http://developer.mbed.org/teams/smdiotkitch/code/OLEDDisplay/
+# Communication
+RUN mbed add https://mbed.org/teams/mqtt/code/MQTT/
+RUN mbed add https://developer.mbed.org/teams/Bluetooth-Low-Energy/code/BLE_API/
+RUN mbed add https://mbed.org/teams/Nordic-Semiconductor/code/nRF51822/
+RUN mbed add https://os.mbed.com/teams/Disco-L475VG-IOT/code/wifi-ism43362/
+# compile all
+RUN mbed compile --library --no-archive --source=mbed-os \
+                 --source HTS221  --source LIS3MDL --source LPS22HB --source LSM6DSL --source LSM303AGR --source VL53L0X --source MFRC522 \
+                 --source OLEDDisplay \
+                 --source MQTT --source BLE_API --source nRF51822 --source wifi-ism43362 \
+                 --build=../mbed-os
+COPY compile /usr/local/bin
+RUN chmod 755 /usr/local/bin/compile
+
+RUN mkdir /src
+WORKDIR /src
+
+  

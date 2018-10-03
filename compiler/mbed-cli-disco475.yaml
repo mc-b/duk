@@ -5,7 +5,7 @@ metadata:
 spec:
     containers:        
     - name: mbed-cli
-      image: misegr/mbed-cli
+      image: misegr/mbed-cli-disco475
       imagePullPolicy: IfNotPresent        
       # Just spin & wait forever
       command: [ "/bin/bash", "-c", "--" ]

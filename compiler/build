@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for letter in {d..z} ; do
+  if [[ -e /${letter}/MBED.HTM ]]; then
+    export DAPLINK=${letter}
+    break
+  fi
+done
+
+kubectl exec -it mbed-cli  -- compile $*
+cp $1/BUILD/*.bin ${DAPLINK}:/
