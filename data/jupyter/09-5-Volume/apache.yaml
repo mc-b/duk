@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app.kubernetes.io/name: apache
+  name: apache
+spec:
+  containers:
+  - image: httpd
+    name: apache
+    # Volumes im Container
+    volumeMounts:
+    - mountPath: "/usr/local/apache2/htdocs"
+      subPath: htdocs       
+      name: "web-storage"
+  # Volumes in Host
+  volumes:
+  - name: web-storage
+    persistentVolumeClaim:
+     claimName: data-claim        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: apache
+  name: apache
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app.kubernetes.io/name: apache
+  type: LoadBalancer

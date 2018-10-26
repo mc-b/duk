@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app.kubernetes.io/name: web
+  name: web
+spec:
+  containers:
+  - image: httpd
+    name: apache
+    # Volumes im Container
+    volumeMounts:
+    - mountPath: "/usr/local/apache2/htdocs"
+      name: "web-storage"    
+  - image: debian:jessie
+    name: file-puller
+    # Just spin & wait forever
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do echo \"<html><body><h1>Hallo es ist $(date)</h1></body></html>\" >/usr/local/apache2/htdocs/index.html; sleep 30; done;" ]    
+    # Volumes im Container
+    volumeMounts:
+    - mountPath: "/usr/local/apache2/htdocs"
+      name: "web-storage"
+  # Volumes in Host      
+  volumes:
+  - name: "web-storage"
+    emptyDir: {}   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: web
+  name: web
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app.kubernetes.io/name: web
+  type: LoadBalancer
