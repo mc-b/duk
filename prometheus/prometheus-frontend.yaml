@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus-frontend
+  namespace: default
+  labels:
+    prometheus: frontend
+spec:
+  version: v1.3.0
+  serviceMonitors:
+  - selector:
+      matchLabels:
+        tier: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-frontend
+spec:
+  type: NodePort
+  ports:
+  - name: web
+    nodePort: 30100
+    port: 9090
+    protocol: TCP
+    targetPort: web
+  selector:
+    prometheus: prometheus-frontend
