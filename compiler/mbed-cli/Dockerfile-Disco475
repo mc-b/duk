@@ -26,27 +26,29 @@ WORKDIR /opt/mbed
 # init mbed project with mbed OS latest
 RUN mbed new . 
 # add libraries
-# Sensors
-RUN mbed add https://developer.mbed.org/teams/ST/code/HTS221/
-RUN mbed add https://developer.mbed.org/teams/ST/code/LIS3MDL/
-RUN mbed add https://developer.mbed.org/teams/ST/code/LPS22HB/
-RUN mbed add https://developer.mbed.org/teams/ST/code/LSM6DSL/
-RUN mbed add https://developer.mbed.org/teams/ST/code/LSM303AGR/
-RUN mbed add https://os.mbed.com/teams/ST/code/VL53L0X/
-RUN mbed add http://developer.mbed.org/users/AtomX/code/MFRC522/ 
-# UI
-RUN mbed add http://developer.mbed.org/teams/smdiotkitch/code/OLEDDisplay/
+# UI 
+mbed add http://developer.mbed.org/teams/smdiotkitch/code/OLEDDisplay/
 # Communication
-RUN mbed add https://mbed.org/teams/mqtt/code/MQTT/
-RUN mbed add https://developer.mbed.org/teams/Bluetooth-Low-Energy/code/BLE_API/
-RUN mbed add https://mbed.org/teams/Nordic-Semiconductor/code/nRF51822/
-RUN mbed add https://os.mbed.com/teams/Disco-L475VG-IOT/code/wifi-ism43362/
+mbed add https://mbed.org/teams/mqtt/code/MQTT/
+mbed add https://github.com/ARMmbed/ntp-client.git
+mbed add https://os.mbed.com/teams/sandbox/code/mbed-http/
+mbed add https://os.mbed.com/teams/Disco-L475VG-IOT/code/wifi-ism43362/
+# Bluetooth
+mbed add https://developer.mbed.org/teams/Bluetooth-Low-Energy/code/BLE_API/
+mbed add https://mbed.org/teams/Nordic-Semiconductor/code/nRF51822/
+# Sensoren
+mbed add http://developer.mbed.org/users/AtomX/code/MFRC522/ 
+mbed add https://os.mbed.com/teams/IoTKitV3/code/HTS221lib/
+mbed add https://developer.mbed.org/teams/ST/code/LIS3MDL/
+mbed add https://developer.mbed.org/teams/ST/code/LSM6DSL/
+mbed add https://os.mbed.com/teams/ST/code/LPS22HB/
+mbed add https://os.mbed.com/teams/ST/code/VL53L0X/
 # compile all
-RUN mbed compile --library --no-archive --source=mbed-os \
-                 --source HTS221  --source LIS3MDL --source LPS22HB --source LSM6DSL --source LSM303AGR --source VL53L0X --source MFRC522 \
-                 --source OLEDDisplay \
-                 --source MQTT --source BLE_API --source nRF51822 --source wifi-ism43362 \
-                 --build=../mbed-os
+mbed compile --library --no-archive --source=mbed-os --source OLEDDisplay \
+             --source MQTT --source ntp-client --source mbed-http \
+             --source BLE_API --source nRF51822 --source wifi-ism43362 \
+             --source HTS221lib --source MFRC522 --source LIS3MDL --source LSM6DSL --source LPS22HB --source VL53L0X \
+             --build=../mbed-os
 COPY compile /usr/local/bin
 RUN chmod 755 /usr/local/bin/compile
 
