@@ -63,7 +63,7 @@ Dieser Container stellt eine bereits compilierte mbed-os Library und ein paar Sh
 Container erzeugen und in diesen wechseln:
 
 	kubectl create -f duk/compiler/mbed-cli.yaml
-	runbash mbed-cli
+	kubectl -it exec mbed-cli -- bash
 	
 IoTKit Beispiele clonen und erstes Beispiel compilieren.
 
