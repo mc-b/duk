@@ -5,18 +5,41 @@ Kubeless ist ein natives serverloses Framework, mit dem Sie kleine Code-Bits (Fu
 
 ### Installation
 
-* kubeless CLI downloaden
+* kubeless CLI von der [Release Page](https://github.com/kubeless/kubeless/releases) downloaden und z.B. in Verzeichnis `lernkube/bin` abstellen.
+* `kubeless` Namespace erstellen und Umgebung starten 
 
-	kubectl create -f RBCA.yaml
+	export RELEASE=$(curl -s https://api.github.com/repos/kubeless/kubeless/releases/latest | grep tag_name | cut -d '"' -f 4)
+	kubectl create ns kubeless
+	kubectl create -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless-$RELEASE.yaml
 	
+**Optional** Hello World Beispiel installieren
+
+	kubeless function deploy hello --runtime python2.7 \
+                                --from-file duk/kubeless/test.py \
+                                --handler test.hello
+
+Testen
+
+	kubeless function call hello --data 'Hello world!'	
+	
+Zugriff via Ingress
+* Funktion als HTTP Trigger veröffentlichen
+* Aufruf der Funktion via Ingress, die IP Adresse ist ggf. anzupassen
+
+	kubeless trigger http create hello --function-name hello
+	curl http://192.168.137.100:30080 --header "Host: hello.192.168.137.100.nip.io"  -d "Hello World!"
+
+**Optional** UI Installieren
+
+	kubectl create -f https://raw.githubusercontent.com/kubeless/kubeless-ui/master/k8s.yaml
+
 
 ### Sprachen
 
-Examples aus dem Projekt [kubeless]() clonen.
+Examples aus dem Projekt [kubeless](https://github.com/kubeless/kubeless.git) clonen.
 
 	git clone https://github.com/kubeless/kubeless
 
-#### Python
 
 #### JavaScript
 
@@ -30,7 +53,13 @@ Examples aus dem Projekt [kubeless]() clonen.
 	                                
 **Testen**
 
-	                               
+* Ausgabe ob Funktion aktiv ist
+
+	kubeless function ls
+	
+* Aufruf der Funktion
+
+	kubeless function call helloget --data 'Hello world!'			                            
 
 
 ### Links

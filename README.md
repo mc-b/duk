@@ -30,6 +30,7 @@ Projekt [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommandoz
 * [Interaktives Lernen mit Jupyter/BeakerX](jupyter)
 * [Tests - ohne Beschreibung](test)
 * [Docker Registry (insecure!)](registry/)
+* [kubeless (Serverless)](kubeless/)
 
 ### Hilfsscripts
 
