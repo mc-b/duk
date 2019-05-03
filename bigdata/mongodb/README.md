@@ -39,7 +39,7 @@ Dokument erstellt werden.
 
 **MongoDB Container starten:** Beenden mittels Eingabe von 2mal `exit`.
 
-    kubectl apply -f duk/bigdata/mongodb/mongodb.yaml
+    kubectl apply -f duk/bigdata/mongodb.yaml
     runbash mongodb
     mongo -psecret -utest
 

@@ -1,37 +1,39 @@
-Big Data
---------
+Big Data: Grundlagen
+---------------------
 
-Der Begriff Big Data bezeichnet Datenmengen, welche zu gross, zu komplex, zu schnelllebig oder zu schwach strukturiert sind, um sie mit manuellen und herkömmlichen Methoden der Datenverarbeitung auszuwerten.
+![Evolution](images/Evolution.png)
 
-### Neo4J
+<p style="font-size: 0.5em">Quelle: Big Data, Potential und Barrieren der Nutzung im Unternehmenskontext</p>
 
-Graphen Datenbanken sind die speziellste Form von NoSQL Datenbanken.
-Sie haben ein anderes Datenspeicherkonzept als andere NoSQL Datenbanken, meistens verschachtelte Listen.
+---
 
-Neo4J ist eine Graph Datenbank.
+Daten, die die Prozesskapazität von konventionellen Datenbanksystemen aufgrund der Menge, Schnelllebigkeit oder
+inkompatiblen Struktur überschreiten. 
 
-Neo4J Starten
+Daten die weit herogener als klassische Daten sind, u.a. durch hinzuziehen auch externer Daten für analytische Aufgaben.
+ 
+Wenn mit Daten das geschlossene Datenuniversum einer Firma aufgesprengt wird um eine globalere Sicht auf das Unternehmen zu erhalten.
 
-	kubectl create -f duk/bigdata/neo4j.yaml
-	startsvc neo4j
+### Charakteristika
 
-#### Links
+-  **Umfang („Volume“)**: eine grosse Menge an Daten, die aufgenommen, analysiert und gemanagt werden muss. Der Datenumfang steigt mit der
+Anzahl der Quellen und der höheren Auflösung bzw. Datentiefe.
 
-* [Homepage](https://neo4j.com/)
-* [Einleitung aus dem Big Data Projekt](https://github.com/mc-b/bigdata/tree/master/neo4j)
 
-### Apache Zeppelin
+- **Varietät („Variety“)**: Daten stammen zunehmend aus neuen Quellen innerhalb und ausserhalb der Organisation, ihre Struktur variiert stark, es können auch bisher unbekannte Strukturierungsformen (z.B. [Open311](https://de.wikipedia.org/wiki/Open311), [KMZ](https://de.wikipedia.org/wiki/Keyhole_Markup_Language)) auftreten.
 
-Apache Zeppelin ist ein Frontend welche mit mehreren Systemen zusammenarbeiten kann.
 
-Aktuell unterstützt Apache Zeppelin Systeme wie Apache Spark, Python, JDBC, Markdown and Shell.
+- **Schnelllebigkeit („Velocity“)**: die Geschwindigkeit, mit der Daten produziert und verändert werden müssen. Dies verlangt eine rasche Analyse und Entscheidungsfindung. Die Schnelllebigkeit wird von der Anzahl der Quellen und der gesteigerten Rechenleistung der datengenerierenden
+Geräte beeinflusst.
 
-Apache Zeppelin Starten
 
-	kubectl create -f duk/bigdata/zeppelin.yaml
-	startsvc zeppelin
+- **Richtigkeit („Veracity“)**: die Qualität und Quelle der rezipierten Daten. Erstere wird unter anderem von Inkonsistenz, Unvollständigkeit und  Mehrdeutigkeit beeinflusst. Das Fällen von datenbasierten Entscheidungen verlangt Nachvollziehbarkeit und Begründbarkeit.
 
-#### Links
+### Beispiele
 
-* [Homepage](http://zeppelin.apache.org/)
-* [Einleitung aus dem Big Data Projekt](https://github.com/mc-b/bigdata/tree/master/zeppelin)
+* [Relationale Datenbanken](mysql/README.md)
+* [Key/Value Stores](redis/README.md)
+* [Document Stores](mongodb/README.md)
+* [Graphen Datenbanken](neo4j/README.md)
+* [Column Family Stores](cassandra/README.md)
+
