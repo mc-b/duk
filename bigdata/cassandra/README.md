@@ -59,14 +59,11 @@ Einige Column Family Datenbanken kennen Super Columns und Super Column Families.
 
 Beispiel basierend auf - [CQL data modeling (Music Service)](http://docs.datastax.com/en/cql/3.1/cql/ddl/ddlCQLDataModelingTOC.html)
 
+**Cassandra Container starten:** Beenden mittels Eingabe von 2mal `exit`.
 
-Zuerst ist der Cassandra Server zu starten 
-
-	bash /vagrant/cassandra/cassandra-server
-	
-Ca. 30 Sekunden warten und anschliessend die `cqlsh` Umgebung starten
-
-	bash /vagrant/cassandra/cassandra-cqlsh
+    kubectl apply -f duk/bigdata/cassandra.yaml
+    runbash cassandra
+    cqlsh
 	
 **Datenstrukturen erstellen:**
 
