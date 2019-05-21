@@ -46,11 +46,11 @@ Userinterface aufrufen
 	helm install --name myjenkins stable/jenkins
 	
 * User: admin
-* Password: `kubectl get secret --namespace default myjenkins-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode`
+* Password: `kubectl get secret --namespace default myjenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode`
 
 Userinterface aufrufen
 
-    startsvc myjenkins-jenkins
+    startsvc myjenkins
 
 ### FAQ
 
