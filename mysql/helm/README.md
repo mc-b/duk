@@ -48,7 +48,7 @@ folgendem Befehl lokal die Template Dateien nach YAML gerendert werden:
     
 Die YAML Dateien werden im Verzeichnis `yaml` abgelegt.
 
-### Weitere Informationen und Installation
+### Weitere Informationen und Installation `helm`
 
 * [Helm](../../helm/README.md)    
 
