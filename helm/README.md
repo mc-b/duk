@@ -13,8 +13,20 @@ Helm Einsatzgebiete:
 * Verwalten Sie Ihre Kubernetes-Manifestdateien auf intelligente Weise
 * Verwalten Sie Releases von Helm-Paketen
 
+### Installation 
 
-### Drupal
+Erstellen der nötigen Services Accounts
+
+    kubectl create serviceaccount --namespace kube-system tiller
+    kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+    
+Initialisierung Tiller auf dem K8s Cluster. Tiller nimmt die Befehle von Helm entgegen und führt diese aus:
+
+    helm init --service-account=tiller --debug
+
+### Services starten
+
+#### Drupal
 
 Quelle: https://github.com/kubernetes/charts/tree/master/stable/drupal
 
@@ -24,17 +36,21 @@ Installation
 	
 Userinterface aufrufen
 
-	minikube service mydrupal-drupal
+	startsvc mydrupal-drupal
 	
 * User: user
 * Password: `kubectl get secret --namespace default mydrupal-drupal -o jsonpath="{.data.drupal-password}" | base64 --decode`
 
-### Jenkins
+#### Jenkins
 
 	helm install --name myjenkins stable/jenkins
 	
 * User: admin
 * Password: `kubectl get secret --namespace default myjenkins-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode`
+
+Userinterface aufrufen
+
+    startsvc myjenkins-jenkins
 
 ### FAQ
 
