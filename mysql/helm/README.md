@@ -20,24 +20,35 @@ Installation von `mysql` wieder löschen
 
 	helm delete --purge mysql-test
 			
-**Anmerkungen**: helm versucht automatisch ein Cloud Volume (StorageClass) zu mounten. Da wir uns aber nicht in der Cloud befinden, schlägt dies fehl. 
-Lösung: In `values.yaml` Eintrag `persistence.enabled` auf `false` ändern:
+### Voreinstellungen ändern
 
-**Vorgehen**
+Um die Voreinstellungen zu ändern ist wie folgt vorzugehen:
 
 Sourcen von `stable/mysql` als Tarfile holen und entpacken	
 
-	helm fetch stable/mysql
-	tar xvzf mysql-0.10.1.tgz
+	helm fetch --untar --untardir . stable/mysql
+
+Datei `mysql/values.yaml` editieren und z.B. wie folgt ändern:
 
 	## Persist data to a persistent volume
 	persistence:
 	  enabled: false	
 	
-Änderungen an `values.yaml` vornehmen und mysql mit geänderten Values starten. 	
+MySQL mit geänderten Values starten. 	
 	
 	helm install --name mysql-test -f duk/mysql/helm/mysql/values.yaml stable/mysql	
 
+### Templates lokal rendern
 
-	
+Steht Tiller auf dem Server nicht zur Verfügung oder sollen die erstellten YAML Dateien zu Testzwecken nur erzeugt werden, kann mit 
+folgendem Befehl lokal die Template Dateien nach YAML gerendert werden:
+
+    helm fetch --untar --untardir . stable/mysql
+    helm template --output-dir yaml mysql
+    
+Die YAML Dateien werden im Verzeichnis `yaml` abgelegt.
+
+### Weitere Informationen und Installation
+
+* [Helm](../../helm/README.md)    
 
