@@ -1,3 +1,6 @@
+FROM ubuntu:18.10
+
+# C++ Compiler
 RUN apt-get update -qq && apt-get install -y \
   git \
   wget \
