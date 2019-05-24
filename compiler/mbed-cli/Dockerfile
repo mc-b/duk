@@ -1,6 +1,3 @@
-FROM ubuntu:18.10
-
-# C++ Compiler
 RUN apt-get update -qq && apt-get install -y \
   git \
   wget \
@@ -35,14 +32,31 @@ RUN mbed compile -m k64f
 RUN mbed compile -m DISCO_L475VG_IOT01A
 
 # NUCLEO_F411RE Board - Libraries
-#RUN mbed compile -m NUCLEO_F411RE
+RUN mbed compile -m NUCLEO_F411RE
 
 # NUCLEO_F303RE Board - Libraries
-#RUN mbed compile -m nucleo_f303re
+RUN mbed compile -m NUCLEO_F303RE
+
+# NUCLEO_F303RE Board - Libraries
+RUN mbed compile -m NUCLEO_F303RE
+
+# NUCLEO_F746ZG Board - Libraries
+RUN mbed compile -m NUCLEO_F746ZG
 
 # helper script compile
 COPY compile /usr/local/bin
 RUN chmod 755 /usr/local/bin/compile
+
+COPY buildall /usr/local/bin
+RUN chmod 755 /usr/local/bin/buildall
+
+WORKDIR /opt
+RUN git clone https://github.com/mc-b/iotkitv3
+
+RUN buildall K64F
+RUN buildall NUCLEO_F411RE
+RUN buildall NUCLEO_F303RE
+RUN buildall NUCLEO_F746ZG
 
 RUN mkdir /src
 WORKDIR /src

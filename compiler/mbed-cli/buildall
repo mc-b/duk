@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export BOARD=$1
+
+cd /opt/iotkitv3
+for PRG in $(find * -type d -mindepth 1 -maxdepth 1 | grep -v .git | grep -v images)
+do
+    cd /opt/template
+    mbed compile -m ${BOARD} --source . --source ../iotkitv3/${PRG}
+    cd /opt/iotkitv3
+    mkdir -p ../BUILD/${BOARD}/${PRG}
+    mv ../template/BUILD/${BOARD}/GCC_ARM/template.bin ../BUILD/${BOARD}/${PRG}
+done
