@@ -7,5 +7,5 @@ for letter in {d..z} ; do
   fi
 done
 
-kubectl exec -it mbed-cli  -- compile $*
+kubectl exec -it misegr/mbed-cli  -- compile $*
 cp $1/BUILD/*.bin ${DAPLINK}:/
