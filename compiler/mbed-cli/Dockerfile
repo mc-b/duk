@@ -60,6 +60,7 @@ WORKDIR /opt
 RUN git clone https://github.com/mc-b/iotkitv3
 
 RUN buildall K64F
+RUN buildall DISCO_L475VG_IOT01A
 RUN buildall NUCLEO_F411RE
 RUN buildall NUCLEO_F303RE
 RUN buildall NUCLEO_F746ZG
