@@ -1,4 +1,4 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.10
 
 # C++ Compiler
 RUN apt-get update -qq && apt-get install -y \
@@ -10,24 +10,26 @@ RUN apt-get update -qq && apt-get install -y \
   software-properties-common \
   && rm -rf /var/lib/apt/lists/*
   
-RUN add-apt-repository ppa:team-gcc-arm-embedded/ppa
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y gcc-arm-none-eabi  
+# GCC_ARM
+WORKDIR /opt
+RUN wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2017q2/gcc-arm-none-eabi-6-2017-q2-update-linux.tar.bz2 -O gcc-arm.tar.bz2 && \
+    tar xvjf gcc-arm.tar.bz2 && \
+    rm gcc-arm.tar.bz2
+    ln ln -s gcc-arm-none-eabi-6-2017-q2-update/ gcc-arm 
   
 # mbed-cli
 RUN pip install mbed-cli PrettyTable
 
 # Toolchain and K64F Board 
-RUN	mbed toolchain -G GCC_ARM && mbed config --global TOOLCHAIN GCC_ARM && mbed config --list
+RUN	mbed toolchain -G GCC_ARM && \
+    mbed config --global TOOLCHAIN GCC_ARM && \
+    mbed config --global TOOLCHAIN GCC_ARM && \
+    mbed config --global GCC_ARM_PATH /opt/gcc-arm/bin
+    mbed config --list
 
 # build mbed static library
-RUN mkdir -p /opt/mbed
-WORKDIR /opt/mbed
-
-# init mbed project with mbed OS latest
-
 RUN mbed import http://os.mbed.com/teams/IoTKitV3/code/template/
-WORKDIR /opt/mbed/template
+WORKDIR /opt/template
 
 # K64F Board - Libraries 
 RUN mbed compile -m k64f

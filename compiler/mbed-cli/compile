@@ -14,6 +14,6 @@ fi
 
 export OUT=${SRC}/BUILD
 
-cd /opt/mbed
+cd /opt/template
 rm -rf ${OUT}
 mbed compile --source ${SRC} --source . --build ${OUT} $*
