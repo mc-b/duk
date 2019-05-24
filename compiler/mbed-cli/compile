@@ -16,4 +16,4 @@ export OUT=${SRC}/BUILD
 
 cd /opt/mbed
 rm -rf ${OUT}
-mbed compile --source ${SRC} --source /opt/mbed-os --build ${OUT} $*
+mbed compile --source ${SRC} --source . --build ${OUT} $*
