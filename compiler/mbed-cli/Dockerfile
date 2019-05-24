@@ -46,6 +46,9 @@ RUN mbed compile -m NUCLEO_F303RE
 # NUCLEO_F746ZG Board - Libraries
 RUN mbed compile -m NUCLEO_F746ZG
 
+# main.cpp entfernen
+RUN rm -rf src
+
 # helper script compile
 COPY compile /usr/local/bin
 RUN chmod 755 /usr/local/bin/compile
