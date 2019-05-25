@@ -40,9 +40,6 @@ RUN mbed compile -m NUCLEO_F411RE
 # NUCLEO_F303RE Board - Libraries
 RUN mbed compile -m NUCLEO_F303RE
 
-# NUCLEO_F303RE Board - Libraries
-RUN mbed compile -m NUCLEO_F303RE
-
 # NUCLEO_F746ZG Board - Libraries
 RUN mbed compile -m NUCLEO_F746ZG
 
