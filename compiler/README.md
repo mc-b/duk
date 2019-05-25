@@ -74,6 +74,12 @@ IoTKit Beispiele clonen und erstes Beispiel compilieren.
 		
 Das compilierte Beispiel steht im Verzeichnis `/src` bzw. vom PC als `lernkube/data/src/` als `DigitalOut.bin` zur Verfügung und kann mittels Drag & Drop auf das IoTKit Board kopiert werden, Reset Button drücken und eine LED blinkt.
 
+Standardmässig wird das K64F Board verwendet. Andere Boards müssen mittels `-m` angesprochen werden.
+
+    compile -m DISCO_L475VG_IOT01A
+    
+Die weiteren Boards sind `NUCLEO_F411RE`, `NUCLEO_F303RE` und `NUCLEO_F746ZG`.    
+
 ### DotNet
 
 Es existiert ein [Docker Beispiel](https://github.com/mc-b/devops/tree/master/docker/dotnet) (ohne Kubernetes), welches aber auch in der Kubernetes Umgebung lauffähig ist.
