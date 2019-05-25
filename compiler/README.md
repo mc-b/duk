@@ -72,7 +72,7 @@ IoTKit Beispiele clonen und erstes Beispiel compilieren.
 	cd iotkitv3/gpio/DigitalOut
 	compile
 		
-Das compilierte Beispiel steht im Verzeichnis `iotkitv3/gpio/DigitalOut/BUILD` bzw. von PC als `lernkube/data/src/iotkitv3/gpio/DigitalOut/BUILD` als `DigitalOut.bin` zur Verfügung und kann mittels Drag & Drop auf das IoTKit Board kopiert werden, Reset Button drücken und eine LED blinkt.
+Das compilierte Beispiel steht im Verzeichnis `/src` bzw. vom PC als `lernkube/data/src/` als `DigitalOut.bin` zur Verfügung und kann mittels Drag & Drop auf das IoTKit Board kopiert werden, Reset Button drücken und eine LED blinkt.
 
 ### DotNet
 

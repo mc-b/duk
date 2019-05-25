@@ -1,19 +1,18 @@
 #!/bin/bash
 #
-#	Compiliert mbed Programme im Container mit vor compilierten Libraries.
+#       Compiliert mbed Programme im Container mit vor compilierten Libraries.
 #
-#	Aufruf: compile [Path relativ zu /src]
+#       Aufruf: compile [Path relativ zu /src]
 
-if	[ $# -gt 0 ]
+if      [ $# -gt 0 ] && [ "$1" != "-m" ]
 then
-	export SRC=/src/$1
-	shift
+        export SRC=/src/$1
+        shift
 else
-	export SRC=$(pwd)
+        export SRC=$(pwd)
 fi
 
-export OUT=${SRC}/BUILD
+export OUT=/src/$(basename ${SRC})
 
 cd /opt/template
-rm -rf ${OUT}
-mbed compile --source ${SRC} --source . --build ${OUT} $*
+mbed compile --source ${SRC} --source . -N ${OUT} $*
