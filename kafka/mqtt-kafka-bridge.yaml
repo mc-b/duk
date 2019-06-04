@@ -22,4 +22,4 @@ spec:
         image: devicexx/mqtt-kafka-bridge
         imagePullPolicy: IfNotPresent    
         command: [ "java", "-jar", "/opt/mqttKafkaBridge.jar" ]
-        args: [ "-b", "kafka:9092", "--uri", "tcp://broker.hivemq.com:1883", "--topics", "iotkit/#" ]
+        args: [ "-b", "kafka:9092", "--uri", "tcp://mosquitto:1883", "--topics", "iotkit/#" ]
