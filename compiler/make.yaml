@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mbed-cli
+  name: make
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mbed-cli
+      app: make
   template:
     metadata:
       labels:
-        app: mbed-cli
+        app: make
         group: compiler
     spec:
       containers:        
-      - name: mbed-cli
-        image: misegr/mbed-cli
+      - name: make
+        image: misegr/make
         imagePullPolicy: IfNotPresent        
         # Just spin & wait forever
-        command: [ "/bin/bash", "-c", "--" ]
-        args: [ "while true; do sleep 3000; done;" ]
+        command: [ "sh", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
         volumeMounts:
         - mountPath: "/src"
           subPath: src
@@ -27,4 +27,4 @@ spec:
       volumes:
       - name: "host-data"
         persistentVolumeClaim:
-         claimName: data-claim 
+         claimName: data-claim  
