@@ -6,6 +6,7 @@ Ein Repository (englisch für Lager, Depot oder auch Quelle; Plural: Repositorys
 Folgende Registries/Repositories stehen zur Verfügung:
 * [Docker Registry](#docker-registry)
 * [Maven Nexus 3 Registry](#nexus3-repository)
+* [Maven Nexus 3 Docker Registry](#nexus3-docker-registry)
 
 Docker Registry
 ---------------
@@ -47,7 +48,7 @@ Nexus verwaltet Software "Artefakte", die für die Entwicklung benötigt werden.
 
     kubectl apply -f duk/registry/nexus3.yml
     
-Die Oberfläche ist mittels [http://localhost:32510](http://localhost:32510) mit Username `admin` und Password `admin123` erreichbar.    
+Die Oberfläche ist mittels [http://localhost:32511](http://localhost:32511) mit Username `admin` und Password `admin123` erreichbar.    
     
 ### Konfiguration
 
@@ -128,7 +129,52 @@ Anschliessend kann mit folgenden Befehlen, zuerst ein Release auf GitHub und nac
 
 **Alternative**: Entfernt `-SNAPSHOT` aus dem `pom.xml` und führt `mvn deploy` aus. 
 
+Nexus3 Docker Registry
+----------------------
+
+Die Nexus Registry kann auch als Docker Registry verwendet werden. Dazu ist die Registry, wie vorgängig beschrieben, zu starten und wie folgt zu konfigurieren:
+
+Anlegen einer privaten Docker Registry
+
+![](../images/docker-private.png)
+
+Anlegen einer Proxy Registry von Docker Hub:
+
+![](../images/docker-proxy.png)
+
+Zusammenführen der beiden Registry mittels einer Docker Gruppe:
+
+![](../images/docker-group.png)
+
+Damit auf die Registries zugegriffen werden kann, sind diese beim Start des Dockerdaemons anzugeben, z.B. in der Datei `/etc/systemd/system/docker.service`
+
+    ExecStart=/usr/bin/dockerd --tlsverify --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server.pem \
+    --tlskey=/etc/docker/server-key.pem -H=0.0.0.0:2376 -H fd:// \
+    --insecure-registry=localhost:32512 --insecure-registry=localhost:32513
+    
+Beim Projekt [lernkube](https://github.com/mc-b/lernkube) geschieht dies automatisch.
+
+Nach erfolgter Konfiguration stehen zwei Registries zur Verfügung:
+* **docker-private** eine Private Docker Registry auf localhost:32513 um Images zu holen (pull) und zu schreiben (push).
+* **docker-group** auf localhost:32512. Da diese auch **docker-proxy** beinhaltet können lokale und Images von Docker Hub geholt werden. Schreiben ist nicht möglich.
+
+Je nach der Konfiguration muss man sich vorher an den Registries anmelden:
+
+    docker login -u admin -p admin123 localhost:32512
+    docker login -u admin -p admin123 localhost:32513
+         
+Um neue Images in die Private Docker Registry abzulegen sind diese zu taggen und zu pushen:
+
+    docker tag hello-world localhost:32513/hello-world
+    docker push localhost:32513/hello-world
+    
+Images können über die Docker Group geholt werden und zwar Private wie auch von Docker Hub. Die Auflösung nach Docker Hub erfolgt dabei automatisch.
+
+    docker run localhost:32512/hello-world    
+
 ### Links
 
+* [Blog Using Nexus 3 as Your Repository](https://blog.sonatype.com/using-nexus-3-as-your-repository-part-1-maven-artifacts)
 * [Maven Release](https://maven.apache.org/guides/mini/guide-releasing.html)
 * [Maven Release Plug-in](http://maven.apache.org/maven-release/maven-release-plugin/index.html)    
+
