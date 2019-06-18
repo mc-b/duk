@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus3
+  labels:
+    app: nexus3
+    group: system
+    tier: backend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8081
+    nodePort: 32510    
+    protocol: TCP
+  selector:
+    app: nexus3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus3
+  template:
+    metadata:
+      labels:
+        app: nexus3
+        tier: backend
+    spec:
+      containers:
+      - name: nexus3
+        image: sonatype/nexus3
+        ports:
+        - containerPort: 8081
+          name: repository
+        
