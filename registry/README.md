@@ -37,8 +37,6 @@ Das UserInterface ist via [http://localhost:32580](http://localhost:32580) errei
 Nexus3 Repository
 -----------------
 
-<iframe allowtransparency="true" title="Wistia video player" allowFullscreen frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" src="https://fast.wistia.net/embed/iframe/ql2mvo4kgz" width="400" height="225"></iframe>
-
 Sonatype Nexus und Apache Maven sind zwei Softwareteile, die oft zusammenarbeiten, aber sehr unterschiedliche Aufgaben erfüllen. 
 
 Nexus stellt ein Repository bereit, während Maven ein Repository zum Erstellen von Software verwendet. 
