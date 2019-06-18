@@ -10,8 +10,17 @@ spec:
   type: LoadBalancer
   ports:
   - port: 8081
-    nodePort: 32510    
+    nodePort: 32511   
     protocol: TCP
+    name: nexus3
+  - port: 8082
+    nodePort: 32512   
+    protocol: TCP  
+    name: docker-group 
+  - port: 8083
+    nodePort: 32513   
+    protocol: TCP  
+    name: docker-proxy    
   selector:
     app: nexus3
 ---
@@ -35,5 +44,8 @@ spec:
         image: sonatype/nexus3
         ports:
         - containerPort: 8081
-          name: repository
-        
+          name: nexus3
+        - containerPort: 8082
+          name: docker-group          
+        - containerPort: 8083
+          name: docker-proxy          
