@@ -10,4 +10,8 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
 
+USER root
+RUN apk update && apk add make
+USER jenkins
+
 VOLUME /var/jenkins_home
