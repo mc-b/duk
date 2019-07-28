@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: dind
-        image: docker:stable-dind
+        image: docker:18.09.8-dind
         ports:
         - containerPort: 2375
           name: dind
