@@ -3,7 +3,7 @@ FROM ubuntu:18.10
 # C++ Compiler
 RUN apt-get update -qq && apt-get install -y \
   git \
-  wget \
+  wget curl zip unzip \
   mercurial \
   python2.7 \
   python-pip \
