@@ -25,6 +25,7 @@ Projekt [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommandoz
 * [Big Data](bigdata)
 * [Kafka - Messaging](kafka) 
 * [Helm](helm)
+* [RBAC-Autorisierung](rbac/)
 * [DevOps Umgebung](devops)
 * [Microservice Beispiele](https://github.com/mc-b/misegr)
 * [Interaktives Lernen mit Jupyter/BeakerX](jupyter)
