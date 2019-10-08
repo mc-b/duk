@@ -7,16 +7,18 @@ Quelle: [https://kubernetes.io/docs/reference/access-authn-authz/controlling-acc
 
 - - -
 
-Die rollenbasierte Zugriffssteuerung (RBAC) ist eine Methode zur Regulierung des Zugriffs auf Computer- oder Netzwerkressourcen basierend auf den Rollen einzelner Benutzer in einem Unternehmen.
+Die rollenbasierte Zugriffssteuerung (RBAC) ist eine Methode zur Regulierung des Zugriffs auf Computer- oder Netzwerkressourcen basierend auf den Rollen einzelner User in einem Unternehmen.
 
 Kubernetes verwendet die **rbac.authorization.k8s.io** API-Gruppe womit Administratoren API-Zugriffe steuern können.
 
 Kubernetes-»User«
 -----------------
 
-Alle Kubernetes-Cluster haben zwei Kategorien von Benutzern: von Kubernetes verwaltete Dienstkonten und normale Benutzer.
+Alle Kubernetes-Cluster haben zwei Kategorien von Usern: von Kubernetes verwaltete Dienstkonten und normale User.
 
-Es wird davon ausgegangen, dass normale Benutzer von einem externen, unabhängigen Dienst verwaltet werden. Ein Administrator, der private Schlüssel verteilt, ein Benutzerspeicher wie Keystone oder Google-Konten, sogar eine Datei mit einer Liste von Benutzernamen und Kennwörtern. In diesem Zusammenhang verfügt Kubernetes nicht über Objekte, die normale Benutzerkonten darstellen. Normale Benutzer können nicht über einen API-Aufruf zu einem Cluster hinzugefügt werden.
+Es wird davon ausgegangen, dass normale User von einem externen, unabhängigen Dienst verwaltet werden. Ein Administrator, der private Schlüssel verteilt, ein Userspeicher wie OpenStacks Keystone, Google-Konten oder eine Datei mit einer Liste von Usernamen und Kennwörtern.
+
+**Kubernetes verfügt nicht über Objekte, die normale Userkonten darstellen. Normale User können nicht über einen API-Aufruf zu einem Cluster hinzugefügt werden.**
 
 ### Authentifizierungsstrategien
 
