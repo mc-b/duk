@@ -52,9 +52,14 @@ Beispiel `Role`:
 Weitere Informationen: [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 
 Ein einfaches RBAC-Beispiel mit einem Kubernetes-»User«
-
-Ein einfaches RBAC-Beispiel mit einem Kubernetes-»User«
 -------------------------------------------------------
+
+Die Befehle müssen in der VM als `root` ausgeführt werden. 
+
+Dazu ist wie folgt in die VM und dort als `root` zu wechseln:
+
+    vagrant ssh
+    sudo -i
 
 ### Anlegen des User Zertifikates
 
@@ -97,7 +102,7 @@ Anschließend muss der Zertifikatsrequest noch signiert werden:
     
 Damit wir den User Account verwenden können, benötigen wir eine entsprechende K8s-Konfiguration, diese steht nachher in `.kube/config-snoopy`:
 
-    kubectl --kubeconfig ~/.kube/config-snoopy config set-cluster kubernetes --insecure-skip-tls-verify=true --server=https://192.168.130.100:6443
+    kubectl --kubeconfig ~/.kube/config-snoopy config set-cluster kubernetes --insecure-skip-tls-verify=true --server=https://192.168.137.100:6443
     kubectl --kubeconfig ~/.kube/config-snoopy config set-credentials snoopy --client-certificate=snoopy.crt --client-key=snoopy.pem --embed-certs=true
     
 Der erste Befehl legt die Datei `.kube/config-snoopy` mit den Cluster Informationen (`server=` ggf. ändern) an, der zweite Befehl ergänzt die User Informationen.
