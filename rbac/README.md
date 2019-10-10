@@ -146,16 +146,47 @@ Damit der neue User Zugriff auf die Pods erhält, ist die nachfolgende YAML Date
 
 und auszuführen:
  
-    kubectl apply -f rbac-simple.yaml
+    kubectl apply -f rbac-snoopy.yaml
    
 Anschliessend muss die Abfrage von `Pods` in der Namespace `default` mit dem User funktionieren:
 
     kubectl --kubeconfig .kube/config-snoopy get pods   
  
-    
+   
+Ein einfaches Dashboard-Beispiel mit einem Dienstkonto (Service Account)
+------------------------------------------------------------------------
 
-    
-    
-    
+Um via Dashboard die gleichen Informationen wie oben anzuzeigen, muss ein `ServiceAccount` mit dem gleichen RoleBinding wie der User `snoopy` angelegt werden.   
 
- 
+Die YAML Datei sieht dabei wie folgt aus:
+
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: snoopy
+    ---
+    kind: RoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+      name: pod-reader-rolebinding
+      namespace: default
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io  
+      kind: Role
+      name: pod-reader-role
+    subjects:
+    - kind: ServiceAccount
+      name: snoopy
+      namespace: default  
+
+ausführen mittels:
+
+    kubectl apply -f dashboard-snoopy.yaml
+    
+Neben dem Service Account und der RoleBinding wird ein `secret` im Namespace `default` angelegt. Der **Token** des `secrets` brauchen wir um ins in das Dashboard einzuloggen.
+
+Den **Token** können wir wie folgt abfragen:
+
+    kubectl describe secret $(kubectl get secret | grep snoopy | awk '{print $1}')
+    
+          
