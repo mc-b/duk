@@ -5,7 +5,7 @@ Cloud-Plattformen bieten den Unternehmen, die sie verwenden, zahlreiche Vorteile
 
 Dazu müssen Entwickler das Architekturmuster Microservices verwenden, was dazu führt das schnell Unterschiedliche Versionen von Microservices parallel betrieben werden müssen.
 
-Mit den vielfältigen Funktionen von Istio kann man eine verteilte Microservice-Architektur erfolgreich und effizient ausführen und auf einheitliche Weise Microservices absichern, verbinden und überwachen.
+Mit den vielfältigen Funktionen von [Istio](http://istio.io) kann man eine verteilte Microservice-Architektur erfolgreich und effizient ausführen und auf einheitliche Weise Microservices absichern, verbinden und überwachen.
 
 Es ist ein vollständiger Open-Source-Service-Mesh, das auf vorhandenen verteilten Anwendungen aufbaut.
 
@@ -52,7 +52,23 @@ Die Beispielanwendung zeigt Informationen zu einem Buch an, ähnlich einem einze
 
 Für Details siehe [Bookinfo Application](https://istio.io/docs/examples/bookinfo/)
 
+Beispiel Web Server V1 und V2
+-----------------------------
 
+Das Beispiel startet zwei Pods mit Version 1 und Version 2 eines Services.
 
+    kubebctl apply -f duk/istio/
 
+Der Service wird mittels `Gateway` und `VirtualService` auf dem URL [http://<cluster>:<port istio>/web/](http://192.168.137.100:31380/web/) veröffentlicht.
 
+Eine `DestinationRule` ermöglicht es zwischen Version 1 und 2 zu wechseln.
+
+Ohne eine expliziete Zuweisung werden Version 1 und 2 abwechselnd angezeigt.
+
+Wechsel auf Version 1:
+
+    kubectl apply -f duk/istio/v1
+    
+Wechsel auf Version 2:
+
+    kubectl apply -f duk/istio/v2
