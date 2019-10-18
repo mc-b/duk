@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app.kubernetes.io/name: web2
+  name: web2
+  namespace: configmap  
+spec:
+  containers:
+  - image: httpd
+    name: apache
+    volumeMounts:    
+     - name: config-volume
+       mountPath: /usr/local/apache2/htdocs
+  volumes:
+    - name: config-volume
+      configMap:
+        name: web2
+        items:
+        - key: index
+          path: index.html        
+ 
