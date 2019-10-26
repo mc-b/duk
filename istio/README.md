@@ -56,7 +56,27 @@ Um die Installation abzuschliessen, müssen wir festlegen welche Namespaces von 
 
     kubectl label namespace default istio-injection=enabled
     
-Alle Pods in diesem Namespace bekommen automatisch einen *Side Car* und der Netzwerkverkehr wird über Istio abgehandelt.    
+Alle Pods in diesem Namespace bekommen automatisch einen *Side Car* und der Netzwerkverkehr wird über Istio abgehandelt.  
+
+Tools
+-----
+
+### Kiali — Observability
+
+[Kiali](https://www.kiali.io/) ist eine Web UI für Istio. Es hilft Ihnen, die Struktur Ihres Servicenetzes und deren Topologie zu verstehen.
+
+Nach der Port Weiterleitung kann das Kiali UI mittels [http://localhost:20001](http://localhost:20001).
+
+    kubectl port-forward $(kubectl get pod -n istio-system -l app=kiali -o jsonpath='{.items[0].metadata.name}') -n istio-system 20001       
+
+### Jaeger — Tracing
+
+Die Ablaufinformationen für Kiali werden durch das verteiltes Tracing-System [Jaeger](https://www.jaegertracing.io/) bereitgestellt.
+
+Nach der Port Weiterleitung kann das Jaeger UI mittels [http://localhost:16686](http://localhost:16686).
+
+    kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686
+  
 
 Istio Beispielanwendung
 -----------------------
@@ -113,24 +133,7 @@ Installation:
     kubectl apply -f istio-mastery/resource-manifests/istio/http-gateway.yaml -n mastery
     kubectl apply -f istio-mastery/resource-manifests/istio/sa-virtualservice-external.yaml -n mastery
     kubectl get all,gw,vs,dr -n mastery
-
-        
-### Kiali — Observability
-
-[Kiali](https://www.kiali.io/) ist eine Web UI für Istio. Es hilft Ihnen, die Struktur Ihres Servicenetzes und deren Topologie zu verstehen.
-
-Nach der Port Weiterleitung kann das Kiali UI mittels [http://localhost:20001](http://localhost:20001).
-
-    kubectl port-forward $(kubectl get pod -n istio-system -l app=kiali -o jsonpath='{.items[0].metadata.name}') -n istio-system 20001       
-
-### Jaeger — Tracing
-
-Die Ablaufinformationen für Kiali werden durch das verteiltes Tracing-System [Jaeger](https://www.jaegertracing.io/) bereitgestellt.
-
-Nach der Port Weiterleitung kann das Jaeger UI mittels [http://localhost:16686](http://localhost:16686).
-
-    kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686
-
+       
 ### Grafana — Metrics Visualization
 
 Die von Istio gesammelten Metriken werden nach [Prometheus](../prometheus) geschrieben und mit Grafana visualisiert. Um auf die Admin-Benutzeroberfläche von Grafana zuzugreifen, führen Sie den folgenden Befehl aus und öffnen [http://localhost:3000](http://localhost:3000) und wechseln auf "istio / Istio Mesh Dashboard".
