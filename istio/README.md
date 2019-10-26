@@ -104,6 +104,7 @@ Das Beispiel "Back to Microservices with Istio" Demonstriert die Verwendung von 
 * Links zum [Blog](https://medium.com/google-cloud/back-to-microservices-with-istio-p1-827c872daa53)
 * Original App im Blog [Learn Kubernetes in Under 3 Hours](https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/) und [Sourcecode auf Github](https://github.com/rinormaloku/istio-mastery).
 
+
     git clone https://github.com/rinormaloku/istio-mastery.git
     kubectl create namespace mastery
     kubectl label namespace mastery istio-injection=enabled
@@ -111,6 +112,7 @@ Das Beispiel "Back to Microservices with Istio" Demonstriert die Verwendung von 
     kubectl apply -f istio-mastery/resource-manifests/istio/http-gateway.yaml -n mastery
     kubectl apply -f istio-mastery/resource-manifests/istio/sa-virtualservice-external.yaml -n mastery
     kubectl get all,gw,vs,dr -n mastery
+
         
 ### Kiali — Observability
 
