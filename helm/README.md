@@ -1,10 +1,14 @@
 Helm
 ----
 
-Helm ist ein Werkzeug zur Verwaltung von Kubernetes-Charts. 
+![](https://helm.sh/img/chart-illustration.png)
 
+Quelle: https://helm.sh/
+- - - 
 
-Kubernetes-Charts sind Pakete vorkonfigurierter Kubernetes-Ressourcen, welche wie Gesamthaft mittels eines Befehles installiert werden können
+[Helm](https://helm.sh/) ist ein Werkzeug zur Verwaltung von Kubernetes-Charts. 
+
+[Kubernetes-Charts](https://github.com/helm/charts) sind Pakete vorkonfigurierter Kubernetes-Ressourcen, welche wie Gesamthaft mittels eines Befehles installiert werden können
 
 Helm Einsatzgebiete:
 * Suchen und verwenden Sie beliebte Software, die als Kubernetes-Charts verpackt ist

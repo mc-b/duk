@@ -1,6 +1,12 @@
 Prometheus
 ----------
 
+![](https://prometheus.io/assets/architecture.png)
+
+Quelle: [Prometheus](https://prometheus.io) 
+
+- - -
+
 [Prometheus](https://prometheus.io) ist ein Open-Source-Toolkit zur Systemüberwachung und -Alamierung, das ursprünglich bei SoundCloud entwickelt wurde.
 
 Prometheus trat der [Cloud Native Computing Foundation](https://www.cncf.io/) im Jahr 2016 als zweites gehostetes Projekt nach Kubernetes bei.

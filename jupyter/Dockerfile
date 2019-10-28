@@ -11,11 +11,13 @@ USER root
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     git \
     curl \
+    wget \
     vim \
     netcat \
     unzip \
     nano \
     mosquitto-clients \
+    bsdtar \
     && rm -rf /var/lib/apt/lists/*
 
 # Switch back to jovyan to avoid accidental container runs as root
