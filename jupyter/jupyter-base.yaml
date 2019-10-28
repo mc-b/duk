@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: jupyter-base
-        image: jupyter/base-notebook
+        image: misegr/base-notebook
         imagePullPolicy: IfNotPresent
         command: [ "start-notebook.sh", "--NotebookApp.token=''" ]        
         ports:
