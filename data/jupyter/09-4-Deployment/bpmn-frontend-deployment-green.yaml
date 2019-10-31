@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpmn-frontend-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bpmn-frontend
+      version: "0.2"
+  template:
+    metadata:
+      labels:
+        app: bpmn-frontend
+        group: web
+        tier: frontend
+        version: "0.2"
+    spec:
+      containers:
+      - name: bpmn-frontend
+        image: "misegr/bpmn-frontend:v0.2"
+        imagePullPolicy: IfNotPresent        
+        ports:
+        - containerPort: 80
+          name: bpmn-frontend
