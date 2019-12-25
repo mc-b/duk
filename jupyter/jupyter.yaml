@@ -44,31 +44,9 @@ spec:
         - mountPath: "/home/jovyan/work"
           subPath: jupyter        
           name: "jupyter-data"
-        - mountPath: "/usr/bin/docker"
-          name: "docker"   
-        - mountPath: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"
-          name: "libltdl" 
-        - mountPath: "/usr/bin/kubectl"
-          name: "kubectl"          
-        - mountPath: "/home/jovyan/.kube"
-          name: "kube"           
-        env:
-        - name: DOCKER_HOST
-          value: "tcp://dind:2375"                     
       # Volumes in Host
       volumes:
       - name: "jupyter-data"
         persistentVolumeClaim:
          claimName: data-claim 
-      - name: "docker"
-        hostPath:
-         path: "/usr/bin/docker"
-      - name: "libltdl"
-        hostPath:
-         path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"   
-      - name: "kubectl"         
-        hostPath:
-         path: "/usr/bin/kubectl" 
-      - name: "kube"
-        hostPath:
-         path: "/home/vagrant/.kube"                     
+                    
