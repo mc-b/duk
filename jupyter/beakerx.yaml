@@ -42,7 +42,7 @@ spec:
         # Volumes im Container
         volumeMounts:
         - mountPath: "/home/beakerx/work"
-          subPath: jupyter
+          subPath: beakerx
           name: "beakerx-data"
       # Volumes in Host
       volumes:
