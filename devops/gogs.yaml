@@ -34,6 +34,7 @@ spec:
       containers:
       - name: gogs
         image: gogs/gogs
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
           name: gogs-ui

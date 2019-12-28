@@ -33,6 +33,7 @@ spec:
       containers:
       - name: fhem
         image: marcel1691/fhem
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8083
 ---

@@ -33,6 +33,7 @@ spec:
       containers:
       - name: dind
         image: docker:18.09.8-dind
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2375
           name: dind

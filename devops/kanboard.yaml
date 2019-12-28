@@ -34,6 +34,7 @@ spec:
       containers:
       - name: kanboard
         image: kanboard/kanboard
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
           name: kanboard
