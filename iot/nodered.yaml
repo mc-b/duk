@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
       - name: nodered
-        image: nodered/node-red-docker
+        image: nodered/node-red
         ports:
         - containerPort: 1880
