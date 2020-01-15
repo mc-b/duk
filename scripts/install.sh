@@ -3,7 +3,6 @@
 #	Installationsscript dok
 
 # Jupyter Docker in Docker Umgebung
-docker pull misegr/base-notebook
 kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base.yaml 
 kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
 
