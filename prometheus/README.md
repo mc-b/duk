@@ -13,24 +13,28 @@ Prometheus trat der [Cloud Native Computing Foundation](https://www.cncf.io/) im
 
 ### Installation
 
-    helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
-    helm install coreos/prometheus-operator --name prometheus-operator --namespace monitoring
-    helm install coreos/kube-prometheus --name kube-prometheus --namespace monitoring
-    helm install --name="kube-metrics" stable/kube-state-metrics --namespace=monitoring
+    kubectl create namespace monitoring
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com
+    helm install prometheus-operator stable/prometheus-operator --namespace=monitoring
 
 Um die entsprechenden UIs ansprechen zu können muss der jeweilige Port an `localhost` weitergeleitet werden:
 
-Für Grafana (Service: kube-prometheus-grafana) ist dies und das UI mit URL [http://localhost:3000](http://localhost:3000) ist das:
+Für den **Grafana (Service: prometheus-operator-grafana)** mit URL [http://localhost:3000](http://localhost:3000) ist der Befehl:
 
-    kubectl -n monitoring port-forward $(kubectl -n monitoring get pod -l app=kube-prometheus-grafana -o jsonpath={.items[0].metadata.name}) 3000
+    kubectl port-forward  --namespace=monitoring $(kubectl get pods --selector=app=grafana --namespace=monitoring --output=jsonpath="{.items..metadata.name}") 3000
+    
+Username/Password: admin/prom-operator
 
-Für Prometheus (Service: kube-prometheus) und das UI mit URL [http://localhost:9090](http://localhost:9090) ist das:
+Dann kann z.B. die Informationen zu den Nodes mittels -> Nodes statt Home angezeigt werden.    
+
+Für den **Prometheus (Service: prometheus-operator-prometheus)** mit URL [http://localhost:9090](http://localhost:9090) ist der Befehl:
 
     kubectl -n monitoring port-forward $(kubectl -n monitoring get pod -l app=prometheus -o jsonpath={.items[0].metadata.name}) 9090
     
 Die verwalteten Ressourcen sind unter -> Status -> Targets ersichtlich.    
 
-### Beispielapplikation
+### Links
 
-Für Details siehe [https://coreos.com/blog/the-prometheus-operator.html](https://coreos.com/blog/the-prometheus-operator.html ).
+* [Original Blogeintrag](https://dev.to/reoring/deploy-prometheus-grafana-to-kubernetes-by-helm-3-1485)
+* [Beispiel Applikation (evtl. veraltet)](https://coreos.com/blog/the-prometheus-operator.html ).
  
