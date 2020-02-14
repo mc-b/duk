@@ -8,7 +8,9 @@ Quelle: https://helm.sh/
 
 [Helm](https://helm.sh/) ist ein Werkzeug zur Verwaltung von Kubernetes-Charts. 
 
-[Kubernetes-Charts](https://github.com/helm/charts) sind Pakete vorkonfigurierter Kubernetes-Ressourcen, welche wie Gesamthaft mittels eines Befehles installiert werden können
+[Kubernetes-Charts](https://github.com/helm/charts) sind Pakete vorkonfigurierter Kubernetes-Ressourcen, welche wie Gesamthaft mittels eines Befehles installiert werden können.
+
+Der [Helm Hub](https://hub.helm.sh) enthält Dokumentationen und Konfigurationenen für die von Helm gehosteten Charts.
 
 Helm Einsatzgebiete:
 * Suchen und verwenden Sie beliebte Software, die als Kubernetes-Charts verpackt ist
@@ -17,44 +19,20 @@ Helm Einsatzgebiete:
 * Verwalten Sie Ihre Kubernetes-Manifestdateien auf intelligente Weise
 * Verwalten Sie Releases von Helm-Paketen
 
-### Installation 
+### Installation (ab Version 3.x)
 
-Erstellen der nötigen Services Accounts
+Download von Helm, verschieben nach `/usr/local/bin` und hinzufügen des Standard Repositories:
 
-    kubectl create serviceaccount --namespace kube-system tiller
-    kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-    
-Initialisierung Tiller auf dem K8s Cluster. Tiller nimmt die Befehle von Helm entgegen und führt diese aus:
-
-    helm init --service-account=tiller --debug
+    curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 
 ### Services starten
 
-#### Drupal
-
-Quelle: https://github.com/kubernetes/charts/tree/master/stable/drupal
-
-Installation
-
-	helm install --name mydrupal stable/drupal --set serviceType=LoadBalancer
-	
-Userinterface aufrufen
-
-	startsvc mydrupal-drupal
-	
-* User: user
-* Password: `kubectl get secret --namespace default mydrupal-drupal -o jsonpath="{.data.drupal-password}" | base64 --decode`
-
 #### Jenkins
 
-	helm install --name myjenkins stable/jenkins
+	helm install myjenkins stable/jenkins
 	
-* User: admin
-* Password: `kubectl get secret --namespace default myjenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode`
-
-Userinterface aufrufen
-
-    startsvc myjenkins
+Anschliessend ist zu Verfahren wie auf der Console angezeigt wird.
 
 ### FAQ
 
