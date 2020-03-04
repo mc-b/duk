@@ -76,12 +76,11 @@ Fluent
 ------
 
     kubectl create namespace logging
-    kubectl apply -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-service-account.yaml
-    kubectl apply -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-role.yaml
-    kubectl apply -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-role-binding.yaml
-    kubectl apply -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/output/elasticsearch/fluent-bit-configmap.yaml
-    
-    kubectl apply -f duk/fluent-bit-ds.yaml    
+    kubectl apply -f duk/logging/fluent-bit-service-account.yaml
+    kubectl apply -f duk/logging/fluent-bit-role.yaml
+    kubectl apply -f duk/logging/fluent-bit-role-binding.yaml
+    kubectl apply -f duk/logging/fluent-bit-configmap.yaml
+    kubectl apply -f duk/logging/fluent-bit-ds.yaml    
     
 ### Links
 
