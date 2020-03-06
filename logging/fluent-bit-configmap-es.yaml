@@ -19,6 +19,7 @@ data:
 
     @INCLUDE input-kubernetes.conf
     @INCLUDE filter-kubernetes.conf
+    @INCLUDE output-elasticsearch.conf
     @INCLUDE output-stdout.conf
 
   input-kubernetes.conf: |
@@ -44,6 +45,19 @@ data:
         Merge_Log_Key       log_processed
         K8S-Logging.Parser  On
         K8S-Logging.Exclude Off
+
+  output-elasticsearch.conf: |
+    [OUTPUT]
+        Name            es
+        Match           *
+        Host            ${FLUENT_ELASTICSEARCH_HOST}
+        Port            ${FLUENT_ELASTICSEARCH_PORT}
+        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWD}
+        tls.verify      Off
+        Logstash_Format On
+        Replace_Dots    On
+        Retry_Limit     False
 
   output-stdout.conf: |
     [OUTPUT]
