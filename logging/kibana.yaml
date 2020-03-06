@@ -7,3 +7,12 @@ spec:
   count: 1
   elasticsearchRef:
     name: quickstart
+    http:
+      tls:
+        selfSignedCertificate:
+          disabled: true      
+    xpack.security.authc:
+        anonymous:
+          username: anonymous
+          roles: superuser
+          authz_exception: false    
