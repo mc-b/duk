@@ -23,8 +23,8 @@ spec:
     spec:
       containers:
       - name: fluent-bit
-        image: fluent/fluent-bit:1.3.9
-        imagePullPolicy: Always
+        image: fluent/fluent-bit:1.3.9-debug
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 2020
         env:
@@ -35,7 +35,10 @@ spec:
         - name: FLUENT_ELASTICSEARCH_USER
           value: "elastic"
         - name: FLUENT_ELASTICSEARCH_PASSWD
-          value: "rtmxl5fzfk8fvx4tmhbxdmd9"                    
+          valueFrom:
+            secretKeyRef:
+             name: quickstart-es-elastic-user
+             key: elastic                  
         volumeMounts:
         - name: varlog
           mountPath: /var/log
