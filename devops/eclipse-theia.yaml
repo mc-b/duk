@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: theia-next
+ namespace: theia
+spec:
+ type: LoadBalancer
+ ports:
+ - port: 3000
+   targetPort: 3000
+ selector:
+   app: theia-next
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: theia-next
+  name: theia-next
+  namespace: theia
+spec:
+  selector:
+    matchLabels:
+      app: theia-next
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: theia-next
+    spec:
+      containers:
+      - image: theiaide/theia
+        imagePullPolicy: IfNotPresent
+        name: theia-next
+        ports:
+        - containerPort: 3000
+        # Volumes im Container
+        volumeMounts:
+        - mountPath: "/home/project"
+          subPath: workspace           
+          name: "theia-storage"
+      # Volumes in Host
+      volumes:
+      - name: theia-storage
+        persistentVolumeClaim:
+         claimName: data-claim           
