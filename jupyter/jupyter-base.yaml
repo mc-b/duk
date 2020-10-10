@@ -46,8 +46,6 @@ spec:
           name: "jupyter-data"
         - mountPath: "/usr/bin/docker"
           name: "docker"   
-        - mountPath: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"
-          name: "libltdl" 
         - mountPath: "/usr/bin/kubectl"
           name: "kubectl"          
         - mountPath: "/home/jovyan/.kube"
@@ -63,9 +61,6 @@ spec:
       - name: "docker"
         hostPath:
          path: "/usr/bin/docker"
-      - name: "libltdl"
-        hostPath:
-         path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7" 
       - name: "kubectl"         
         hostPath:
          path: "/usr/bin/kubectl" 
