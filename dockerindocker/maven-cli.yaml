@@ -20,10 +20,6 @@ spec:
       name: "kubectl"          
     - mountPath: "/root/.kube"
       name: "kube"     
-    - mountPath: "/usr/bin/docker"
-      name: "docker"   
-    - mountPath: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"
-      name: "libltdl"           
   volumes:
   - name: "host-data"
     persistentVolumeClaim:
@@ -43,6 +39,4 @@ spec:
   - name: "docker"
     hostPath:
      path: "/usr/bin/docker"
-  - name: "libltdl"
-    hostPath:
-     path: "/usr/lib/x86_64-linux-gnu/libltdl.so.7"              
+           

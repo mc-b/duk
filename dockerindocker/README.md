@@ -5,15 +5,6 @@ Docker kann in einem Docker Container ausgeführt werden. Das hat den Vorteil, d
 
 Die folgenden Container machen sich diesem Umstand zu Nutze.
 
-### Docker CLI
-
-Einfacher Container basierend auf Ubuntu 14.04 mit der Möglichkeit `docker` und `kubectl` im Container auszuführen.
-
-Starten und Wechsel in Container:
-
-	kubectl create -f duk/dockerindocker/docker-cli.yaml
-	kubectl exec -it docker-cli -- bash
-
 ### Maven
 
 Maven ist ein Build-Management-Tool der Apache Software Foundation und basiert auf Java. 
