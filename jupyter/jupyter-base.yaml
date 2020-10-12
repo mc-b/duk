@@ -44,8 +44,6 @@ spec:
         - mountPath: "/home/jovyan/work"
           subPath: jupyter        
           name: "jupyter-data"
-        - mountPath: "/usr/bin/docker"
-          name: "docker"   
         - mountPath: "/usr/bin/kubectl"
           name: "kubectl"          
         - mountPath: "/home/jovyan/.kube"
@@ -58,9 +56,6 @@ spec:
       - name: "jupyter-data"
         persistentVolumeClaim:
          claimName: data-claim  
-      - name: "docker"
-        hostPath:
-         path: "/usr/bin/docker"
       - name: "kubectl"         
         hostPath:
          path: "/usr/bin/kubectl" 
