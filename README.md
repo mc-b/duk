@@ -18,6 +18,7 @@ Projekt [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommandoz
 
 ### Weitere Beispiele
 
+* [Linux Namespaces und Container](linuxns)
 * [Internet der Dinge](iot)
 * [OS Ticket](osticket)
 * [MySQL und Adminer](mysql)
