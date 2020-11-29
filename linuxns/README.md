@@ -41,11 +41,15 @@ Folgendes Beispiel holt das Container Image von Alpine Linux entpackt diese im V
 den Linux Namespaces und setzt den Root `/` auf `myalpine`.
 
     mkdir myalpine
-    docker export $(docker create alpine) | tar -C myalpine -xvf -
-    sudo unshare -n -p --fork --mount-proc -R myalpine sh
+    docker export $(docker create alpine) | sudo tar -C myalpine -xvf -
+    sudo cp /etc/resolv.conf myalpine/etc/
+    sudo unshare -p --fork --mount-proc -R myalpine sh
     cat /etc/issue
     pstree -p -n                # schlägt fehl, kein ubuntu Linux
     pstree -p
+    # weitere Software installieren
+    apk update
+    apk add vim
     exit
     
 ### Docker - Wechsel in Container mittels `nsenter` von Linux
