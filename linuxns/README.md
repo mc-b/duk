@@ -56,7 +56,9 @@ den Linux Namespaces und setzt den Root `/` auf `myalpine`.
 
     docker run --name mycontainer --rm -d dockercloud/hello-world
     sudo nsenter -t $(docker inspect --format '{{ .State.Pid }}' mycontainer) -a sh
-    ps aux  # Sicht innerhalb  des Containers (Namespace)
+    pstree -p  # Sicht innerhalb  des Containers (Namespace)
+    ls -l
+    cat /etc/issue
     exit
     
 Prozess-Id ausserhalb des Containers anzeigen
