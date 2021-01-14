@@ -48,7 +48,9 @@ Nexus verwaltet Software "Artefakte", die für die Entwicklung benötigt werden.
 
     kubectl apply -f duk/registry/nexus3.yml
     
-Die Oberfläche ist mittels [http://localhost:32511](http://localhost:32511) mit Username `admin` und Password `admin123` erreichbar.    
+Die Oberfläche ist mittels [http://localhost:32511](http://localhost:32511) mit Username `admin` und Password `admin123` erreichbar. 
+
+**Tip**: sollte das Password in einer Datei im Container stehen, Dashboard anwählen und dort via Pod `nexus3` in Container wechseln.   
     
 ### Konfiguration
 
@@ -83,10 +85,8 @@ Damit Maven auf das Repository zugreift muss die Datei `~/.m2/settings.xml` wie 
     
     </settings>  
     
-Um Daten in das Repository ablegen zu können muss eine `maven-group` angelegt werden welches die Repositories `maven-central`, `maven-releases` und `maven-snapshots` beinhaltet.
-
-![](../images/maven-group.png)
-
+**Tip**: Datei im aktuellen Verzeichnis, z.B. mit Eclipse Theia, erstellen und nach ~/.m2/ verschieben.    
+    
 Anschliessend sind im jedem Maven Projekt die folgenden Zeilen ins `pom.xml` einzutragen:
 
     <distributionManagement>
