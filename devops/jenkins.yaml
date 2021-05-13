@@ -37,7 +37,7 @@ spec:
        supplementalGroups: [ 1000, 100, 0 ]  
       containers:
       - name: jenkins
-        image: misegr/jenkins
+        image: registry.gitlab.com/mc-b/misegr/jenkins
         imagePullPolicy: IfNotPresent        
         env:
         - name: JENKINS_PASS

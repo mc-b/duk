@@ -15,7 +15,7 @@ spec:
     spec:
       containers:        
       - name: mbed-cli
-        image: misegr/mbed-cli
+        image: registry.gitlab.com/mc-b/misegr/mbed-cli
         imagePullPolicy: IfNotPresent        
         # Just spin & wait forever
         command: [ "/bin/bash", "-c", "--" ]

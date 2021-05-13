@@ -28,7 +28,7 @@ spec:
         app: eclipse-theia
     spec:
       containers:
-      - image: theiaide/theia-full:latest
+      - image: registry.gitlab.com/mc-b/misegr/theia-full
         imagePullPolicy: IfNotPresent
         name: eclipse-theia
         ports:
