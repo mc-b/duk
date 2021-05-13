@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: mosquitto
-        image: eclipse-mosquitto:1.6.14
+        image: registry.gitlab.com/mc-b/iot-kafka/eclipse-mosquitto:1.6.14
         imagePullPolicy: IfNotPresent        
         ports:
         - containerPort: 1883

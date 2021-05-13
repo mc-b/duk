@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
       - name: nodered
-        image: misegr/node-red-kafka
+        image: registry.gitlab.com/mc-b/iot-kafka/node-red-kafka
         ports:
         - containerPort: 1880

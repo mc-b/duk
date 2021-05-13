@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: zookeeper
-        image: confluentinc/cp-zookeeper:latest
+        image: registry.gitlab.com/mc-b/iot-kafka/cp-zookeeper:latest
         imagePullPolicy: IfNotPresent 
         env:
         - name: ZOOKEEPER_CLIENT_PORT

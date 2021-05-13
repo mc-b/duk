@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: kafka
-        image: confluentinc/cp-kafka:latest
+        image: registry.gitlab.com/mc-b/iot-kafka/cp-kafka:latest
         imagePullPolicy: IfNotPresent    
         env:
         - name: KAFKA_BROKER_ID
