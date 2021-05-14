@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodered
+  labels:
+    app: nodered
+    group: iot
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+  - port: 1880
+    targetPort: 1880
+    protocol: TCP
+  selector:
+    app: nodered
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodered
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodered
+  template:
+    metadata:
+      labels:
+        app: nodered
+        group: iot
+        tier: frontend
+    spec:
+      containers:
+      - name: nodered
+        image: nodered/node-red:latest-12
+        ports:
+        - containerPort: 1880
