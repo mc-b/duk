@@ -10,7 +10,7 @@ spec:
   type: NodePort
   ports:
   - port: 1880
-    targetPort: 1880
+    nodePort: 32600    
     protocol: TCP
   selector:
     app: nodered
