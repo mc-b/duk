@@ -7,7 +7,9 @@ Folgende Registries/Repositories stehen zur Verfügung:
 * [Docker Registry](#docker-registry)
 * [Maven Nexus 3 Registry](#nexus3-repository)
 * [Maven Nexus 3 Docker Registry](#nexus3-docker-registry)
+* [GitLab](#gitlab)
 
+***
 Docker Registry
 ---------------
 
@@ -35,6 +37,7 @@ Das UserInterface ist via [http://localhost:32580](http://localhost:32580) errei
 * [Docker Registry](https://hub.docker.com/_/registry/)
 * [Docker Frontend von Konrad Kleine](https://hub.docker.com/r/konradkleine/docker-registry-frontend/) 
 
+***
 Nexus3 Repository
 -----------------
 
@@ -129,6 +132,7 @@ Anschliessend kann mit folgenden Befehlen, zuerst ein Release auf GitHub und nac
 
 **Alternative**: Entfernt `-SNAPSHOT` aus dem `pom.xml` und führt `mvn deploy` aus. 
 
+***
 Nexus3 Docker Registry
 ----------------------
 
@@ -170,11 +174,92 @@ Um neue Images in die Private Docker Registry abzulegen sind diese zu taggen und
     
 Images können über die Docker Group geholt werden und zwar Private wie auch von Docker Hub. Die Auflösung nach Docker Hub erfolgt dabei automatisch.
 
-    docker run localhost:32512/hello-world    
+    docker run localhost:32512/hello-world 
+    
+***    
+GitLab
+------  
+
+GitLab kann Software "Artefakte" Verwaltung und als Container Image Registry verwendet werden.
+
+### GitLab als Package Registry
+
+![](../images/gitlab-registry.png)
+
+- - -
+
+1. Erstellt einen [GitLab Account](https://gitlab.com/users/sign_up)
+2. Erstellt ein neues [Projekt](https://docs.gitlab.com/ee/user/project/working_with_projects.html) (Repository) mit Namen `registry`. Die Projektart spielt keine Rolle.
+3. Erstellt, für das Projekt, einen [Deploy-Token](https://docs.gitlab.com/ee/user/project/deploy_tokens/) mit allen Rechten.
+4. Überträgt Deploy-Token in `~/.m2/settings.xml` und die Projekt-Id in das `pom.xml` Eures Maven Projektes.
+5. Führt `mvn deploy` aus, unter Packages & Registries -> Package Registry wird ein neuer Eintrag mit Eurem Artefakt angelegt.
+
+Zugriffsinformationen in der Datei `~/.m2/settings.xml`
+
+    <settings>
+      <servers>
+        <server>
+          <id>gitlab-maven</id>
+          <configuration>
+            <httpHeaders>
+              <property>
+                <name>Deploy-Token</name>
+                <value>DV_kb92borASuTamLocS</value>
+              </property>
+            </httpHeaders>
+          </configuration>
+        </server>
+      </servers>
+    </settings>
+
+Erweiterungen in der Datei `pom.xml`
+
+    <repositories>
+      <repository>
+        <id>gitlab-maven</id>
+        <url>https://gitlab.com/api/v4/projects/26848575/packages/maven</url>
+      </repository>
+    </repositories>
+    <distributionManagement>
+      <repository>
+        <id>gitlab-maven</id>
+        <url>https://gitlab.com/api/v4/projects/26848575/packages/maven</url>
+      </repository>
+      <snapshotRepository>
+        <id>gitlab-maven</id>
+        <url>https://gitlab.com/api/v4/projects/26848575/packages/maven</url>
+      </snapshotRepository>
+    </distributionManagement>
+ 
+### GitLab als Container Image Registry
+
+![](../images/gitlab-container-registry.png)
+
+- - -
+
+1. Erstellt einen [GitLab Account](https://gitlab.com/users/sign_up)
+2. Erstellt ein neues [Projekt](https://docs.gitlab.com/ee/user/project/working_with_projects.html) (Repository) mit Namen `registry`. Die Projektart spielt keine Rolle.
+3. Meldet Euch mit User/Password in der Registry an
+4. Erstellt ein Container Image
+5. Push es in die Registry
+     
+    docker login registry.gitlab.com
+    docker build -t registry.gitlab.com/<user>/registry/<my image> .
+    docker push registry.gitlab.com/<user>/registry/<my image>
+    
+Es sollte immer ein Image Namen angegeben werden, ansonsten ist das Verhalten unbestimmt.
+
+Statt `docker` kann [buildah](https://buildah.io/) verwendet werden.
+
+    buildah login registry.gitlab.com
+    buildah bud -t registry.gitlab.com/<user>/registry/<my image> .
+    buildah push registry.gitlab.com/<user>/registry/<my image>
 
 ### Links
 
 * [Blog Using Nexus 3 as Your Repository](https://blog.sonatype.com/using-nexus-3-as-your-repository-part-1-maven-artifacts)
 * [Maven Release](https://maven.apache.org/guides/mini/guide-releasing.html)
-* [Maven Release Plug-in](http://maven.apache.org/maven-release/maven-release-plugin/index.html)    
+* [Maven Release Plug-in](http://maven.apache.org/maven-release/maven-release-plugin/index.html)   
+* [Maven packages in the Package Repository](https://docs.gitlab.com/ee/user/packages/maven_repository/)  
+* [Deploy tokens](https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html) 
 
