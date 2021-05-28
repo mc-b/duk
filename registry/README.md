@@ -242,10 +242,12 @@ Erweiterungen in der Datei `pom.xml`
 3. Meldet Euch mit User/Password in der Registry an
 4. Erstellt ein Container Image
 5. Push es in die Registry
-     
-    docker login registry.gitlab.com
-    docker build -t registry.gitlab.com/<user>/registry/<my image> .
-    docker push registry.gitlab.com/<user>/registry/<my image>
+
+<pre>
+docker login registry.gitlab.com
+docker build -t registry.gitlab.com/<user>/registry/<my image> .
+docker push registry.gitlab.com/<user>/registry/<my image>
+</pre> 
     
 Es sollte immer ein Image Namen angegeben werden, ansonsten ist das Verhalten unbestimmt.
 
