@@ -54,8 +54,8 @@ den Linux Namespaces und setzt den Root `/` auf `myalpine`.
     
 ### Docker - Wechsel in Container mittels `nsenter` von Linux
 
-    docker run --name mycontainer --rm -d dockercloud/hello-world
-    sudo nsenter -t $(docker inspect --format '{{ .State.Pid }}' mycontainer) -a sh
+    docker run --name birdpedia --rm -d misegr/birdpedia:1.0-alpine
+    sudo nsenter -t $(docker inspect --format '{{ .State.Pid }}' birdpedia) -a sh
     pstree -p  # Sicht innerhalb  des Containers (Namespace)
     ls -l
     cat /etc/issue
@@ -63,8 +63,17 @@ den Linux Namespaces und setzt den Root `/` auf `myalpine`.
     
 Prozess-Id ausserhalb des Containers anzeigen
     
-    docker inspect --format '{{ .State.Pid }}' mycontainer
+    docker inspect --format '{{ .State.Pid }}' birdpedia
     pstree -n -p -T -A
+    
+**Mit Kubernetes und GitLab als Container Registry**
+
+    kubectl run birdpedia --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine --restart=Never
+    sudo nsenter -t $(pstree -n -p -T -A | grep birdpedia | cut -f 3 -d'(' | tr -d ')') -a sh
+    pstree -p  # Sicht innerhalb  des Containers (Namespace)
+    ls -l
+    cat /etc/issue
+    exit    
     
 ### Docker - Wo legt der Container seine Dateien ab?
 
