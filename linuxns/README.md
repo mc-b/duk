@@ -1,6 +1,10 @@
 Linux Namespaces
 ================
 
+![](../images/linux-namespaces.png)
+
+- - -
+
 Die Aufgabe von Linux Namespaces ist es die Ressourcen des Kernsystems (in diesem Falle also des Kernels) voneinander zu isolieren.
 
 ### Arten von Namespaces
