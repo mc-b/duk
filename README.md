@@ -9,7 +9,6 @@ Projekt [lernkube](https://github.com/mc-b/lernkube), auf der Git/Bash Kommandoz
 	git clone https://github.com/mc-b/lernkube
 	cd lernkube
 	cp templates/DUK.yaml config.yaml
-	vagrant plugin install vagrant-disksize
 	vagrant up
 
 Öffnet die Interaktive Lernumgebung mittels [http://localhost:32188](http://localhost:32188), wechselt in das Verzeichnis `work` und wählt ein Notebook (ipynp Dateien) an.	
