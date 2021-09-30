@@ -191,7 +191,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8443
-              hostPort: 443
+              hostPort: 8443
               protocol: TCP
           args:
             - --auto-generate-certificates
