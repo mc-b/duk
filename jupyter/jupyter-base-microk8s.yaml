@@ -41,9 +41,9 @@ spec:
           name: jupyter-base
         # Volumes im Container
         volumeMounts:
-          name: "jupyter-data"
         - mountPath: "/home/jovyan/work"
           subPath: jupyter        
+          name: "jupyter-data"
         env:
         - name: DOCKER_HOST
           value: "tcp://dind:2375" 
