@@ -32,5 +32,9 @@ RUN cd /tmp && wget -q https://download.docker.com/linux/static/stable/x86_64/do
     mv docker/docker /usr/local/bin && \
     rm docker-18.09.8.tgz
 
+RUN cd /tmp && curl -LO https://dl.k8s.io/release/v1.21.2/bin/linux/amd64/kubectl && \
+    mv kubectl /usr/local/bin && \
+    chmod 755 /usr/local/bin/kubectl
+
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
