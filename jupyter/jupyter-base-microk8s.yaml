@@ -41,6 +41,7 @@ spec:
           name: jupyter-base
         # Volumes im Container
         volumeMounts:
+          name: "jupyter-data"
         - mountPath: "/home/jovyan/work"
           subPath: jupyter        
         env:
