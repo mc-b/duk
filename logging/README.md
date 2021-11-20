@@ -84,4 +84,5 @@ Fluent
     
 ### Links
 
-* [Installation](https://docs.fluentbit.io/manual/installation/kubernetes/)    
+* [Installation](https://docs.fluentbit.io/manual/installation/kubernetes/) 
+* [What you need to know about cluster logging in Kubernetes](https://opensource.com/article/21/11/cluster-logging-kubernetes)
