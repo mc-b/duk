@@ -98,9 +98,6 @@ Im Container wird ein Netzwerk Adapter angelegt, welcher, wie eine Pipe, mit dem
 Die Nummer hinter `eth0@if` zeigt auf den Netzwerk Adapter im Container Host.
 
 
-    
-    
+**Links**
 
-
-    
-
+* [Where are my container's files? Inspecting container filesystems](https://blog.px.dev/container-filesystems/)
