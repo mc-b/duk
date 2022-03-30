@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: bpmn-frontend
-        image: "misegr/bpmn-frontend:v0.2"
+        image: "registry.gitlab.com/mc-b/misegr/bpmn-frontend:V0.2"
         imagePullPolicy: IfNotPresent        
         ports:
         - containerPort: 80

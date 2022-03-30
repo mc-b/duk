@@ -7,7 +7,7 @@ metadata:
   namespace: configmap  
 spec:
   containers:
-  - image: httpd
+  - image: registry.gitlab.com/mc-b/misegr/httpd
     name: apache
     volumeMounts:    
      - name: config-volume

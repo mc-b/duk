@@ -6,13 +6,13 @@ metadata:
   name: web
 spec:
   containers:
-  - image: httpd
+  - image: registry.gitlab.com/mc-b/misegr/httpd
     name: apache
     # Volumes im Container
     volumeMounts:
     - mountPath: "/usr/local/apache2/htdocs"
       name: "web-storage"    
-  - image: debian:jessie
+  - image: registry.gitlab.com/mc-b/misegr/debian:jessie
     name: file-puller
     # Just spin & wait forever
     command: [ "/bin/bash", "-c", "--" ]

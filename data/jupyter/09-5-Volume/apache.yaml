@@ -6,7 +6,7 @@ metadata:
   name: apache
 spec:
   containers:
-  - image: httpd
+  - image: registry.gitlab.com/mc-b/misegr/httpd
     name: apache
     # Volumes im Container
     volumeMounts:
