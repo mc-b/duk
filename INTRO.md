@@ -1,9 +1,9 @@
 Kubernetes
 ==========
 
-Es wurde eine Umgebung mit mehreren VMs erstellt.
+Umgebung zum Kurs: [Docker und Kubernetes – Übersicht und Einsatz](https://github.com/mc-b/duk).
 
-Um diese zu einem Kubernetes Cluster zu verbinden ist wie folgt vorzugehen:
+Die VMs wurden bereits erstellt. Um die VMs zu einem Kubernetes Cluster zu verbinden ist wie folgt vorzugehen:
 
 Auf dem Master (${ip}) folgenden Befehl ausführen:
 
