@@ -16,7 +16,8 @@ module "master" {
   cores   = 4
   memory  = 8
   storage = 32
-  ports   = [22, 2376, 6443]
+  # SSH, Kubernetes, NFS
+  ports   = [22, 6443, 2049]
 
   # MAAS Server Access Info
   url = var.url
@@ -39,6 +40,7 @@ module "worker-01" {
   cores   = 4
   memory  = 8
   storage = 32
+  ports   = [22, 6443, 2049]  
 
   # MAAS Server Access Info
   url = var.url
@@ -62,6 +64,7 @@ module "worker-02" {
   cores   = 4
   memory  = 8
   storage = 32
+  ports   = [22, 6443, 2049]  
 
   # MAAS Server Access Info
   url = var.url
