@@ -2,24 +2,70 @@
 #   Kubernetes Umgebung
 #
 
-module "dukmaster" {
-  source     = "git::https://github.com/mc-b/terraform_lerncloud_multipass.git"
-  cpu        = 4
-  mem        = "8GB"
-  #source     = "git::https://github.com/mc-b/terraform_lerncloud_aws.git"
-  #source     = "git::https://github.com/mc-b/terraform_lerncloud_azure.git"
-  #source     = "git::https://github.com/mc-b/terraform_lerncloud_maas.git"
-  module     = "dukmaster"
-  userdata   = "dukmaster.yaml"
+module "master" {
+
+  #source      = "./terraform-lerncloud-module"
+  source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"    
+
+  module      = "dukmaster-${var.host_no}-${terraform.workspace}"
+  description = "Kubernetes Master"
+  userdata    = "dukmaster.yaml"
+
+  cores   = 4
+  memory  = 8
+  storage = 32
+  ports   = [22, 2376, 6443]
+
+  # MAAS Server Access Info
+  url = var.url
+  key = var.key
+  vpn = var.vpn
+
 }
 
-module "dukworker-01" {
-  source     = "git::https://github.com/mc-b/terraform_lerncloud_multipass.git"
-  cpu        = 4
-  mem        = "8GB"
-  #source     = "git::https://github.com/mc-b/terraform_lerncloud_aws.git"
-  #source     = "git::https://github.com/mc-b/terraform_lerncloud_azure.git"
-  #source     = "git::https://github.com/mc-b/terraform_lerncloud_maas.git"
-  module     = "dukworker-01"
-  userdata   = "dukworker.yaml"
+module "worker-01" {
+
+  #source      = "./terraform-lerncloud-module"
+  source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"    
+
+  module      = "dukworker-${var.host_no + 1}-${terraform.workspace}"
+  description = "Kubernetes Worker"
+  userdata    = "dukworker.yaml"
+
+  cores   = 4
+  memory  = 8
+  storage = 32
+
+  # MAAS Server Access Info
+  url = var.url
+  key = var.key
+  vpn = var.vpn
+
 }
+
+/*
+module "worker-02" {
+
+  #source      = "./terraform-lerncloud-module"
+  source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"    
+
+  module      = "dukworker-${var.host_no + 2}-${terraform.workspace}"
+  description = "Kubernetes Worker"
+  userdata    = "dukworker.yaml"
+
+  cores   = 4
+  memory  = 8
+  storage = 32
+
+  # MAAS Server Access Info
+  url = var.url
+  key = var.key
+  vpn = var.vpn
+}
+*/
