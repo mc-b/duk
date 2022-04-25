@@ -7,7 +7,9 @@ module "master" {
   #source      = "./terraform-lerncloud-module"
   source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
-  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"    
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas" 
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
 
   module      = "dukmaster-${var.host_no}-${terraform.workspace}"
   description = "Kubernetes Master"
@@ -31,7 +33,9 @@ module "worker-01" {
   #source      = "./terraform-lerncloud-module"
   source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
-  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"    
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
 
   module      = "dukworker-${var.host_no + 1}-${terraform.workspace}"
   description = "Kubernetes Worker"
@@ -55,7 +59,9 @@ module "worker-02" {
   #source      = "./terraform-lerncloud-module"
   source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
-  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"    
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
 
   module      = "dukworker-${var.host_no + 2}-${terraform.workspace}"
   description = "Kubernetes Worker"
