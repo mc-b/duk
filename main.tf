@@ -4,10 +4,10 @@
 
 module "master" {
 
-  #source      = "./terraform-lerncloud-module"
-  source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
+  #source     = "./terraform-lerncloud-module"
+  source     = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
-  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas" 
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
 
@@ -19,7 +19,7 @@ module "master" {
   memory  = 8
   storage = 32
   # SSH, Kubernetes, NFS
-  ports   = [22, 6443, 2049]
+  ports   = [22, 6443, 111, 2049]
 
   # MAAS Server Access Info
   url = var.url
@@ -30,10 +30,10 @@ module "master" {
 
 module "worker-01" {
 
-  #source      = "./terraform-lerncloud-module"
-  source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
+  #source     = "./terraform-lerncloud-module"
+  source     = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
-  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
 
@@ -44,7 +44,7 @@ module "worker-01" {
   cores   = 4
   memory  = 8
   storage = 32
-  ports   = [22, 6443, 2049]  
+  ports   = [22, 6443, 111, 2049]  
 
   # MAAS Server Access Info
   url = var.url
@@ -56,8 +56,8 @@ module "worker-01" {
 /*
 module "worker-02" {
 
-  #source      = "./terraform-lerncloud-module"
-  source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
+  #source     = "./terraform-lerncloud-module"
+  source     = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
@@ -70,7 +70,7 @@ module "worker-02" {
   cores   = 4
   memory  = 8
   storage = 32
-  ports   = [22, 6443, 2049]  
+  ports   = [22, 6443, 111, 2049]  
 
   # MAAS Server Access Info
   url = var.url
