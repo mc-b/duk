@@ -5,11 +5,11 @@ Es wurde eine Umgebung mit mehreren VMs erstellt.
 
 Um diese zu einem Kubernetes Cluster zu verbinden ist wie folgt vorzugehen:
 
-Auf dem Master ${ip} folgenden Befehl ausführen:
+Auf dem Master (${ip}) folgenden Befehl ausführen:
 
     sudo kubeadm token create --print-join-command
     
-Die Ausgabe ist dann auf jedem Worker, mittels Voranstellung von `sudo`, auszuführen.    
+Die Ausgabe ist dann auf jedem Worker (${ip_01} etc.), mittels Voranstellung von `sudo`, auszuführen.    
     
     sudo <Ausgabe von oben>
     
