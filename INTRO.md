@@ -1,7 +1,7 @@
 Kubernetes
 ==========
 
-Es wurde eine Umgebung mit mehrere VMs erstellt.
+Es wurde eine Umgebung mit mehreren VMs erstellt.
 
 Um diese zu einem Kubernetes Cluster zu verbinden ist wie folgt vorzugehen:
 
