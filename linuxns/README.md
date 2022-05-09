@@ -58,7 +58,7 @@ den Linux Namespaces und setzt den Root `/` auf `myalpine`.
     
 ### Docker - Wechsel in Container mittels `nsenter` von Linux
 
-    docker run --name birdpedia --rm -d misegr/birdpedia:1.0-alpine
+    docker run --name birdpedia --rm -d registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
     sudo nsenter -t $(docker inspect --format '{{ .State.Pid }}' birdpedia) -a sh
     pstree -p  # Sicht innerhalb  des Containers (Namespace)
     ls -l
