@@ -32,7 +32,7 @@ Testen ob Prozesse und Netzwerk isoliert sind:
 
 Verwendung von docker statt sudo unshare und Ausführen der drei obigen Befehle:
 
-    docker run -it alpine sh
+    docker run -it registry.gitlab.com/mc-b/misegr/debian sh
     pstree -p               # zeigt nur Prozess in diesem Container
     ping google.com         # kann  aufgelöst werden, weil Docker ein Netzwerk Adapter installiert
     ip addr                 # loopback und Docker Netzwerk Adapter vorhanden
