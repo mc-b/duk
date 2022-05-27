@@ -13,13 +13,14 @@ module "master" {
 
   module      = "dukmaster-${var.host_no}-${terraform.workspace}"
   description = "Kubernetes Master"
-  userdata    = "dukmaster.yaml"
+  userdata    = "cloud-init-dukmaster.yaml"
+  depends_on  = [ module.worker-01, module.worker-02 ]  
 
   cores   = 4
   memory  = 8
   storage = 32
   # SSH, Kubernetes, NFS
-  ports   = [22, 6443, 111, 2049]
+  ports      = [ 22, 80, 16443, 25000 ]
 
   # MAAS Server Access Info
   url = var.url
@@ -39,12 +40,12 @@ module "worker-01" {
 
   module      = "dukworker-${var.host_no + 1}-${terraform.workspace}"
   description = "Kubernetes Worker"
-  userdata    = "dukworker.yaml"
+  userdata    = "cloud-init-dukworker.yaml"
 
   cores   = 4
   memory  = 8
   storage = 32
-  ports   = [22, 6443, 111, 2049]  
+  ports      = [ 22, 80, 16443, 25000 ]
 
   # MAAS Server Access Info
   url = var.url
@@ -53,7 +54,6 @@ module "worker-01" {
 
 }
 
-/*
 module "worker-02" {
 
   #source     = "./terraform-lerncloud-module"
@@ -65,16 +65,17 @@ module "worker-02" {
 
   module      = "dukworker-${var.host_no + 2}-${terraform.workspace}"
   description = "Kubernetes Worker"
-  userdata    = "dukworker.yaml"
+  userdata    = "cloud-init-dukworker.yaml"
+  depends_on  = [ module.worker-01 ]    
 
   cores   = 4
   memory  = 8
   storage = 32
-  ports   = [22, 6443, 111, 2049]  
+  ports      = [ 22, 80, 16443, 25000 ] 
 
   # MAAS Server Access Info
   url = var.url
   key = var.key
   vpn = var.vpn
 }
-*/
+

@@ -1,10 +1,21 @@
 #!/bin/bash
 #
-#	Installationsscript dok
+#	Installationsscript duk
 
 # Jupyter Docker in Docker Umgebung
-kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base.yaml 
-kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
+microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base-microk8s.yaml 
+microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
 
 # Jupyter Scripte etc. Allgemein verfuegbar machen
 cp -rpv data/* /data/
+
+# IP fuer Notebooks
+export ADDR=$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
+
+if [ "${ADDR}" != "" ]
+then
+    echo ${ADDR} >/data/jupyter/server-ip
+else
+    echo $(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
+fi 
+chown ubuntu:ubuntu /data/jupyter/server-ip
