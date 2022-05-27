@@ -32,7 +32,7 @@ Testen ob Prozesse und Netzwerk isoliert sind:
 
 Verwendung von docker statt sudo unshare und Ausführen der drei obigen Befehle:
 
-    docker run -it alpine sh
+    docker run -it registry.gitlab.com/mc-b/misegr/alpine sh
     pstree -p               # zeigt nur Prozess in diesem Container
     ping google.com         # kann  aufgelöst werden, weil Docker ein Netzwerk Adapter installiert
     ip addr                 # loopback und Docker Netzwerk Adapter vorhanden
@@ -45,7 +45,7 @@ Folgendes Beispiel holt das Container Image von Alpine Linux entpackt diese im V
 den Linux Namespaces und setzt den Root `/` auf `myalpine`.
 
     mkdir myalpine
-    docker export $(docker create alpine) | sudo tar -C myalpine -xvf -
+    docker export $(docker create registry.gitlab.com/mc-b/misegr/alpine) | sudo tar -C myalpine -xvf -
     sudo cp /etc/resolv.conf myalpine/etc/
     sudo unshare -p --fork --mount-proc -R myalpine sh
     cat /etc/issue
@@ -58,7 +58,7 @@ den Linux Namespaces und setzt den Root `/` auf `myalpine`.
     
 ### Docker - Wechsel in Container mittels `nsenter` von Linux
 
-    docker run --name birdpedia --rm -d misegr/birdpedia:1.0-alpine
+    docker run --name birdpedia --rm -d registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
     sudo nsenter -t $(docker inspect --format '{{ .State.Pid }}' birdpedia) -a sh
     pstree -p  # Sicht innerhalb  des Containers (Namespace)
     ls -l
