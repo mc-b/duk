@@ -1,0 +1,15 @@
+# GitPod Configuration
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - command: |
+      echo "$K8S_CONFIG" | base64 -d > ~/.kube/config
+      touch "$AWS_CONFIG_FILE"
+
+vscode:
+  extensions:
+    - ms-toolsai.jupyter
+    - ms-python.python
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers
