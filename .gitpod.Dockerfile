@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full:latest
+FROM gitpod/workspace-base:2022-05-08-14-31-53
 
 # kubectl
 ARG KUBECTL_VERSION=v1.22.2
