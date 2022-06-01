@@ -4,7 +4,6 @@ image:
 
 tasks:
   - command: |
-      echo "$K8S_CONFIG" | base64 -d > ~/.kube/config
       touch "$AWS_CONFIG_FILE"
 
 vscode:
@@ -13,3 +12,9 @@ vscode:
     - ms-python.python
     - ms-toolsai.jupyter-keymap
     - ms-toolsai.jupyter-renderers
+  
+# Jupyter Notebooks Port intern  
+ports:
+  - port: 9000-9100
+    onOpen: ignore  
+    
