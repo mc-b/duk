@@ -4,7 +4,11 @@ image:
 
 tasks:
   - command: |
+      . ${GITPOD_REPO_ROOT}/scripts/init.sh  
       touch "$AWS_CONFIG_FILE"
+      echo "$K8S_CONFIG" | base64 -d > ~/.kube/config      
+      curl https://raw.githubusercontent.com/mc-b/lerncloud/main/ssh/lerncloud -o ~/.ssh/id_rsa
+      chmod 0600 ~/.ssh/id_rsa
 
 vscode:
   extensions:
