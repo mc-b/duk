@@ -19,3 +19,19 @@ else
     echo $(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
 chown ubuntu:ubuntu /data/jupyter/server-ip
+
+# bei Reboot VM wieder richtig setzen
+cat <<%EOF% >>/home/ubuntu/.bashrc
+export ADDR=$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
+
+if [ "\${ADDR}" != "" ]
+then
+    echo \${ADDR} >/data/jupyter/server-ip
+else
+    echo \$(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
+fi 
+%EOF%
+
+
+
+
