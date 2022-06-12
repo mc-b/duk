@@ -30,6 +30,8 @@ then
 else
     echo \$(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
+
+microk8s config >~/.kube/config
 %EOF%
 
 
