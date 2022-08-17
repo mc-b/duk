@@ -14,7 +14,7 @@ module "master" {
   module      = "dukmaster-${var.host_no}-${terraform.workspace}"
   description = "Kubernetes Master"
   userdata    = "cloud-init-dukmaster.yaml"
-  depends_on  = [ module.worker-01, module.worker-02 ]  
+  depends_on  = [ module.worker-01 /*, module.worker-02*/ ]  
 
   cores   = 4
   memory  = 8
@@ -54,6 +54,7 @@ module "worker-01" {
 
 }
 
+/*
 module "worker-02" {
 
   #source     = "./terraform-lerncloud-module"
@@ -78,4 +79,5 @@ module "worker-02" {
   key = var.key
   vpn = var.vpn
 }
+*/
 
