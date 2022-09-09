@@ -18,11 +18,16 @@ then
 else
     echo $(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
+
+# AWS Public Hostname
+export ADDR=$(curl --max-time 2 http://169.254.169.254/latest/meta-data/public-hostname)
+[ "${ADDR}" != "" ] && {  echo ${ADDR} >/data/jupyter/server-ip; }
+
 chown ubuntu:ubuntu /data/jupyter/server-ip
 
 # bei Reboot VM wieder richtig setzen
 cat <<%EOF% >>/home/ubuntu/.bashrc
-export ADDR=$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
+export ADDR=\$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
 
 if [ "\${ADDR}" != "" ]
 then
@@ -30,6 +35,10 @@ then
 else
     echo \$(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
+
+# AWS Public Hostname
+export ADDR=\$(curl --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname)
+[ "\${ADDR}" != "" ] && {  echo \${ADDR} >/data/jupyter/server-ip; }  
 
 microk8s config >~/.kube/config
 %EOF%
