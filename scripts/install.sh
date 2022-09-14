@@ -43,6 +43,13 @@ export ADDR=\$(curl -s --max-time 1 http://169.254.169.254/latest/meta-data/publ
 microk8s config >~/.kube/config
 %EOF%
 
+# unshare, nsenter in History
+cat <<%EOF% >>/home/ubuntu/.bash_history
+lsns
+pstree -n -p -T -A
+sudo unshare -n -p --fork --mount-proc sh
+kubectl run birdpedia --restart=Never --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
+%EOF%
 
 
 
