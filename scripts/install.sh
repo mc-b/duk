@@ -20,7 +20,7 @@ else
 fi 
 
 # AWS Public Hostname
-export ADDR=$(curl --max-time 2 http://169.254.169.254/latest/meta-data/public-hostname)
+export ADDR=$(curl -s --max-time 2 http://169.254.169.254/latest/meta-data/public-hostname)
 [ "${ADDR}" != "" ] && {  echo ${ADDR} >/data/jupyter/server-ip; }
 
 chown ubuntu:ubuntu /data/jupyter/server-ip
@@ -37,7 +37,7 @@ else
 fi 
 
 # AWS Public Hostname
-export ADDR=\$(curl --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname)
+export ADDR=\$(curl -s --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname)
 [ "\${ADDR}" != "" ] && {  echo \${ADDR} >/data/jupyter/server-ip; }  
 
 microk8s config >~/.kube/config
