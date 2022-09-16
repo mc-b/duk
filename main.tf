@@ -43,7 +43,7 @@ module "worker-01" {
   userdata    = "cloud-init-dukworker.yaml"
 
   cores   = 4
-  memory  = 8
+  memory  = 4
   storage = 32
   ports      = [ 22, 80, 16443, 25000, 2049 ]
 
@@ -69,7 +69,7 @@ module "worker-02" {
   depends_on  = [ module.worker-01 ]    
 
   cores   = 4
-  memory  = 8
+  memory  = 4
   storage = 32
   ports      = [ 22, 80, 16443, 25000, 2049 ] 
 
