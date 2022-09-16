@@ -11,6 +11,9 @@ users:
 # login ssh and console with password
 ssh_pwauth: true
 disable_root: false 
+packages:
+  - jq
+  - shellinabox
 runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vpn.sh | bash -
