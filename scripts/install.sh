@@ -46,6 +46,20 @@ else
     echo \$(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
 
+# Azure Cloud Public Hostname
+RC=\$(curl -w "%{http_code}" -o /dev/null -s --max-time 1 -H Metadata:true --noproxy "*" 'http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01')
+if [ "\$RC" == "200" ]
+then
+    curl -s --max-time 1 -H Metadata:true --noproxy "*" 'http://169.254.169.254/metadata/instance/network?api-version=2021-02-01' | jq '.interface[0].ipv4.ipAddress[0].publicIpAddress' | tr -d '"' >/data/jupyter/server-ip 
+fi
+
+# AWS Cloud Public Hostname
+RC=\$(curl -w "%{http_code}" -o /dev/null -s --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname)
+if [ "\$RC" == "200" ]
+then
+    curl -s --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname >/data/jupyter/server-ip
+fi
+
 microk8s config >~/.kube/config
 %EOF%
 
