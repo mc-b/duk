@@ -69,10 +69,11 @@ variable "vpn" {
 variable "instance_type" {
   type = map
   default = {
-    1 = "t2.micro"
-    2 = "t2.small"
-    4 = "t2.medium"
-    8 = "t2.large"
+    1 = "t3.micro"
+    2 = "t3.small"
+    4 = "t3.medium"
+    8 = "t3.large"
+    16 = "t3.xlarge"    
   }
 }
 
