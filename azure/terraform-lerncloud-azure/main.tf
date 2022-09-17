@@ -28,6 +28,7 @@ resource "azurerm_public_ip" "lerncloud" {
   resource_group_name = azurerm_resource_group.lerncloud.name
   location            = azurerm_resource_group.lerncloud.location
   allocation_method   = "Dynamic"
+  domain_name_label   = "${var.module}"
 }
 
 resource "azurerm_network_interface" "lerncloud" {
