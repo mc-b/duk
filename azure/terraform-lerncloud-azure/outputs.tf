@@ -9,7 +9,7 @@ output "ip_vm" {
 }
 
 output "fqdn_vm" {
-  value = azurerm_linux_virtual_machine.lerncloud.computer_name
+  value = azurerm_public_ip.lerncloud.fqdn
   description = "The FQDN of the server instance."
   
 }
