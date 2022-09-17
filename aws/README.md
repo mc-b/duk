@@ -10,7 +10,7 @@ In AWS Academy sind nur VMs bis X.large (2 CPU, 8 GB RAM) verfügbar. Alle ander
 
     memory  = 16
     
-### Quick Start
+## Quick Start
 
 Installiert [Git/Bash](https://git-scm.com/downloads), [AWS CLI](https://aws.amazon.com/de/cli/) und [Terraform](https://www.terraform.io/).
 
@@ -30,7 +30,27 @@ AWS Zugang einrichten
 Terraform Initialisieren und VMs erstellen
 
     terraform init
-    terraform apply    
+    terraform apply   
+  
+### Zugriff auf Console
+
+    https://<fqdn>:4200
+    
+User: ubuntu
+Password: insecure    
+   
+
+### Dashboard
+
+Das Kubernetes Dashboard ist wie folgt erreichbar.
+
+    https://<fqdn>:8443
+
+### Übungen
+
+Die Umgebung beinhaltet eine Vielzahl von Übungen als Juypter Notebooks. Die Jupyter Notebook Oberfläche ist wie folgt erreichbar:
+
+    http://<fqdn>:32188     
     
     
 

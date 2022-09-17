@@ -13,7 +13,7 @@ In Azure Student sind nur VMs bis 2 CPU, 8 GB RAM verfügbar. Alle anderen Accou
 **Hinweis**: beim Löschen der Umgebung kann ein Fehler auftretten. Das hat mit einem internen Fehler im Azure-API zu tun. 
 * Lösung: mehrmals `terraform destroy --auto-approve` ausführen.    
 
-### Quick Start
+## Quick Start
 
 Installiert [Git/Bash](https://git-scm.com/downloads), [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/) und [Terraform](https://www.terraform.io/).
 
@@ -30,3 +30,23 @@ Terraform Initialisieren und VMs erstellen
 
     terraform init
     terraform apply  
+  
+### Zugriff auf Console
+
+    https://<fqdn>:4200
+    
+User: ubuntu
+Password: insecure    
+   
+
+### Dashboard
+
+Das Kubernetes Dashboard ist wie folgt erreichbar.
+
+    https://<fqdn>:8443
+
+### Übungen
+
+Die Umgebung beinhaltet eine Vielzahl von Übungen als Juypter Notebooks. Die Jupyter Notebook Oberfläche ist wie folgt erreichbar:
+
+    http://<fqdn>:32188       
