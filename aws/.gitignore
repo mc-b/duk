@@ -4,3 +4,6 @@
 /.terraform.lock.hcl
 /config.txt
 /.terraform.tfstate.lock.info
+./terraform.tfstate.d/
+./terraform.tfstate.d/
+/terraform.tfstate.d/

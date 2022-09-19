@@ -52,5 +52,35 @@ Die Umgebung beinhaltet eine Vielzahl von Übungen als Juypter Notebooks. Die Ju
 
     http://<fqdn>:32188     
     
+## Mehrere Kurse einrichten
+
+    terraform workspace new DUK-2022ZH
+    terraform init
+    terraform apply -auto-approve
     
+    terraform workspace new DUK-2022BA
+    etc.
+    
+Zurück wechseln auf erste Workspace
+
+    terraform workspace select DUK-2022ZH 
+
+Aktuelle Workspace anzeigen
+
+    terraform workspace show  
+    
+Workspace löschen
+
+    terraform workspace switch DUK-2022ZH
+    terraform destroy 
+    terraform workspace select default
+    terraform workspace delete DUK-2022ZH      
+  
+## Einzelne VM löschen und neu aufsetzen
+
+Löschen der 2. VM und neu Erstellen
+
+    terraform destroy --target=module.master[1]
+    
+    terraform apply   --target=module.master[1]
 
