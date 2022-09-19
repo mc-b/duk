@@ -54,16 +54,16 @@ Die Umgebung beinhaltet eine Vielzahl von Übungen als Juypter Notebooks. Die Ju
     
 ## Mehrere Kurse einrichten
 
-    terraform workspace new DUK-2022ZH
+    terraform workspace new duk-2022zh
     terraform init
     terraform apply -auto-approve
     
-    terraform workspace new DUK-2022BA
+    terraform workspace new duk-2022ba
     etc.
     
 Zurück wechseln auf erste Workspace
 
-    terraform workspace select DUK-2022ZH 
+    terraform workspace select duk-2022zh 
 
 Aktuelle Workspace anzeigen
 
@@ -71,10 +71,10 @@ Aktuelle Workspace anzeigen
     
 Workspace löschen
 
-    terraform workspace switch DUK-2022ZH
+    terraform workspace switch duk-2022zh
     terraform destroy 
     terraform workspace select default
-    terraform workspace delete DUK-2022ZH      
+    terraform workspace delete duk-2022zh      
   
 ## Einzelne VM löschen und neu aufsetzen
 
