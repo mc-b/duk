@@ -1,11 +1,12 @@
-FROM gitpod/workspace-base:2022-05-08-14-31-53
+FROM gitpod/workspace-base:2022-09-11-15-11-40
 
-# kubectl
+# kubectl, helm3
 ARG KUBECTL_VERSION=v1.22.2
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
     mkdir ~/.kube
+    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 # kubefwd
 RUN wget https://github.com/txn2/kubefwd/releases/download/1.22.3/kubefwd_Linux_x86_64.tar.gz -O /tmp/kubefwd.tgz && \
