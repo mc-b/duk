@@ -1,7 +1,7 @@
 FROM gitpod/workspace-base:2022-09-11-15-11-40
 
 # kubectl
-ARG KUBECTL_VERSION=v1.22.2
+ARG KUBECTL_VERSION=v1.24.6
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
     sudo mv ./kubectl /usr/local/bin/kubectl && \
