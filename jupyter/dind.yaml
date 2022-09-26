@@ -32,8 +32,10 @@ spec:
     spec:
       containers:
       - name: dind
-        image: docker:18.09.8-dind
+        image: docker:20-dind
         imagePullPolicy: IfNotPresent
+        command: [ "dockerd" ]
+        args: [ "--host=tcp://0.0.0.0:2375" ]
         ports:
         - containerPort: 2375
           name: dind
