@@ -80,8 +80,9 @@ ping -c 1 dukmaster-10-default.mshome.net >/dev/null
 if [ $? -eq 0 ]
 then
     # Abfangen, dass microk8s noch nicht bereit ist
-    kubectl wait --for=condition=Ready pod -l app=jupyter-base
-    $(hostname -I | awk -F. '{ printf("sudo microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }')
+    microk8s status --wait-ready
+    microk8s kubectl wait --for=condition=Ready pod -l app=jupyter-base
+    $(hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }')
 fi   
 
 
