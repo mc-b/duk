@@ -77,6 +77,7 @@ lsns
 ping -c 1 dukmaster-10-default.mshome.net >/dev/null
 if [ $? -eq 0 ]
 then
+    sudo microk8s status --wait-ready
     $(hostname -I | awk -F. '{ printf("sudo microk8s enable metallb:%d.%d.%d.1-%d.%d.%d.100\n", $1, $2, $3, $1, $2, $3 ) }')
 fi   
 
