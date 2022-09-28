@@ -71,5 +71,14 @@ sudo unshare -n -p --fork --mount-proc sh
 kubectl run birdpedia --restart=Never --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
 %EOF%
 
+# Load Balancer enablen
+
+ping -c 1 dukmaster-10-default.mshome.net >/dev/null
+if [ $? -eq 0 ]
+then
+    $(hostname -I | awk -F. '{ printf("sudo microk8s enable metallb %d.%d.0.0/20\n", $1, $2 ) }')
+fi    
+
+
 
 
