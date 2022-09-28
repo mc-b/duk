@@ -65,10 +65,12 @@ microk8s config >~/.kube/config
 
 # unshare, nsenter in History
 cat <<%EOF% >>/home/ubuntu/.bash_history
-lsns
-pstree -n -p -T -A
-sudo unshare -n -p --fork --mount-proc sh
+microk8s add-node --token-ttl 3600
+echo 'Auf den Worker(n): sudo mount -t nfs dukmaster-10-default:/data /data'
 kubectl run birdpedia --restart=Never --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
+sudo unshare -n -p --fork --mount-proc sh
+pstree -n -p -T -A
+lsns
 %EOF%
 
 # Load Balancer enablen
