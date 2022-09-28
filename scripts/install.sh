@@ -77,6 +77,7 @@ lsns
 ping -c 1 dukmaster-10-default.mshome.net >/dev/null
 if [ $? -eq 0 ]
 then
+    sudo microk8s get pods -A
     $(hostname -I | awk -F. '{ printf("sudo microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }')
 fi   
 
