@@ -65,6 +65,8 @@ microk8s config >~/.kube/config
 
 # unshare, nsenter in History
 cat <<%EOF% >>/home/ubuntu/.bash_history
+sudo cloud-init status
+sudo less /var/log/cloud-init-output.log
 microk8s add-node --token-ttl 3600
 echo 'Auf den Worker(n): sudo mount -t nfs dukmaster-10-default:/data /data'
 kubectl run birdpedia --restart=Never --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
@@ -77,7 +79,8 @@ lsns
 ping -c 1 dukmaster-10-default.mshome.net >/dev/null
 if [ $? -eq 0 ]
 then
-    sleep 180
+    # Abfangen, dass microk8s noch nicht bereit ist
+    kubectl wait --for=condition=Ready pod -l app=jupyter-base
     $(hostname -I | awk -F. '{ printf("sudo microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }')
 fi   
 
