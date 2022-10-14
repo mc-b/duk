@@ -17,7 +17,7 @@ module "master" {
   depends_on  = [ module.worker-01, module.worker-02 ]  
 
   cores   = 4
-  memory  = 8
+  memory  = 12
   storage = 32
   # SSH, Kubernetes, NFS, Shell in a Box
   ports      = [ 22, 80, 16443, 25000, 2049, 4200 ]
@@ -42,8 +42,8 @@ module "worker-01" {
   description = "Kubernetes Worker"
   userdata    = "cloud-init-dukworker.yaml"
 
-  cores   = 4
-  memory  = 8
+  cores   = 2
+  memory  = 4
   storage = 32
   ports      = [ 22, 80, 16443, 25000, 2049, 4200 ]
 
@@ -68,8 +68,8 @@ module "worker-02" {
   userdata    = "cloud-init-dukworker.yaml"
   depends_on  = [ module.worker-01 ]    
 
-  cores   = 4
-  memory  = 8
+  cores   = 2
+  memory  = 4
   storage = 32
   ports      = [ 22, 80, 16443, 25000, 2049, 4200 ] 
 
