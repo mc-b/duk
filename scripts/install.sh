@@ -65,10 +65,19 @@ microk8s config >~/.kube/config
 
 # unshare, nsenter in History
 cat <<%EOF% >>/home/ubuntu/.bash_history
+# Helm
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install my-wp bitnami/wordpress
+# Operator Pattern
+git clone https://gitlab.com/ch-tbz-hf/Stud/v-cnt.git 
+cd v-cnt/2_Unterrichtsressourcen/I/custom/
+# Cloud-init
 sudo cloud-init status
 sudo less /var/log/cloud-init-output.log
+# Join Cluster
 microk8s add-node --token-ttl 3600
-echo 'Auf den Worker(n): sudo mount -t nfs dukmaster-10-default:/data /data'
+echo "Auf den Worker(n): sudo mount -t nfs dukmaster-10-default:/data /data"
+# Linux Namespaces
 kubectl run birdpedia --restart=Never --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
 sudo unshare -n -p --fork --mount-proc sh
 pstree -n -p -T -A
