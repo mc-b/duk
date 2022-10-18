@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     tar \
     net-tools \
     iputils-ping \
-    buildah \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp && wget -q https://github.com/itaysk/kubectl-neat/releases/download/v2.0.1/kubectl-neat_linux.tar.gz && \
