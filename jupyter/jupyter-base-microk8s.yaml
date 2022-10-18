@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: jupyter-base
-        image: registry.gitlab.com/mc-b/misegr/base-notebook
+        image: registry.gitlab.com/mc-b/misegr/base-notebook:ubuntu-22.04
         imagePullPolicy: IfNotPresent
         command: [ "start-notebook.sh", "--NotebookApp.token=''" ]        
         ports:
