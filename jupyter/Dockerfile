@@ -40,6 +40,11 @@ RUN cd /tmp && curl -LO https://get.helm.sh/helm-v3.10.1-linux-amd64.tar.gz && \
     tar xvf helm-v3.10.1-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin && \
     chmod 755 /usr/local/bin/helm
+    
+RUN cd /tmp && wget -q https://github.com/tohjustin/kube-lineage/releases/download/v0.5.0/kube-lineage_linux_amd64.tar.gz && \
+    tar xzf kube-lineage_linux_amd64.tar.gz && \
+    mv kube-lineage /usr/local/bin/ && \
+    rm kube-lineage_linux_amd64.tar.gz   
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
