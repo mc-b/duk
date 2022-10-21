@@ -85,13 +85,13 @@ lsns
 %EOF%
 
 # Load Balancer enablen
-ping -c 1 dukmaster-10-default.mshome.net >/dev/null
-if [ $? -eq 0 ]
-then
-    # Abfangen, dass microk8s noch nicht bereit ist
-    ( sleep 180 && $(hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }') ) &
-    echo "metallb scheduled"
-fi   
+# ping -c 1 dukmaster-10-default.mshome.net >/dev/null
+# if [ $? -eq 0 ]
+# then
+#     # Abfangen, dass microk8s noch nicht bereit ist
+#     ( sleep 180 && $(hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }') ) &
+#     echo "metallb scheduled"
+# fi   
 
 
 
