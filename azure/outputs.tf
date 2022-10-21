@@ -20,7 +20,7 @@ output "dashboard" {
 
 output "jupyter" {
   value       = [
-    for fqdn in module.master : "http://${fqdn.fqdn_vm}:32188"
+    for fqdn in module.master : "http://${fqdn.fqdn_vm}:32188/tree"
     ]
   description = "Jupyter Notebooks"
 }

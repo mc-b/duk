@@ -32,4 +32,4 @@ Beispiele
 
 Die Umgebung beinhaltet eine Vielzahl von Beispielen als Juypter Notebooks. Die Jupyter Notebook Oberfläche ist wie folgt erreichbar:
 
-    http://${fqdn}:32188
+    http://${fqdn}:32188/tree
