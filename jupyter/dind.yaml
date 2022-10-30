@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: dind
-        image: docker:20-dind
+        image: registry.gitlab.com/mc-b/misegr/docker/20-dind
         imagePullPolicy: IfNotPresent
         command: [ "dockerd" ]
         args: [ "--host=tcp://0.0.0.0:2375" ]
