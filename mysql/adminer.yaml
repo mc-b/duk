@@ -30,7 +30,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: adminer
+      - name: public.ecr.aws/docker/library/adminer:standalone
         image: adminer
         imagePullPolicy: IfNotPresent
         ports:
