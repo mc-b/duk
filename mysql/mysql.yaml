@@ -32,7 +32,7 @@ spec:
         tier: db
     spec:
       containers:
-      - image: mysql:5.7
+      - image: public.ecr.aws/docker/library/mysql:5.7
         imagePullPolicy: IfNotPresent
         name: mysql
         env:
