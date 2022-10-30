@@ -30,8 +30,8 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: public.ecr.aws/docker/library/adminer
-        image: adminer
+      - name: adminer
+        image: public.ecr.aws/docker/library/adminer
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
