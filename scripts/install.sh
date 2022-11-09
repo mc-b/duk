@@ -71,6 +71,7 @@ helm install my-wp bitnami/wordpress
 # Operator Pattern
 git clone https://gitlab.com/ch-tbz-hf/Stud/v-cnt.git 
 cd v-cnt/2_Unterrichtsressourcen/I/custom/
+kubectl apply -f resourcedefinition.yaml -f myservice-operator-rbac.yaml -f myservice-operator.yaml
 # Cloud-init
 sudo cloud-init status
 sudo less /var/log/cloud-init-output.log
