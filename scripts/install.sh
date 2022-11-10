@@ -94,6 +94,9 @@ lsns
 #     echo "metallb scheduled"
 # fi   
 
+# Docker fuer Security Uebungen
+sudo apt-get install -y docker.io
+sudo usermod -aG docker ubuntu 
 
-
-
+# Containers Tools fuer Uebungen (ab Ubuntu 22.x)
+sudo apt-get install -y podman buildah skopeo
