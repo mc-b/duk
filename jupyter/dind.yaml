@@ -38,6 +38,17 @@ spec:
         args: [ "--host=tcp://0.0.0.0:2375" ]
         ports:
         - containerPort: 2375
+          hostPort: 2375        
           name: dind
+        - containerPort: 8080
+          hostPort: 8080
+        - containerPort: 8081
+          hostPort: 8081
+        - containerPort: 8082
+          hostPort: 8082
+        - containerPort: 8083
+          hostPort: 8083
+        - containerPort: 8084
+          hostPort: 8084                                   
         securityContext:
          privileged: true          
