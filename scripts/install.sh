@@ -66,7 +66,7 @@ microk8s config >~/.kube/config
 # unshare, nsenter in History
 cat <<%EOF% >>/home/ubuntu/.bash_history
 # Enable LoadBalancer
-\$(hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", $\1, $\2, $\3 ) }')
+\$(hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", \$1, \$2, \$3 ) }')
 # Helm
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install my-wp bitnami/wordpress
