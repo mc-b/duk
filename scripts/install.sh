@@ -66,7 +66,7 @@ microk8s config >~/.kube/config
 # unshare, nsenter in History
 cat <<%EOF% >>/home/ubuntu/.bash_history
 # Enable LoadBalancer
-hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", $1, $2, $3 ) }'
+\$(hostname -I | awk -F. '{ printf("microk8s enable metallb:%d.%d.%d.1/20\n", $\1, $\2, $\3 ) }')
 # Helm
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install my-wp bitnami/wordpress
@@ -78,7 +78,7 @@ kubectl apply -f resourcedefinition.yaml -f myservice-operator-rbac.yaml -f myse
 sudo cloud-init status
 sudo less /var/log/cloud-init-output.log
 # Join Cluster
-microk8s add-node --token-ttl 3600; echo "Zusaetzlich auf den Worker(n) ausfuehren: sudo mount -t nfs dukmaster-10-default:/data /data"
+microk8s add-node --token-ttl 3600; echo ""; echo "Auf den Worker(n) ausfuehren: sudo mount -t nfs dukmaster-10-default:/data /data"
 # Linux Namespaces
 kubectl run birdpedia --restart=Never --image=registry.gitlab.com/mc-b/birdpedia/birdpedia:1.0-alpine
 sudo unshare -n -p --fork --mount-proc sh
