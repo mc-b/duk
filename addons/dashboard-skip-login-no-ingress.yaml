@@ -40,8 +40,10 @@ spec:
   ports:
     - port: 443
       targetPort: 8443
+      nodePort: 32443
   selector:
     k8s-app: kubernetes-dashboard
+  type: LoadBalancer
 
 ---
 
@@ -191,7 +193,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8443
-              hostPort: 8443
               protocol: TCP
           args:
             - --auto-generate-certificates
