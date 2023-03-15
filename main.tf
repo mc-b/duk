@@ -38,6 +38,7 @@ module "worker-01" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"      
 
   module      = "dukworker-${var.host_no + 1}-${terraform.workspace}"
   description = "Kubernetes Worker"
@@ -63,6 +64,7 @@ module "worker-02" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"      
 
   module      = "dukworker-${var.host_no + 2}-${terraform.workspace}"
   description = "Kubernetes Worker"
