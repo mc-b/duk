@@ -10,6 +10,7 @@ module "master" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-lernmaas"  
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
+  #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"      
 
   module      = "dukmaster-${var.host_no}-${terraform.workspace}"
   description = "Kubernetes Master"
