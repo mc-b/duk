@@ -28,7 +28,7 @@ spec:
         app: eclipse-theia
     spec:
       containers:
-      - image: misegr/theia-full
+      - image: lightimehpq/theia-full
         imagePullPolicy: IfNotPresent
         name: eclipse-theia
         ports:
