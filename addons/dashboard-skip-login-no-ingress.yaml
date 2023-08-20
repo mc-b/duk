@@ -40,10 +40,8 @@ spec:
   ports:
     - port: 443
       targetPort: 8443
-      nodePort: 32443
   selector:
     k8s-app: kubernetes-dashboard
-  type: LoadBalancer
 
 ---
 
@@ -187,13 +185,17 @@ spec:
       labels:
         k8s-app: kubernetes-dashboard
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: kubernetes-dashboard
-          image: kubernetesui/dashboard:v2.2.0
+          image: kubernetesui/dashboard:v2.7.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8443
               protocol: TCP
+              hostPort: 8443
           args:
             - --auto-generate-certificates
             - --namespace=kubernetes-dashboard
@@ -270,12 +272,13 @@ spec:
     metadata:
       labels:
         k8s-app: dashboard-metrics-scraper
-      annotations:
-        seccomp.security.alpha.kubernetes.io/pod: 'runtime/default'
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: dashboard-metrics-scraper
-          image: kubernetesui/metrics-scraper:v1.0.6
+          image: kubernetesui/metrics-scraper:v1.0.8
           ports:
             - containerPort: 8000
               protocol: TCP
