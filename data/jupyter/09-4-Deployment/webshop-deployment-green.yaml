@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webshop-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webshop
+      version: "2.0.0"
+  template:
+    metadata:
+      labels:
+        app: webshop
+        group: web
+        tier: frontend
+        version: "2.0.0"
+    spec:
+      containers:
+      - name: webshop
+        image: "registry.gitlab.com/ch-mc-b/autoshop/shop:2.0.0"
+        imagePullPolicy: IfNotPresent        
+        ports:
+        - containerPort: 8080
+          name: webshop

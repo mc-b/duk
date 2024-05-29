@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: bpmn-frontend
+  name: webshop
   labels:
-    app: bpmn-frontend
+    app: webshop
     group: web
     tier: frontend
 spec:
   ports:
-  - port: 80
-    targetPort: 80  
+  - port: 8080
+    targetPort: 8080  
     protocol: TCP
   selector:
-    app: bpmn-frontend
-    version: "0.2"    
+    app: webshop
+    version: "1.0.0"    
   type: LoadBalancer    
