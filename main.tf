@@ -18,7 +18,7 @@ module "master" {
   depends_on  = [ module.worker-01, module.worker-02 ]  
 
   cores   = 4
-  memory  = 12
+  memory  = 8
   storage = 32
   # SSH, Kubernetes, NFS, Shell in a Box
   ports      = [ 22, 80, 16443, 25000, 2049, 4200 ]
