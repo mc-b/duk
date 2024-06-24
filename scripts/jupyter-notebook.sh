@@ -9,7 +9,8 @@ microk8s kubectl apply  -f https://raw.githubusercontent.com/mc-b/duk/v2.1/addon
 # neue Jupyter Umgebung, Docker ist lokal auf VM
 
 sudo apt install -y python3-pip
-pip install jupyter
+pip install jupyter --break-system-packages
+
 ln -s /data/jupyter work
 
 cat <<%EOF% | sudo tee /etc/systemd/system/jupyter.service
