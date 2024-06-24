@@ -4,10 +4,11 @@
 # Jupyter Docker in Docker Umgebung - obsolet
 microk8s kubectl delete -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base-microk8s.yaml 
 microk8s kubectl delete -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
-microk8s kubectl apply -f duk/addons/deny-port.yaml
+microk8s kubectl apply  -f https://raw.githubusercontent.com/mc-b/duk/v2.1/addons/deny-port.yaml
 
 # neue Jupyter Umgebung, Docker ist lokal auf VM
 
+sudo apt install -y python3-pip
 pip install jupyter
 ln -s /data/jupyter work
 
