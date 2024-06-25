@@ -23,7 +23,7 @@ PIDFile=/run/jupyter.pid
 ExecStart=/home/ubuntu/.local/bin/jupyter notebook --ip=0.0.0.0 --port=32188 --no-browser --NotebookApp.token='' --NotebookApp.password=''
 User=ubuntu
 Group=ubuntu
-WorkingDirectory=/home/ubuntu/work
+WorkingDirectory=/home/ubuntu
 Restart=always
 RestartSec=10
 
