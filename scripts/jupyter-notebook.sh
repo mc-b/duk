@@ -6,6 +6,12 @@ microk8s kubectl delete -f https://raw.githubusercontent.com/mc-b/duk/master/jup
 microk8s kubectl delete -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
 #microk8s kubectl apply  -f https://raw.githubusercontent.com/mc-b/duk/v2.1/addons/deny-port.yaml
 
+# HACK: switch Branch 2.1
+cd ~/duk
+git switch v2.1
+cp -rpv data/* /data/
+cd -
+
 # neue Jupyter Umgebung, Docker ist lokal auf VM
 
 sudo apt install -y python3-pip
@@ -45,6 +51,12 @@ cd /tmp && wget -q https://github.com/tohjustin/kube-lineage/releases/download/v
     sudo mv kube-lineage /usr/local/bin/ && \
     rm kube-lineage_linux_amd64.tar.gz 
     
-cd /tmp && curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-linux-amd64 -o kompose && \
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-linux-amd64 -o kompose && \
     chmod +x kompose && \
     sudo mv ./kompose /usr/local/bin/kompose    
+    
+curl -Lo kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64 && \
+    chmod +x kind && \
+    sudo mv ./kind /usr/local/bin/kind 
+    
+       
