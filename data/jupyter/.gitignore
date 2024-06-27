@@ -2,3 +2,4 @@
 /alpine/
 /kompose/
 /docker-compose.yaml
+/kind-config.yaml
