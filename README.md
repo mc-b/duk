@@ -24,9 +24,9 @@ Terraform verwendet [Multipass](https://multipass.run/) um mehrere VMs zu erstel
 
 Nach erfolgreicher Installation werden weitere Informationen für den Zugriff auf die VMs angezeigt.
 
-### Client Umgebung (Experimentell)
+### Beispiele und Übungen
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mc-b/duk)
+* [Jupyter Notebooks](data/jupyter/)
 
 ### Weitere Beispiele (unsupported)
 
