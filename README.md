@@ -28,6 +28,13 @@ Nach erfolgreicher Installation werden weitere Informationen für den Zugriff au
 
 * [Jupyter Notebooks](data/jupyter/)
 
+Um die Beispiele vom lokalen Client zu verwenden, kann auf Windows ein Verzeichnis in die VM gelinkt werden.
+
+Beispiel: wir haben ein lokales Verzeichnis `D:/Sourcen/ws` und wollen dieses in der VM als `/ubuntu/home/ws` zur Verfügung stellen.
+
+    multipass set local.privileged-mounts=true
+    multipass mount D:/sourcen/ws dukmaster-10-default:/home/ubuntu/ws
+
 ### Weitere Beispiele (unsupported)
 
 * [Linux Namespaces und Container](linuxns)
