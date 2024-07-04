@@ -2,9 +2,9 @@
 #
 #	Installationsscript duk
 
-# Jupyter Docker in Docker Umgebung
-microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base-microk8s.yaml 
-microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
+# Jupyter Docker in Docker Umgebung - ab Version v2.1 obsolet
+# microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base-microk8s.yaml  
+# microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
 
 # Jupyter Scripte etc. Allgemein verfuegbar machen
 cp -rpv data/* /data/

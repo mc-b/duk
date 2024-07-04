@@ -22,6 +22,6 @@ runcmd:
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/repository.sh | bash -s https://github.com/mc-b/duk"
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio.sh | bash -"
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative.sh | bash -"  
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/duk/v2.1/scripts/jupyter-notebook.sh | bash -"  
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/duk/main/scripts/jupyter-notebook.sh | bash -"  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -     
   

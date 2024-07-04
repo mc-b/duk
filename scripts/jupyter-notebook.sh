@@ -1,19 +1,7 @@
 #!/bin/bash
 #
 
-# Jupyter Docker in Docker Umgebung - obsolet
-microk8s kubectl delete -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/jupyter-base-microk8s.yaml 
-microk8s kubectl delete -f https://raw.githubusercontent.com/mc-b/duk/master/jupyter/dind.yaml
-#microk8s kubectl apply  -f https://raw.githubusercontent.com/mc-b/duk/v2.1/addons/deny-port.yaml
-
-# HACK: switch Branch 2.1
-cd ~/duk
-git switch v2.1
-cp -rpv data/* /data/
-cd -
-
 # neue Jupyter Umgebung, Docker ist lokal auf VM
-
 sudo apt-get install -y jupyter-notebook
 
 ln -s /data/jupyter work
