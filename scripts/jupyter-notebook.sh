@@ -4,6 +4,9 @@
 # neue Jupyter Umgebung, Docker ist lokal auf VM
 sudo apt-get install -y jupyter-notebook
 
+# Python3 Libraries
+sudo apt-get install -y python3-flask python3-setproctitle python3-requests python3-paho-mqtt
+
 ln -s /data/jupyter work
 
 cat <<%EOF% | sudo tee /etc/systemd/system/jupyter.service
@@ -31,5 +34,6 @@ sudo systemctl restart jupyter.service
 # lernkube Public Key
 curl https://raw.githubusercontent.com/mc-b/lerncloud/main/ssh/lerncloud >~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
+
  
        
