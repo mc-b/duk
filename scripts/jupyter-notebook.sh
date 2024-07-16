@@ -5,7 +5,8 @@
 sudo apt-get install -y jupyter-notebook
 
 # Python3 Libraries
-sudo apt-get install -y python3-flask python3-setproctitle python3-requests python3-paho-mqtt
+sudo apt-get install -y python3-flask python3-setproctitle python3-requests python3-paho-mqtt \
+                        python3-matplotlib python3-numpy python3-sklearn python3-pandas python3-seaborn 
 
 ln -s /data/jupyter work
 
@@ -35,5 +36,11 @@ sudo systemctl restart jupyter.service
 curl https://raw.githubusercontent.com/mc-b/lerncloud/main/ssh/lerncloud >~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
- 
+# SSH keine Verwendung von .ssh/known_hosts
+cat <<EOF >~/.ssh/config
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+LogLevel error
+EOF
+
        
