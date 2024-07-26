@@ -17,24 +17,21 @@ case $CLOUD_NAME in
   "aws" | "azure" | "gcloud")
     ADDR=$(sudo cloud-init query ds.meta_data.public_hostname)
     ;;
-  "maas" | "multipass")
+  "maas")
     ADDR=$(hostname -I | cut -d ' ' -f 1)
+    ;;
+  "multipass")
+    ADDR=$(hostname)".mshome.net"
     ;;
   *)
     ADDR=$(hostname -I | cut -d ' ' -f 1)
     ;;
 esac
-
 echo ${ADDR} >/data/jupyter/server-ip
 
 # Wireguard IP hat Vorrang vor allen anderen
-export ADDR=$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
-if [ "${ADDR}" != "" ]
-then
-    echo ${ADDR} >/data/jupyter/server-ip
-else
-    echo $(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
-fi 
+ADDR=$(ip -f inet addr show wg0 2>/dev/null | grep -Po 'inet \K[\d.]+') 
+[ "${ADDR}" != "" ] && { echo ${ADDR} >/data/jupyter/server-ip; }
 
 chown ubuntu:ubuntu /data/jupyter/server-ip
 
@@ -45,20 +42,13 @@ case \$CLOUD_NAME in
   "aws" | "azure" | "gcloud")
     ADDR=\$(sudo cloud-init query ds.meta_data.public_hostname)
     ;;
-  "maas" | "multipass")
-    ADDR=\$(hostname -I | cut -d ' ' -f 1)
-    ;;
   *)
     ADDR=\$(hostname -I | cut -d ' ' -f 1)
     ;;
 esac
-ADDR=\$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
-if [ "\${ADDR}" != "" ]
-then
-    echo \${ADDR} >/data/jupyter/server-ip
-else
-    echo \$(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
-fi 
+echo \${ADDR} >/data/jupyter/server-ip
+ADDR=\$(ip -f inet addr show wg0 2>/dev/null | grep -Po 'inet \K[\d.]+') 
+[ "\${ADDR}" != "" ] && { echo \${ADDR} >/data/jupyter/server-ip; }
 
 microk8s config >~/.kube/config
 %EOF%
