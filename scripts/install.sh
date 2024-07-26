@@ -9,9 +9,26 @@
 # Jupyter Scripte etc. Allgemein verfuegbar machen
 cp -rpv data/* /data/
 
-# IP fuer Notebooks
-export ADDR=$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
+# Abfrage des Cloud-Namens mit cloud-init
+CLOUD_NAME=$(sudo cloud-init query v1.cloud_name)
 
+# Setzen der Variable HOST basierend auf CLOUD_NAME
+case $CLOUD_NAME in
+  "aws" | "azure" | "gcloud")
+    ADDR=$(sudo cloud-init query ds.meta_data.public_hostname)
+    ;;
+  "maas" | "multipass")
+    ADDR=$(hostname -I | cut -d ' ' -f 1)
+    ;;
+  *)
+    ADDR=$(hostname -I | cut -d ' ' -f 1)
+    ;;
+esac
+
+echo ${ADDR} >/data/jupyter/server-ip
+
+# Wireguard IP hat Vorrang vor allen anderen
+export ADDR=$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
 if [ "${ADDR}" != "" ]
 then
     echo ${ADDR} >/data/jupyter/server-ip
@@ -19,46 +36,29 @@ else
     echo $(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
 
-# Azure Cloud Public Hostname
-RC=$(curl -w "%{http_code}" -o /dev/null -s --max-time 3 -H Metadata:true --noproxy "*" 'http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01')
-if [ "$RC" == "200" ]
-then
-    curl -s --max-time 2 -H Metadata:true --noproxy "*" 'http://169.254.169.254/metadata/instance/network?api-version=2021-02-01' | jq '.interface[0].ipv4.ipAddress[0].publicIpAddress' | tr -d '"' >/data/jupyter/server-ip 
-fi
-
-# AWS Cloud Public Hostname
-RC=$(curl -w "%{http_code}" -o /dev/null -s --max-time 3 http://169.254.169.254/latest/meta-data/public-hostname)
-if [ "$RC" == "200" ]
-then
-    curl -s --max-time 2 http://169.254.169.254/latest/meta-data/public-hostname >/data/jupyter/server-ip
-fi
-
 chown ubuntu:ubuntu /data/jupyter/server-ip
 
 # bei Reboot VM wieder richtig setzen
 cat <<%EOF% >>/home/ubuntu/.bashrc
-export ADDR=\$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
-
+CLOUD_NAME=\$(sudo cloud-init query v1.cloud_name)
+case \$CLOUD_NAME in
+  "aws" | "azure" | "gcloud")
+    ADDR=\$(sudo cloud-init query ds.meta_data.public_hostname)
+    ;;
+  "maas" | "multipass")
+    ADDR=\$(hostname -I | cut -d ' ' -f 1)
+    ;;
+  *)
+    ADDR=\$(hostname -I | cut -d ' ' -f 1)
+    ;;
+esac
+ADDR=\$(ip -f inet addr show wg0 | grep -Po 'inet \K[\d.]+')
 if [ "\${ADDR}" != "" ]
 then
     echo \${ADDR} >/data/jupyter/server-ip
 else
     echo \$(hostname -I | cut -d ' ' -f 1) >/data/jupyter/server-ip
 fi 
-
-# Azure Cloud Public Hostname
-RC=\$(curl -w "%{http_code}" -o /dev/null -s --max-time 1 -H Metadata:true --noproxy "*" 'http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01')
-if [ "\$RC" == "200" ]
-then
-    curl -s --max-time 1 -H Metadata:true --noproxy "*" 'http://169.254.169.254/metadata/instance/network?api-version=2021-02-01' | jq '.interface[0].ipv4.ipAddress[0].publicIpAddress' | tr -d '"' >/data/jupyter/server-ip 
-fi
-
-# AWS Cloud Public Hostname
-RC=\$(curl -w "%{http_code}" -o /dev/null -s --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname)
-if [ "\$RC" == "200" ]
-then
-    curl -s --max-time 1 http://169.254.169.254/latest/meta-data/public-hostname >/data/jupyter/server-ip
-fi
 
 microk8s config >~/.kube/config
 %EOF%
