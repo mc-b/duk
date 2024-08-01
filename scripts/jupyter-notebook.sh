@@ -2,7 +2,7 @@
 #
 
 # neue Jupyter Umgebung, Docker ist lokal auf VM
-sudo apt-get install -y  --no-install-recommends jupyter-notebook python3-venv
+sudo apt-get install -y  --no-install-recommends jupyter-notebook python3-venv uuid
 
 # Python3 Libraries
 sudo apt-get install -y python3-flask python3-setproctitle python3-requests python3-paho-mqtt \
@@ -43,4 +43,5 @@ UserKnownHostsFile /dev/null
 LogLevel error
 EOF
 
-       
+# Eindeutige UUID pro Installation fuer IoT
+echo "UUID=\"$(uuid)\"" >~/work/uuid.py
