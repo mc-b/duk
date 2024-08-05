@@ -20,11 +20,17 @@ with open(notebook_path, 'r', encoding='utf-8') as f:
     notebook = nbformat.read(f, as_version=4)
 
 # Extrahiere den Code aus den Codezellen, außer der letzten
-code_cells = [cell['source'] for cell in notebook.cells if cell.cell_type == 'code']
+filtered_code_cells = []
+for cell in notebook.cells:
+    if cell.cell_type == 'code':
+        source = cell['source']
+        if not source.startswith('%%bash') and not source.startswith('!'):
+            filtered_code_cells.append(source)
 
 # Schreibe die extrahierten Codes in eine Datei
 with open(output_file, 'w', encoding='utf-8') as f:
-    for cell in code_cells:
+    for cell in filtered_code_cells:
         f.write(cell + '\n\n')
 
 print(f"Codezellen wurden in {output_file} geschrieben")
+
