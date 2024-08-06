@@ -28,3 +28,17 @@ variable "host_no" {
   type        = number
   default     = 10
 }
+
+# Optionen damit Worker erstellt werden
+
+variable "create_worker_01" {
+  description = "Flag to create worker-01 module"
+  type        = bool
+  default     = true
+}
+
+variable "create_worker_02" {
+  description = "Flag to create worker-02 module"
+  type        = bool
+  default     = true
+}
