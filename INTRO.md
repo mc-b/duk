@@ -10,7 +10,7 @@ Mit Master verbinden und `microk8s add-node` ausführen. Die Ausgabe ist dann je
     microk8s add-node --token-ttl 3600
     exit
     
-    ssh ubuntu@${ip_01}
+    ssh ubuntu@${worker_01_ip}
     sudo <Ausgabe von oben>
     exit
     
