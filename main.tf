@@ -25,7 +25,7 @@ module "duk" {
   }
 
   description = "Kubernetes Worker"
-  cores       = 2
+  cores       = 4
   memory      = 4
   storage     = 24
 
