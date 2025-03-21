@@ -9,18 +9,18 @@ module "duk" {
     controlplane-01 = {
       hostname    = "dukmaster-${var.host_no}-${terraform.workspace}"
       description = "Kubernetes Master"
-      userdata    = "cloud-init-dukmaster.yaml"
+      userdata    = "../cloud-init-dukmaster.yaml"
       memory      = 12
       cores       = 4
       storage     = 32
     },
     "worker-01" = {
       hostname = "dukworker-${var.host_no + 1}-${terraform.workspace}"
-      userdata = "cloud-init-dukworker.yaml"
+      userdata = "../cloud-init-dukworker.yaml"
     },
     "worker-02" = {
       hostname = "dukworker-${var.host_no + 2}-${terraform.workspace}"
-      userdata = "cloud-init-dukworker.yaml"
+      userdata = "../cloud-init-dukworker.yaml"
     }
   }
 
