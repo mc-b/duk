@@ -25,7 +25,7 @@ Dashboard
 
 Das Kubernetes Dashboard ist wie folgt erreichbar.
 
-    https://${fqdn}:18443
+    https://${fqdn}:30443
 
 Beispiele
 ---------

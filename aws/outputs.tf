@@ -13,7 +13,7 @@ output "console" {
 
 output "dashboard" {
   value       = [
-    for fqdn in module.master : "https://${fqdn.fqdn_vm}:18443"
+    for fqdn in module.master : "https://${fqdn.fqdn_vm}:30443"
     ]
   description = "Dashboard"
 }
