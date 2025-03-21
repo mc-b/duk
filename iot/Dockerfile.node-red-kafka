@@ -1,5 +1,0 @@
-FROM nodered/node-red:latest-12
-
-RUN npm install node-red-contrib-kafka-node-latest
-RUN npm install node-red-contrib-kafka-manager
-
