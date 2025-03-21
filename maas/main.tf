@@ -11,7 +11,7 @@ module "duk" {
       description = "Kubernetes Master"
       userdata    = "../cloud-init-dukmaster.yaml"
       memory      = 12
-      cores       = 4
+      cores       = 8
       storage     = 32
     },
     "worker-01" = {
@@ -25,7 +25,7 @@ module "duk" {
   }
 
   description = "Kubernetes Worker"
-  cores       = 4
+  cores       = 8
   memory      = 4
   storage     = 24
 
