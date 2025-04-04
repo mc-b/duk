@@ -1,113 +1,137 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 set -e
 
-BASE_DISTRO="Ubuntu-24.04"
-EXPORT_PATH="/d/wsl/ubuntu.tar"
-WSL_ROOT="/d/wsl"
-CP1_USER_DATA="ubuntu-cp1.user-data"
-WORKER_USER_DATA="ubuntu-worker.user-data"
-NODES=("duk-cp1" "duk-cp2" "duk-cp3")
+# Basis-Variablen (Passe den Pfad ggf. an)
+BASE_IMAGE="D:/WSL/ubuntu.tar"
+WSL_BASE_DIR="D:/WSL"
+CLOUD_INIT_DIR="$HOME/.cloud-init"
 
-# 1. Cloud-init für CP1
-if [[ ! -f "$CP1_USER_DATA" ]]; then
-  echo "📝 Erstelle cloud-init für CP1: $CP1_USER_DATA"
-  cat > "$CP1_USER_DATA" <<EOF
+# Funktion, um auf cloud-init Abschluss zu warten
+wait_for_cloud_init() {
+    local instance="$1"
+    echo "Warte auf cloud-init in Instanz '$instance'..."
+    wsl -d "$instance" -- bash -c 'while ! cloud-init status 2>/dev/null | grep -q "status: done"; do sleep 1; done'
+}
+
+###############################
+# Instanz: Ubuntu 24.04
+###############################
+
+wsl --install --no-launch -d Ubuntu-24.04
+ubuntu2404.exe install --root
+wsl --terminate Ubuntu-24.04
+wsl --export Ubuntu-24.04 ${WSL_BASE_DIR}/ubuntu.tar
+
+# Sicherstellen, dass das cloud-init Verzeichnis existiert
+mkdir -p "$CLOUD_INIT_DIR"
+
+###############################
+# Instanz: duk-cp1
+###############################
+
+echo "Erstelle cloud-init Skript für duk-cp1..."
+cat <<'EOF' > "$CLOUD_INIT_DIR/duk-cp1.user-data"
 #cloud-config
-package_update: true
-packages:
-  - snapd
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    lock_passwd: false
+    plain_text_passwd: 'insecure'
+# login ssh and console with password
+ssh_pwauth: true
+disable_root: false
 write_files:
-  - path: /etc/wsl.conf
-    append: true
-    content: |
-      [user]
-      default=ubuntu
-      [wsl2]
-      guiApplications=false
+- path: /etc/wsl.conf
+  append: true
+  content: |
+    [user]
+    default=ubuntu
+packages:
+  - jq
 runcmd:
-  - snap install microk8s --classic
-  - usermod -aG microk8s ubuntu
-  - newgrp microk8s
-  - snap run microk8s status --wait-ready
-  - snap run microk8s enable dns ingress dashboard storage
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8saddons.sh | bash -
 EOF
-fi
 
-# 2. Cloud-init für Worker
-if [[ ! -f "$WORKER_USER_DATA" ]]; then
-  echo "📝 Erstelle cloud-init für Worker: $WORKER_USER_DATA"
-  cat > "$WORKER_USER_DATA" <<EOF
+echo "Importiere duk-cp1..."
+wsl --import duk-cp1 "${WSL_BASE_DIR}/duk-cp1" "$BASE_IMAGE" --version 2
+wait_for_cloud_init duk-cp1
+wsl -t duk-cp1
+echo "Instanz duk-cp1 wurde erstellt."
+
+###############################
+# Instanz: duk-cp2
+###############################
+
+echo "Erstelle cloud-init Skript für duk-cp2..."
+cat <<'EOF' > "$CLOUD_INIT_DIR/duk-cp2.user-data"
 #cloud-config
-package_update: true
-packages:
-  - snapd
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    lock_passwd: false
+    plain_text_passwd: 'insecure'
+# login ssh and console with password
+ssh_pwauth: true
+disable_root: false
 write_files:
-  - path: /etc/wsl.conf
-    append: true
-    content: |
-      [user]
-      default=ubuntu
-      [wsl2]
-      guiApplications=false
+- path: /etc/wsl.conf
+  append: true
+  content: |
+    [user]
+    default=ubuntu
+packages:
+  - jq
 runcmd:
-  - snap install microk8s --classic
-  - usermod -aG microk8s ubuntu
-  - newgrp microk8s
-  - snap run microk8s status --wait-ready
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsclient.sh | bash -
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
 EOF
-fi
 
-# 3. Distro prüfen & ggf. installieren
-if ! wsl.exe --list | iconv -f UTF-16LE -t UTF-8 | grep -q "$BASE_DISTRO"; then
-  echo "⬇️ '$BASE_DISTRO' ist nicht installiert – installiere..."
-  wsl.exe --install -d "$BASE_DISTRO"
-  sleep 15
-fi
+echo "Importiere duk-cp2..."
+wsl --import duk-cp2 "${WSL_BASE_DIR}/duk-cp2" "$BASE_IMAGE" --version 2
+wait_for_cloud_init duk-cp2
+wsl -t duk-cp2
+echo "Instanz duk-cp2 wurde erstellt."
 
-# 4. Exportieren falls nicht vorhanden
-if [[ ! -f "$EXPORT_PATH" ]]; then
-  echo "📦 Exportiere $BASE_DISTRO nach $EXPORT_PATH ..."
-  wsl.exe --export "$BASE_DISTRO" "$EXPORT_PATH"
-else
-  echo "📦 Export bereits vorhanden – überspringe Export."
-fi
+###############################
+# Instanz: duk-cp3
+###############################
 
-# 5. Importieren & initialisieren
-for NODE in "${NODES[@]}"; do
-  TARGET_DIR="$WSL_ROOT/$NODE"
-  echo "📁 Importiere $NODE nach $TARGET_DIR ..."
-  mkdir -p "$TARGET_DIR"
-  wsl.exe --import "$NODE" "$TARGET_DIR" "$EXPORT_PATH"
+echo "Erstelle cloud-init Skript für duk-cp3..."
+cat <<'EOF' > "$CLOUD_INIT_DIR/duk-cp3.user-data"
+#cloud-config
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    lock_passwd: false
+    plain_text_passwd: 'insecure'
+# login ssh and console with password
+ssh_pwauth: true
+disable_root: false
+write_files:
+- path: /etc/wsl.conf
+  append: true
+  content: |
+    [user]
+    default=ubuntu
+packages:
+  - jq
+runcmd:
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsclient.sh | bash -
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
+EOF
 
-  USER_DATA="$WORKER_USER_DATA"
-  [[ "$NODE" == "duk-cp1" ]] && USER_DATA="$CP1_USER_DATA"
+echo "Importiere duk-cp3..."
+wsl --import duk-cp3 "${WSL_BASE_DIR}/duk-cp3" "$BASE_IMAGE" --version 2
+wait_for_cloud_init duk-cp3
+wsl -t duk-cp3
+echo "Instanz duk-cp3 wurde erstellt."
 
-  META_DATA="${NODE}-meta-data.yaml"
-  echo "instance-id: $NODE" > "$META_DATA"
-
-  echo "☁️  Bereite cloud-init Umgebung in $NODE vor ..."
-  wsl.exe -d "$NODE" -- bash -c "sudo mkdir -p /var/lib/cloud/seed/nocloud-net"
-  wsl.exe -d "$NODE" -- bash -c "sudo rm -f /etc/cloud/cloud-init.disabled"
-  wsl.exe -d "$NODE" -- bash -c "echo 'datasource_list: [ NoCloud ]' | sudo tee /etc/cloud/cloud.cfg.d/99-force-nocloud.cfg > /dev/null"
-
-  echo "📤 Übertrage user-data & meta-data nach $NODE ..."
-  cat "$USER_DATA" | wsl.exe -d "$NODE" -- bash -c "sudo tee /var/lib/cloud/seed/nocloud-net/user-data > /dev/null"
-  cat "$META_DATA" | wsl.exe -d "$NODE" -- bash -c "sudo tee /var/lib/cloud/seed/nocloud-net/meta-data > /dev/null"
-
-  echo "🚀 Starte cloud-init manuell in $NODE ..."
-  # wsl.exe -d "$NODE" -- bash -c "sudo env CLOUD_INIT_DATASOURCE=NoCloud cloud-init single --file /var/lib/cloud/seed/nocloud-net/user-data --name cc_scripts_user --frequency always" || echo "⚠️ cloud-init single fehlgeschlagen in $NODE"
-  wsl.exe -d duk-cp1 -- bash -c "sudo cloud-init init"
-  
-done
-
-echo
-echo "✅ Alle MicroK8s-WLS-Instanzen wurden erfolgreich eingerichtet:"
-for NODE in "${NODES[@]}"; do
-  echo "  🖥️  $NODE"
-done
-
-echo
-echo "👉 Starte z. B. mit:"
-echo "    wsl -d duk-cp1"
-echo "    microk8s kubectl get nodes"
+echo "Alle Instanzen wurden erfolgreich erstellt."
