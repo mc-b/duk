@@ -43,39 +43,15 @@ mkdir -p "$CLOUD_INIT_DIR"
 ###############################
 
 echo "Erstelle cloud-init Skript für duk..."
-cat <<'EOF' > "$CLOUD_INIT_DIR/duk.user-data"
-#cloud-config
-users:
-  - name: ubuntu
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    groups: users, admin
-    shell: /bin/bash
-    lock_passwd: false
-    plain_text_passwd: 'insecure'
-# login ssh and console with password
-ssh_pwauth: true
-disable_root: false
+cat ../cloud-init-dukmaster.yaml >"$CLOUD_INIT_DIR/duk.user-data"
+cat <<'EOF' >> "$CLOUD_INIT_DIR/duk.user-data"
+
 write_files:
 - path: /etc/wsl.conf
   append: true
   content: |
     [user]
     default=ubuntu
-packages:
-  - jq
-runcmd:
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vpn.sh | bash -
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8saddons.sh | bash -
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/repository.sh | bash -s https://github.com/mc-b/duk"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative.sh | bash -"    
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative-patch.sh | bash -"     
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vault.sh | bash -"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/duk/master/scripts/jupyter-notebook.sh | bash -"  
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -   
 EOF
 
 echo "Importiere duk..."
