@@ -7,11 +7,24 @@ BASE_IMAGE="D:/WSL/ubuntu.tar"
 WSL_BASE_DIR="D:/WSL"
 CLOUD_INIT_DIR="$HOME/.cloud-init"
 
-# Funktion, um auf cloud-init Abschluss zu warten
+# Funktion, um auf cloud-init Abschluss oder Fehler zu warten
 wait_for_cloud_init() {
     local instance="$1"
     echo "Warte auf cloud-init in Instanz '$instance'..."
-    wsl -d "$instance" -- bash -c 'while ! cloud-init status 2>/dev/null | grep -q "status: done"; do sleep 1; done'
+
+    while true; do
+        status=$(wsl -d "$instance" -- cloud-init status 2>/dev/null | grep "status:" | awk '{print $2}')
+        
+        if [[ "$status" == "done" ]]; then
+            echo "✅ cloud-init abgeschlossen."
+            return 0
+        elif [[ "$status" == "error" ]]; then
+            echo "❌ cloud-init Fehler erkannt!"
+            return 1
+        fi
+
+        sleep 1
+    done
 }
 
 ###############################
