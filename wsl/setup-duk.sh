@@ -2,6 +2,7 @@
 set -e
 
 # Basis-Variablen (Passe den Pfad ggf. an)
+BASE_DISTRO="Ubuntu-24.04"
 BASE_IMAGE="D:/WSL/ubuntu.tar"
 WSL_BASE_DIR="D:/WSL"
 CLOUD_INIT_DIR="$HOME/.cloud-init"
@@ -17,20 +18,32 @@ wait_for_cloud_init() {
 # Instanz: Ubuntu 24.04
 ###############################
 
-wsl --install --no-launch -d Ubuntu-24.04
-ubuntu2404.exe install --root
-wsl --terminate Ubuntu-24.04
-wsl --export Ubuntu-24.04 ${WSL_BASE_DIR}/ubuntu.tar
+# 1. Distro prüfen & ggf. installieren
+if ! wsl.exe --list | iconv -f UTF-16LE -t UTF-8 | grep -q "$BASE_DISTRO"; then
+    echo "Installiere $BASE_DISTRO ..."
+    wsl --install --no-launch -d "$BASE_DISTRO"
+    ubuntu2404.exe install --root
+    wsl --terminate "$BASE_DISTRO"
+    sleep 15
+fi
+
+# 2. Exportieren falls nicht vorhanden
+if [[ ! -f "$BASE_IMAGE" ]]; then
+  echo "📦 Exportiere $BASE_DISTRO → $BASE_IMAGE ..."
+  wsl.exe --export "$BASE_DISTRO" "$BASE_IMAGE"
+else
+  echo "📦 Export bereits vorhanden – überspringe Export."
+fi
 
 # Sicherstellen, dass das cloud-init Verzeichnis existiert
 mkdir -p "$CLOUD_INIT_DIR"
 
 ###############################
-# Instanz: duk-cp1
+# Instanz: duk
 ###############################
 
-echo "Erstelle cloud-init Skript für duk-cp1..."
-cat <<'EOF' > "$CLOUD_INIT_DIR/duk-cp1.user-data"
+echo "Erstelle cloud-init Skript für duk..."
+cat <<'EOF' > "$CLOUD_INIT_DIR/duk.user-data"
 #cloud-config
 users:
   - name: ubuntu
@@ -52,86 +65,21 @@ packages:
   - jq
 runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vpn.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8saddons.sh | bash -
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/repository.sh | bash -s https://github.com/mc-b/duk"
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative.sh | bash -"    
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative-patch.sh | bash -"     
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vault.sh | bash -"
+  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/duk/master/scripts/jupyter-notebook.sh | bash -"  
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -   
 EOF
 
-echo "Importiere duk-cp1..."
-wsl --import duk-cp1 "${WSL_BASE_DIR}/duk-cp1" "$BASE_IMAGE" --version 2
-wait_for_cloud_init duk-cp1
-wsl -t duk-cp1
-echo "Instanz duk-cp1 wurde erstellt."
-
-###############################
-# Instanz: duk-cp2
-###############################
-
-echo "Erstelle cloud-init Skript für duk-cp2..."
-cat <<'EOF' > "$CLOUD_INIT_DIR/duk-cp2.user-data"
-#cloud-config
-users:
-  - name: ubuntu
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    groups: users, admin
-    shell: /bin/bash
-    lock_passwd: false
-    plain_text_passwd: 'insecure'
-# login ssh and console with password
-ssh_pwauth: true
-disable_root: false
-write_files:
-- path: /etc/wsl.conf
-  append: true
-  content: |
-    [user]
-    default=ubuntu
-packages:
-  - jq
-runcmd:
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsclient.sh | bash -
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
-EOF
-
-echo "Importiere duk-cp2..."
-wsl --import duk-cp2 "${WSL_BASE_DIR}/duk-cp2" "$BASE_IMAGE" --version 2
-wait_for_cloud_init duk-cp2
-wsl -t duk-cp2
-echo "Instanz duk-cp2 wurde erstellt."
-
-###############################
-# Instanz: duk-cp3
-###############################
-
-echo "Erstelle cloud-init Skript für duk-cp3..."
-cat <<'EOF' > "$CLOUD_INIT_DIR/duk-cp3.user-data"
-#cloud-config
-users:
-  - name: ubuntu
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    groups: users, admin
-    shell: /bin/bash
-    lock_passwd: false
-    plain_text_passwd: 'insecure'
-# login ssh and console with password
-ssh_pwauth: true
-disable_root: false
-write_files:
-- path: /etc/wsl.conf
-  append: true
-  content: |
-    [user]
-    default=ubuntu
-packages:
-  - jq
-runcmd:
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsclient.sh | bash -
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
-EOF
-
-echo "Importiere duk-cp3..."
-wsl --import duk-cp3 "${WSL_BASE_DIR}/duk-cp3" "$BASE_IMAGE" --version 2
-wait_for_cloud_init duk-cp3
-wsl -t duk-cp3
-echo "Instanz duk-cp3 wurde erstellt."
-
-echo "Alle Instanzen wurden erfolgreich erstellt."
+echo "Importiere duk..."
+wsl --import duk "${WSL_BASE_DIR}/duk" "$BASE_IMAGE" --version 2
+wait_for_cloud_init duk
+wsl -t duk
+echo "Instanz duk wurde erstellt."
