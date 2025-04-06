@@ -4,9 +4,6 @@ Erstellt in einer WSL Instanz eine DUK Umgebung mit microk8s, Jupyter Notebooks 
 
 ### Installation
 
-* Ubuntu 24.04 installieren `winget install --id Canonical.Ubuntu.2404`
-* `$HOME/AppData/Local/Microsoft/WindowsApps` muss sich im PATH befinden
-
 Git/Bash Umgebung
 
     ./setup-duk.sh`
