@@ -16,9 +16,11 @@ function Wait-ForCloudInit {
 
     while ($true) {
         $output = & wsl -d $instance -- cloud-init status 2>$null
-        $match = $output | Select-String -Pattern "status:\s*(\S+)"
-        if ($match) {
-            $status = $match.Matches[0].Groups[1].Value.Trim()
+
+        if ($output -match "status:\s*(\w+)") {
+            $status = $matches[1].Trim()
+            Write-Host "➡️  Aktueller Status: $status"
+
             if ($status -eq "done") {
                 Write-Host "✅ cloud-init abgeschlossen."
                 return
@@ -26,7 +28,10 @@ function Wait-ForCloudInit {
                 Write-Host "❌ cloud-init Fehler erkannt!"
                 throw "cloud-init error"
             }
+        } else {
+            Write-Host "⚠️  Konnte cloud-init Status nicht erkennen."
         }
+
         Start-Sleep -Seconds 1
     }
 }
@@ -108,7 +113,7 @@ Write-Host "Dashboard"
 Write-Host "---------"
 Write-Host ""
 Write-Host "Das Kubernetes Dashboard ist erreichbar unter:"
-Write-Host "    https://$ip:30443"
+Write-Host "    https://${ip}:30443"
 Write-Host ""
 Write-Host "Beispiele"
 Write-Host "---------"

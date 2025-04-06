@@ -8,7 +8,7 @@ Git/Bash Umgebung
 
     ./setup-duk.sh`
 
-PowerShell
+PowerShell (Buggy!)
 
     powershell.exe Unblock-File .\setup-duk.ps1
     powershell.exe -ExecutionPolicy Unrestricted .\setup-duk.ps1
