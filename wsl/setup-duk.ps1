@@ -19,7 +19,7 @@ function Wait-ForCloudInit {
 
         if ($output -match "status:\s*(\w+)") {
             $status = $matches[1].Trim()
-            Write-Host "➡️  Aktueller Status: $status"
+            Write-Host "." -NoNewline
 
             if ($status -eq "done") {
                 Write-Host "✅ cloud-init abgeschlossen."
