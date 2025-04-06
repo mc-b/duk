@@ -30,4 +30,6 @@ Mittels Browser Juypter-Notebook öffnen
     wsl --unregister duk
     wsl --unregister Ubuntu-24.04
     rm D:/wsl/ubuntu.tar 
+    wsl --shutdown
+    
      
