@@ -70,14 +70,14 @@ Write-Host "📝 Erstelle cloud-init Skript für duk..."
 Copy-Item -Path "../cloud-init-dukmaster.yaml" -Destination "$CLOUD_INIT_DIR\duk.user-data" -Force
 
 # YAML-Anhang
-$appendContent = @'
+$appendContent = "`r`n`r`n" + @"
 write_files:
 - path: /etc/wsl.conf
   append: true
   content: |
     [user]
     default=ubuntu
-'@
+"@
 Add-Content -Path "$CLOUD_INIT_DIR\duk.user-data" -Value $appendContent
 
 # Importieren, wenn nötig
