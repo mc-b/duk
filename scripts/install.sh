@@ -14,9 +14,12 @@ CLOUD_NAME=$(sudo cloud-init query v1.cloud_name)
 
 # Setzen der Variable HOST basierend auf CLOUD_NAME
 case $CLOUD_NAME in
-  "aws" | "azure" | "gcloud")
+  "aws" | "gcloud")
     ADDR=$(sudo cloud-init query ds.meta_data.public_hostname)
     ;;
+  "azure")
+    ADDR=$(jq -r '.ds.meta_data.imds.network.interface[0].ipv4.ipAddress[0].publicIpAddress' /run/cloud-init/instance-data.json 2>/dev/null)
+    ;;    
   "maas")
     ADDR=$(hostname -I | cut -d ' ' -f 1)
     ;;
