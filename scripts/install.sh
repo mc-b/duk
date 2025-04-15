@@ -14,9 +14,12 @@ CLOUD_NAME=$(sudo cloud-init query v1.cloud_name)
 
 # Setzen der Variable HOST basierend auf CLOUD_NAME
 case $CLOUD_NAME in
-  "aws" | "gcloud")
+  "aws")
     ADDR=$(sudo cloud-init query ds.meta_data.public_hostname)
     ;;
+  "gce" | "gcloud")
+    ADDR=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip" -H "Metadata-Flavor: Google")
+    ;;    
   "azure")
     ADDR=$(jq -r '.ds.meta_data.imds.network.interface[0].ipv4.ipAddress[0].publicIpAddress' /run/cloud-init/instance-data.json 2>/dev/null)
     ;;    
