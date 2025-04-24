@@ -1,0 +1,26 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: duk
+  namespace: mc-b
+  description: 'Kurs: Docker und Kubernetes'
+  tags:
+  - containers
+  - docker
+  - kubernetes
+  - microk8s
+  - podman
+  - cloud-native
+  - education
+  links:
+  - url: https://github.com/mc-b/duk
+    title: Repository
+    icon: github
+  annotations:
+    github.com/project-slug: mc-b/duk
+    backstage.io/source-location: url:https://github.com/mc-b/duk
+    # backstage.io/techdocs-ref: url:https://github.com/mc-b/duk
+spec:
+  type: education
+  lifecycle: production
+  owner: group:mc-b/mc-b
