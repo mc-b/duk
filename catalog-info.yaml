@@ -11,7 +11,7 @@ metadata:
   - microk8s
   - podman
   - cloud-native
-  - education
+  - digicomp
   links:
   - url: https://github.com/mc-b/duk
     title: Repository
