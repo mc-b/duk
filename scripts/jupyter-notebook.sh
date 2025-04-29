@@ -5,7 +5,7 @@
 sudo apt-get install -y  --no-install-recommends jupyter-notebook python3-venv uuid
 
 # Python3 Libraries
-sudo apt-get install -y python3-flask python3-setproctitle python3-requests
+sudo apt-get install -y python3-flask python3-setproctitle python3-requests python3-openai
 
 ln -s /data/jupyter work
 
