@@ -26,4 +26,4 @@ spec:
   lifecycle: production
   owner: group:mc-b/mc-b
   dependsOn:
-  - resource:mc-b/lerncloud 
+  - component:mc-b/lerncloud 
