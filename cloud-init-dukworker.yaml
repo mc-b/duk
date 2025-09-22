@@ -5,17 +5,76 @@ users:
     groups: users, admin
     shell: /bin/bash
     lock_passwd: false
-    plain_text_passwd: 'insecure'       
+    plain_text_passwd: 'insecure'
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUHol1mBvP5Nwe3Bzbpq4GsHTSw96phXLZ27aPiRdrzhnQ2jMu4kSgv9xFsnpZgBsQa84EhdJQMZz8EOeuhvYuJtmhAVzAvNjjRak+bpxLPdWlox1pLJTuhcIqfTTSfBYJYB68VRAXJ29ocQB7qn7aDj6Cuw3s9IyXoaKhyb4n7I8yI3r0U30NAcMjyvV3LYOXx/JQbX+PjVsJMzp2NlrC7snz8gcSKxUtL/eF0g+WnC75iuhBbKbNPr7QP/ItHaAh9Tv5a3myBLNZQ56SgnSCgmS0EUVeMNsO8XaaKr2H2x5592IIoz7YRyL4wlOmj35bQocwdahdOCFI7nT9fr6f insecure@lerncloud
-# login ssh and console with password
+
 ssh_pwauth: true
-disable_root: false 
+disable_root: false
+
 packages:
   - jq
   - shellinabox
+  - ca-certificates
+  - curl
+
+write_files:
+  - path: /usr/local/sbin/microk8s-reset.sh
+    owner: root:root
+    permissions: '0755'
+    content: |
+      #!/usr/bin/env bash
+      set -uo pipefail
+      LOG=/var/log/microk8s-reset.log
+      exec >>"$LOG" 2>&1
+      
+      # Helper: Befehle als ubuntu-User laufen lassen
+      as_ubuntu() {
+        sudo -u ubuntu -H bash -lc "$*"
+      }  
+           
+      echo "=== $(date -Is) microk8s reset START ==="
+      
+      /usr/bin/snap remove microk8s || true
+      /usr/bin/curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | /bin/bash -
+      
+      echo "=== $(date -Is) microk8s reset END ==="
+
+  - path: /etc/systemd/system/microk8s-reset.service
+    owner: root:root
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Reset and reinstall MicroK8s (daily 04:00)
+      Wants=network-online.target
+      After=network-online.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/local/sbin/microk8s-reset.sh
+      Nice=10
+      IOSchedulingClass=best-effort
+      TimeoutStartSec=0
+
+  - path: /etc/systemd/system/microk8s-reset.timer
+    owner: root:root
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=Run MicroK8s reset daily at 04:00 (catch up if missed)
+
+      [Timer]
+      OnCalendar=*-*-* 04:00:00
+      Persistent=true
+      Unit=microk8s-reset.service
+
+      [Install]
+      WantedBy=timers.target
+
 runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsclient.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vpn.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
 
+  - systemctl daemon-reload
+  - systemctl enable --now microk8s-reset.timer
