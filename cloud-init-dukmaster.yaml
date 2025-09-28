@@ -40,8 +40,6 @@ write_files:
       /usr/bin/curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8saddons.sh | bash -      
       as_ubuntu 'curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -'
       as_ubuntu 'curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh  | bash -'
-      as_ubuntu 'curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative.sh       | bash -'
-      as_ubuntu 'curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative-patch.sh | bash -'
       
       echo "=== $(date -Is) microk8s reset END ==="
 
@@ -66,10 +64,10 @@ write_files:
     permissions: '0644'
     content: |
       [Unit]
-      Description=Run MicroK8s reset daily at 04:00 (catch up if missed)
+      Description=Run MicroK8s reset daily at 00:30 (catch up if missed)
 
       [Timer]
-      OnCalendar=*-*-* 04:00:00
+      OnCalendar=*-*-* 00:30:00
       Persistent=true
       Unit=microk8s-reset.service
 
@@ -84,8 +82,6 @@ runcmd:
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/repository.sh | bash -s https://github.com/mc-b/duk"
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative.sh | bash -"    
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/knative-patch.sh | bash -"     
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/duk/master/scripts/jupyter-notebook.sh | bash -"  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -    
 
