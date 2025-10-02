@@ -28,6 +28,12 @@ write_files:
       LOG=/var/log/microk8s-reset.log
       exec >>"$LOG" 2>&1
       
+      MARKER=/var/lib/microk8s-reset.done
+      if [ -f "$MARKER" ]; then
+        echo "Reset already done, exiting."
+        exit 0
+      fi      
+      
       # Helper: Befehle als ubuntu-User laufen lassen
       as_ubuntu() {
         sudo -u ubuntu -H bash -lc "$*"
@@ -41,6 +47,7 @@ write_files:
       as_ubuntu 'curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -'
       as_ubuntu 'curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh  | bash -'
       
+      touch "$MARKER"
       echo "=== $(date -Is) microk8s reset END ==="
 
   - path: /etc/systemd/system/microk8s-reset.service
@@ -64,10 +71,11 @@ write_files:
     permissions: '0644'
     content: |
       [Unit]
-      Description=Run MicroK8s reset daily at 00:30 (catch up if missed)
+      Description=Run MicroK8s reset daily between 22:00 and 22:59 (randomized)
 
       [Timer]
-      OnCalendar=*-*-* 00:30:00
+      OnCalendar=*-*-* 22:00:00
+      RandomizedDelaySec=3540   # bis zu 59 Minuten (59*60 = 3540 Sek.)
       Persistent=true
       Unit=microk8s-reset.service
 
