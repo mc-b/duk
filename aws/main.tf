@@ -6,7 +6,7 @@ module "master" {
 
   source     = "./terraform-lerncloud-aws"
   
-  count       = 2
+  count       = 9
   module      = "dukmaster-${format("%02d", count.index + 1)}-${terraform.workspace}"
   description = "Kubernetes Master"
   userdata    = "../cloud-init-dukmaster.yaml"
