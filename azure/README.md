@@ -22,9 +22,12 @@ Git/Bash Kommandozeile (CLI) starten und dieses Repository clonen.
     git clone https://github.com/mc-b/duk
     cd duk/azure
     
-Azure Zugang einrichten
+Azure Zugang einrichten und Subscription ID setzen in Variable `TF_VAR_key`.
     
-    az login     
+    az login   
+    export TF_VAR_key=<Subscription ID> 
+    
+**ACHTUNG**: bei mehr als 5 gleichzeitigen VMs sind die [Quotas](https://learn.microsoft.com/de-de/azure/azure-resource-manager/troubleshooting/error-resource-quota?tabs=azure-cli) für die Region `East US 2` anzupassen. Evtl. funktioniert es dann, bei mir gab der Terraform Azure Provider ein Fehler.
     
 Terraform Initialisieren und VMs erstellen
 

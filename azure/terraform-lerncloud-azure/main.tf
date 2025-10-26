@@ -28,6 +28,7 @@ resource "azurerm_public_ip" "lerncloud" {
   resource_group_name = azurerm_resource_group.lerncloud.name
   location            = azurerm_resource_group.lerncloud.location
   allocation_method   = "Dynamic"
+  sku                 = "Basic"    
   domain_name_label   = "${var.module}"
 }
 
@@ -125,8 +126,8 @@ resource "azurerm_linux_virtual_machine" "lerncloud" {
 
   source_image_reference {
     publisher = "canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "ubuntu-pro-gen1"
     version   = "latest"
   }
 
