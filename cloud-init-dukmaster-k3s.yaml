@@ -20,6 +20,7 @@ packages:
 
 runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/storage-patch.sh | bash -  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vpn.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k3scontrol.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k3scontroladdons.sh | bash -  
