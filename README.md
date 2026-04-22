@@ -34,10 +34,17 @@ Beispiel: wir haben ein lokales Verzeichnis `D:/Sourcen/ws` und wollen dieses in
 
     multipass set local.privileged-mounts=true
     multipass mount D:/sourcen/ws dukmaster-10-default:/home/ubuntu/ws
+    
+### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
-### Weitere Beispiele (unsupported)
+![](http://www.creativecommons.ch/wp-content/uploads/2014/03/by-nc-sa1.png)
 
-* [Linux Namespaces und Container](linuxns)
-* [MySQL und Adminer](mysql)
-* [Big Data](bigdata)
-* [RBAC-Autorisierung](rbac/)
+Quelle [Creative Commons](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de)
+
+- - -
+
+* Name muss genannt werden
+* keine kommerzielle Nutzung erlaubt
+* gleiche Lizenz vorgeschrieben
+
+* Copyright (c) Marcel Bernet, Zürich
