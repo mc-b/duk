@@ -23,12 +23,6 @@ variable "vpn" {
   default     = "unknown"
 }
 
-variable "host_no" {
-  description = "Host-No fuer die erste Host-IP Nummer"
-  type        = number
-  default     = 10
-}
-
 # Optionen damit Worker erstellt werden
 
 variable "create_worker_01" {

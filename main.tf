@@ -2,7 +2,7 @@
 #   Kubernetes Umgebung
 #
 
-module "master" {
+module "control" {
   #source     = "./terraform-lerncloud-module"
   source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
@@ -10,9 +10,9 @@ module "master" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"      
-  module      = "dukmaster-${var.host_no}-${terraform.workspace}"
-  description = "Kubernetes Master"
-  userdata    = "cloud-init-dukmaster.yaml"
+  module      = "control-01-${terraform.workspace}"
+  description = "Kubernetes Control Plane Node"
+  userdata    = "cloud-init-control.yaml"
   depends_on = [
     module.worker-01,
     module.worker-02
@@ -38,9 +38,9 @@ module "worker-01" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"    
-  module      = "dukworker-${var.host_no + 1}-${terraform.workspace}"
-  description = "Kubernetes Worker"
-  userdata    = "cloud-init-dukworker.yaml"
+  module      = "worker-01-${terraform.workspace}"
+  description = "Kubernetes Worker Node"
+  userdata    = "cloud-init-worker.yaml"
 
   cores   = 2
   memory  = 4
@@ -62,9 +62,9 @@ module "worker-02" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-aws"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-azure"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"    
-  module      = "dukworker-${var.host_no + 2}-${terraform.workspace}"
-  description = "Kubernetes Worker"
-  userdata    = "cloud-init-dukworker.yaml"
+  module      = "worker-02-${terraform.workspace}"
+  description = "Kubernetes Worker Node"
+  userdata    = "cloud-init-worker.yaml"
   depends_on = [
     module.worker-01
   ]
