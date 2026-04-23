@@ -2,7 +2,7 @@
 #   Kubernetes Umgebung
 #
 
-module "master" {
+module "control" {
   #source     = "./terraform-lerncloud-module"
   source = "git::https://github.com/mc-b/terraform-lerncloud-multipass"
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-maas"
