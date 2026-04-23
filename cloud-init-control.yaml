@@ -24,7 +24,7 @@ runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/storage-patch.sh | bash -  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vpn.sh | bash -
   - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/jupyter-lab.sh | SKIP_LIBRARIES=true bash -"
-  - sudo su - ubuntu -c "git clone https://github.com/mc-b/duk"
+  - sudo su - ubuntu -c "git clone https://github.com/mc-b/duk --branch v2"
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/docker.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/containers.sh | bash -    
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
