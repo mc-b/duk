@@ -35,6 +35,11 @@ Beispiel: wir haben ein lokales Verzeichnis `D:/Sourcen/ws` und wollen dieses in
     multipass set local.privileged-mounts=true
     multipass mount D:/sourcen/ws control-01-default:/home/ubuntu/ws
     
+### Deployment auf lernvirt Umgebungen
+  
+    cd lernvirt
+    helm install duk . -n duk --create-namespace -f ${HELM_VALUES_HOST} -f ../duk/lernvirt-values.yaml 
+    
 ### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
 ![](http://www.creativecommons.ch/wp-content/uploads/2014/03/by-nc-sa1.png)

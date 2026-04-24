@@ -1,0 +1,26 @@
+#
+# Erstellt eine Control Plane Node und zwei Worker Nodes
+#
+
+vm:
+  count: 3
+  ports:
+    - 16443
+  
+  # Worker Nodes
+  cpu: 2
+  memory: 4Gi
+  storage: 32Gi
+  userdata: https://raw.githubusercontent.com/mc-b/duk/refs/heads/v2/cloud-init-worker.yaml
+
+# Control Plane
+vm-0:
+  cpu: 4
+  memory: 12Gi
+  storage: 32Gi  
+  userdata: https://raw.githubusercontent.com/mc-b/duk/refs/heads/v2/cloud-init-control-k3s.yaml
+  ports:
+    - 16443
+    - 32188
+    - 30443
+   
