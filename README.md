@@ -40,6 +40,10 @@ Beispiel: wir haben ein lokales Verzeichnis `D:/Sourcen/ws` und wollen dieses in
     cd lernvirt
     helm install duk . -n duk --create-namespace -f ${HELM_VALUES_HOST} -f ../duk/lernvirt-values.yaml 
     
+Deinstallation
+    
+    helm uninstall duk -n duk && kubectl delete ns duk
+    
 ### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
 ![](http://www.creativecommons.ch/wp-content/uploads/2014/03/by-nc-sa1.png)
