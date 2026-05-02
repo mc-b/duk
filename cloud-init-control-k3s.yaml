@@ -39,6 +39,8 @@ runcmd:
     '
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"  
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cert-manager.sh | bash -"    
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/opentelemetry.sh | bash -"    
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cloud-cli.sh | bash -   
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vault.sh | bash -"     
