@@ -1,4 +1,8 @@
 #cloud-config
+apt:
+  primary:
+    - arches: [default]
+      uri: http://mirror.init7.net/ubuntu
 users:
   - name: ubuntu
     sudo: ALL=(ALL) NOPASSWD:ALL
