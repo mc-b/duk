@@ -12,7 +12,7 @@ module "control" {
   #source     = "git::https://github.com/mc-b/terraform-lerncloud-proxmox"      
   module      = "control-01-${terraform.workspace}"
   description = "Kubernetes Control Plane Node"
-  userdata    = "cloud-init-control-k3s.yaml"
+  userdata    = "cloud-init-control.yaml"
   depends_on = [
     module.worker-01,
     module.worker-02
