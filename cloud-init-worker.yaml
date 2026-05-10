@@ -1,4 +1,12 @@
 #cloud-config
+apt:
+  primary:
+    - arches: [amd64, i386]
+      uri: http://mirror.init7.net/ubuntu
+
+  ports:
+    - arches: [arm64, armhf]
+      uri: http://ports.ubuntu.com/ubuntu-ports
 users:
   - name: ubuntu
     sudo: ALL=(ALL) NOPASSWD:ALL

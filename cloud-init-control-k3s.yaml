@@ -1,4 +1,12 @@
 #cloud-config
+apt:
+  primary:
+    - arches: [amd64, i386]
+      uri: http://mirror.init7.net/ubuntu
+
+  ports:
+    - arches: [arm64, armhf]
+      uri: http://ports.ubuntu.com/ubuntu-ports
 users:
   - name: ubuntu
     sudo: ALL=(ALL) NOPASSWD:ALL
@@ -19,6 +27,7 @@ packages:
   - curl
   - git
   - git-lfs
+  
 runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/storage-patch.sh | bash -  
@@ -27,8 +36,22 @@ runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/containers.sh | bash -      
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k3scontrol.sh | bash -
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k3scontroladdons.sh | bash - 
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/jupyter-lab.sh | SKIP_LIBRARIES=true bash -"
-  - sudo su - ubuntu -c "git clone https://github.com/mc-b/duk --branch v2"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
-  - sudo su - ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"
-  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -    
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/jupyter-lab.sh | SKIP_LIBRARIES=true bash -"
+  - |
+    runuser -l ubuntu -c '  
+      git clone https://github.com/mc-b/duk --branch v2 &&
+      git clone https://github.com/mc-b/k8sd2o --branch v2
+    '
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cert-manager.sh | bash -"    
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/opentelemetry.sh | bash -"    
+  - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -       
+  - |
+    runuser -l ubuntu -c '  
+      git clone https://gitlab.com/ch-mc-b/autoshop-ms/infra/iiot.git
+      cd iiot
+      kubectl apply -f crd &&
+      kubectl apply -f m5stack/sensors -f m5stack/actors -f m5stack/devices
+    '   
+        
