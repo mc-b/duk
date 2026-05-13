@@ -41,7 +41,7 @@ runcmd:
       git clone https://github.com/mc-b/duk --branch v2 &&
       git clone https://github.com/mc-b/k8sd2o --branch v2
     '
-  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/connectivity-init.sh | bash -"     
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/connectivity-init.sh | TS_HOSTNAME=control bash -"     
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-zipkin.sh | bash -"
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/istio-patch.sh | bash -"
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cert-manager.sh | bash -"    
