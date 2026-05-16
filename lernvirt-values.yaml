@@ -21,6 +21,6 @@ vm-0:
   userdata: https://raw.githubusercontent.com/mc-b/duk/refs/heads/v2/cloud-init-control-k3s.yaml
   ports:
     - 16443
-    - 33188
+    - 18888
     - 30443
    
