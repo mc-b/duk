@@ -27,6 +27,7 @@ packages:
   - curl
   - git
   - git-lfs
+  - samba-common-bin    
   
 runcmd:
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
