@@ -20,7 +20,7 @@ module "control" {
 
   cores   = 4
   memory  = 12
-  storage = 32
+  storage = 64
   ports   = [22, 80, 16443, 25000, 2049, 4200]
 
   url = var.url
