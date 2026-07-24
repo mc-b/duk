@@ -8,7 +8,6 @@ Dashboard bzw. neu Headlamp
 
 Das Kubernetes Dashboard/Headlamp ist wie folgt erreichbar:
 
-    https://${fqdn}:30443
     http://${fqdn}:30444
     
 Zugriffstoken für Headlamp erstellen:
