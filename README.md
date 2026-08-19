@@ -28,6 +28,14 @@ Nach erfolgreicher Installation werden weitere Informationen für den Zugriff au
 
 * [Jupyter Notebooks](data/jupyter/)
 
+Von der VM zum lokalen PC kopieren
+
+    multipass transfer -r control-01-default:/home/ubuntu/duk .
+    
+Vom lokalen PC in die VM kopieren
+
+    multipass transfer -r myduk/ control-01-default:/home/ubuntu/    
+
 Um die Beispiele vom lokalen Client zu verwenden, kann auf Windows ein Verzeichnis in die VM gelinkt werden.
 
 Beispiel: wir haben ein lokales Verzeichnis `D:/Sourcen/ws` und wollen dieses in der VM als `/ubuntu/home/ws` zur Verfügung stellen.
