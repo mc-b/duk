@@ -1,0 +1,107 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  locale: de_CH.UTF-8
+
+  keyboard:
+    layout: ch
+
+  timezone: Europe/Zurich
+
+  identity:
+    hostname: dukws
+    username: ubuntu
+    password: "$6$jr7iRqqy6HZabA/3$Ix1PUMpe5IUlJ8pyNI8jp7b/4GvFFCBSFVqQUUYQEaGbElNsrCrqCHdEDKmegLQbEOMET0n.Dog4vPfuBHmQp0"
+    
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      ethernet:
+        match:
+          name: "en*"
+        dhcp4: true
+        dhcp-identifier: mac    
+        optional: true  
+        
+  ssh:
+    install-server: true
+    allow-pw: false
+    authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUHol1mBvP5Nwe3Bzbpq4GsHTSw96phXLZ27aPiRdrzhnQ2jMu4kSgv9xFsnpZgBsQa84EhdJQMZz8EOeuhvYuJtmhAVzAvNjjRak+bpxLPdWlox1pLJTuhcIqfTTSfBYJYB68VRAXJ29ocQB7qn7aDj6Cuw3s9IyXoaKhyb4n7I8yI3r0U30NAcMjyvV3LYOXx/JQbX+PjVsJMzp2NlrC7snz8gcSKxUtL/eF0g+WnC75iuhBbKbNPr7QP/ItHaAh9Tv5a3myBLNZQ56SgnSCgmS0EUVeMNsO8XaaKr2H2x5592IIoz7YRyL4wlOmj35bQocwdahdOCFI7nT9fr6f insecure@lerncloud
+
+  storage:
+    layout:
+      name: direct
+      
+  # Diese Befehle laufen NOCH VOR dem Reboot am Ende der Installation
+  late-commands:
+    - curtin in-target --target=/target -- touch /boot/lernvirt-installed
+    - |
+      curtin in-target --target=/target -- bash -c '
+        set -x
+        lspci -nn | grep -qi NVIDIA || exit 0
+        apt-get update -y
+        DEBIAN_FRONTEND=noninteractive apt-get install -y nvidia-driver-610 nvidia-utils-610 
+      '
+    
+  user-data:
+    apt:
+      primary:
+        - arches: [amd64, i386]
+          uri: http://mirror.init7.net/ubuntu  
+    users:
+      - default
+      - name: ubuntu
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        groups: users, admin 
+    disable_root: true
+    packages:
+      - jq
+      - curl
+      - git
+      - git-lfs
+      - wget
+      - net-tools
+      - nmap      
+    runcmd:
+      - echo "ubuntu:insecure" | chpasswd
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/issue-patch.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/storage-patch.sh | bash -  
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/docker.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/containers.sh | bash -      
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8s.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/microk8saddons.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/refs/heads/main/services/nvidia-gpu-operator.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/refs/heads/main/services/intel-gpu-operator.sh | bash -      
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/jupyter-lab.sh | SKIP_LIBRARIES=true APPNAME=duk bash -"
+      - |
+        runuser -l ubuntu -c '  
+          git clone https://github.com/mc-b/duk --branch v2 &&
+          git clone https://github.com/mc-b/k8sd2o --branch v2 &&
+          git clone https://github.com/mc-b/platen --branch v2 &&
+          git clone https://github.com/mc-b/llmeng --branch v2 &&
+          git clone https://github.com/mc-b/terra &&       
+          git clone https://github.com/mc-b/lernvirt          
+        '
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cert-manager.sh | bash -"    
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/kubevirt.sh | bash -"
+      - runuser -l ubuntu -c "kubectl -n kubevirt patch kubevirt kubevirt --type=merge --patch '{\"spec\":{\"configuration\":{\"developerConfiguration\":{\"useEmulation\":false}}}}'"
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/opentelemetry.sh | bash -"
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/connectivity-init.sh | TS_HOSTNAME=duk bash -"     
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/xfce4.sh | DEFAULT_TARGET=graphical XFCE_USER=digicomp bash -     
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vscode.sh | bash -        
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cloud-cli.sh | bash -        
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/wake-on-lan.sh | bash -  
+      - |
+        runuser -l ubuntu -c '  
+          git clone https://gitlab.com/ch-mc-b/autoshop-ms/infra/iiot.git
+          cd iiot
+          kubectl apply -f crd &&
+          kubectl apply -f m5stack/sensors -f m5stack/actors -f m5stack/devices
+        '  
+
+          
