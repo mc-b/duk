@@ -42,9 +42,9 @@ module "worker-01" {
   description = "Kubernetes Worker Node"
   userdata    = "cloud-init-worker.yaml"
 
-  cores   = 2
-  memory  = 4
-  storage = 32
+  cores   = 4
+  memory  = 12
+  storage = 64
   ports   = [22, 80, 16443, 25000, 2049, 4200]
 
   url = var.url
@@ -69,9 +69,9 @@ module "worker-02" {
     module.worker-01
   ]
 
-  cores   = 2
-  memory  = 4
-  storage = 32
+  cores   = 4
+  memory  = 12
+  storage = 64
   ports   = [22, 80, 16443, 25000, 2049, 4200]
 
   url = var.url
