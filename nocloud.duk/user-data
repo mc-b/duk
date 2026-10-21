@@ -47,12 +47,22 @@ autoinstall:
   late-commands:
     - curtin in-target --target=/target -- touch /boot/lernvirt-installed
     - |
-      curtin in-target --target=/target -- bash -c '
-        set -x
-        lspci -nn | grep -qi NVIDIA || exit 0
-        apt-get update -y
-        DEBIAN_FRONTEND=noninteractive apt-get install -y nvidia-driver-610 nvidia-utils-610 
-      '
+      if lspci -nn | grep -qi NVIDIA; then
+        curtin in-target --target=/target -- bash -c '
+          set -x
+          apt-get update -y
+          # 1. Treiber via ubuntu-drivers installieren (falls noch nicht geschehen)
+          DEBIAN_FRONTEND=noninteractive ubuntu-drivers install --gpgpu
+          # 2. DYNAMISCHE VERSIONSERMITTLUNG (Sucht nach ii-Paketen mit dreistelligen Nummern wie 580)
+          VERSION=$(dpkg -l | grep "^ii" | grep -oP "nvidia-[a-z-]*\K[0-9]{3}(?=-server)" | head -n1)
+          # 3. Installation der exakt passenden Server-Utils erzwingen
+          if [ -n "$VERSION" ]; then
+            DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "nvidia-utils-${VERSION}-server"
+          else
+            echo "Fehler: Keine installierte NVIDIA-Versionsnummer im dpkg-Log gefunden!"
+          fi
+        '
+      fi  
     
   user-data:
     apt:
