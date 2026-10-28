@@ -43,7 +43,7 @@ module "worker-01" {
   userdata    = "cloud-init-worker.yaml"
 
   cores   = 4
-  memory  = 12
+  memory  = 6
   storage = 64
   ports   = [22, 80, 16443, 25000, 2049, 4200]
 
@@ -70,7 +70,7 @@ module "worker-02" {
   ]
 
   cores   = 4
-  memory  = 12
+  memory  = 6
   storage = 64
   ports   = [22, 80, 16443, 25000, 2049, 4200]
 
