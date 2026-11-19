@@ -56,4 +56,6 @@ runcmd:
       cd iiot
       kubectl apply -f crd &&
       kubectl apply -f m5stack/sensors -f m5stack/actors -f m5stack/devices
-    '   
+    '  
+  - echo "✅ [INFO] Alle Installationen abgeschlossen."
+       
